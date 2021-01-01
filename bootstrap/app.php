@@ -97,6 +97,8 @@ $app->register(App\Providers\EventServiceProvider::class);
 // SPecific providers for lighthouse and tools
 $app->register(\Nuwave\Lighthouse\LighthouseServiceProvider::class);
 $app->register(MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class);
+// Generator library
+$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
 
 /*

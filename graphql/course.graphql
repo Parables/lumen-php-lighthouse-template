@@ -1,0 +1,19 @@
+type CourseType {
+ id: ID!
+ title: String!
+ courseCode: String!
+ creditHours: Int
+ books: [Book!] @belongsToMany
+#  lecturers: [Lecturer!] @belongsToMany
+ createdAt: String!
+ updatedAt: String!
+}
+
+
+input CourseInput{
+    title: String!
+ courseCode: String
+ creditHours: Int
+#  books: [Book!]
+#  lecturers: [Lecturer!]
+}

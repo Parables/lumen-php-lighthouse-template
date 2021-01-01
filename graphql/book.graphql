@@ -1,0 +1,58 @@
+
+type Book {
+  id: ID!
+  cover: String = ""
+  title: String!
+  bookCode: String! = ""
+  author: String! = ""
+  inStock: Int! = 0
+  courses: [Course!]! @belongsToMany
+  createdAt: String!
+  updatedAt: String!
+}
+
+ input BookInput {
+  cover: String
+  title: String!
+  bookCode: String
+  author: String
+  inStock: Int = 0
+  courses: CreateCourseBelongsTo
+}
+
+
+input CreateCourseBelongsTo {
+  create: [BookCourseInput!]
+  connect: [ID!]
+  update: [BookCourseInput!]
+  upsert: [BookCourseInput!]
+  sync: [ID!]
+  syncWithoutDetaching: [ID!]
+  delete: [ID!]
+  disconnect: [ID!]
+}
+
+
+input BookCourseInput{
+    id:  ID
+    title: String!
+ courseCode: String
+ creditHours: Int
+}
+
+extend type Query {
+    book(id: Int! @eq): Book @find
+    books(
+        title: String @where(operator: "%LIKE%"),
+        bookCode: String @eq,
+        author: String @where(operator: "%LIKE%"),
+        inStock: Int @eq
+        courses: [Int!] @in
+    ): [Book!]! @all
+}
+
+extend type Mutation{
+    createBook(input: BookInput! @spread): Book @create
+    updateBook(id: ID! @eq, input: BookInput! @spread): Book @update
+    deleteBook(id: ID! @eq): Book @delete
+}
