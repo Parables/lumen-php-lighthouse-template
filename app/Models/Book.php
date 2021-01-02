@@ -13,7 +13,6 @@ class Book extends Model
         'bookCode',
         'author',
         'inStock',
-        'courses'
     ];
 
     protected $attributes = [
@@ -21,7 +20,6 @@ class Book extends Model
         'bookCode' => '',
         'author' => '',
         'inStock' => 0,
-        'courses'=> []
     ];
 
     public function courses(): BelongsToMany

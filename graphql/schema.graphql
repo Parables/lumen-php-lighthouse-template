@@ -5,6 +5,8 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 #import book.graphql
+#import course.graphql
+
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
@@ -18,4 +20,3 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
 }
-

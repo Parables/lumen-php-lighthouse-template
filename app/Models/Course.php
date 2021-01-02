@@ -11,14 +11,11 @@ class Course extends Model
         'title',
         'courseCode',
         'creditHours',
-        'books',
-        'lecturers'
     ];
 
     protected $attributes = [
+        'courseCode' => "",
         'creditHours' => 3,
-        'books' => [],
-        'lecturers' => []
     ];
 
     public function books(): BelongsToMany
