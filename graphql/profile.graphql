@@ -1,0 +1,31 @@
+
+type Profile {
+    id: ID!
+    surname: String!
+    otherNames: String!
+    picture: String!
+    dob: Date!
+    gender: Gender!
+    bio: String
+    user: User @belongsTo
+    person: Person @belongsTo
+
+    # Add contacts info
+    # contact: [Contact!] @hasMany
+    # address: [Address!] @hasMany
+}
+
+input ProfileInput{
+     id: ID
+    surname: String
+    otherNames: String
+    picture: String
+    dob: Date
+    gender: Gender
+    bio: String
+}
+
+enum Gender{
+    FEMALE @enum(value: 0)
+    MALE @enum(value: 1)
+}

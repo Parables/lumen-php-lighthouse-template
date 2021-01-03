@@ -1,0 +1,18 @@
+union Person = Student | Lecturer
+
+type Student {
+    id: ID!
+    applicationID: String
+    examsID: String
+    profile: Profile @hasOne
+    # programme: Programme
+    # feePayments: FeePayment
+    # timetable: Timetable
+    # booksGiven: BookGIven
+}
+
+type Lecturer {
+
+}
+
+

@@ -4,23 +4,38 @@ type Course {
     courseCode: String!
     creditHours: Int
     books: [Book!] @belongsToMany
-    createdAt: String!
-    updatedAt: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }
 
 input CourseInput {
-    title: String!
+    id: ID @eq
+    title: String
     courseCode: String
     creditHours: Int
+    books: CreateBookBelongsTo
 }
+
+input CreateBookBelongsTo {
+    create: [BookInput!]
+    connect: [ID!]
+    update: [BookInput!]
+    upsert: [BookInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}
+
 
 extend type Query {
     course(id: ID! @eq): Course @find
     courses(title: String @where(operator: "%LIKE%")): [Course!]! @all
 }
 
-extend type Mutation{
-     createCourse(input: CourseInput! @spread): Course @create
-    updateCourse(id: ID! @eq, input: CourseInput! @spread): Course @update
+extend type Mutation {
+    createCourse(input: CourseInput! @spread): Course @create
+    updateCourse(input: CourseInput! @spread): Course @update
+    upsertCourse(input: CourseInput! @spread): Course @upsert
     deleteCourse(id: ID! @eq): Course @delete
 }

@@ -1,0 +1,29 @@
+type Contact {
+    id: ID!
+    profile: Profile! @belongsTo
+    group: String
+    phones: [Phone] @hasMany
+    emails: [Email] @hasMany
+    address: [Address] @hasMany
+}
+type Phone {
+    id: ID!
+    phone_number: String
+    isPrimary: Boolean
+}
+
+type Email {
+    id: ID!
+    email_address: String
+    isPrimary: Boolean
+}
+
+type Address {
+    id: ID!
+    country: String
+    region: State
+    city: String
+    town: String
+    house_no: String
+    digital_address: String
+}

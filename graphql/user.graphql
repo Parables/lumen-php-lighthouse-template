@@ -1,0 +1,46 @@
+type User {
+    id: ID!
+    username: String!
+    password: String!
+    role: Role!
+    profile: Profile @hasOne
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+input UserInput {
+    id: ID
+    username: String
+    password: String
+    role: Role
+    profile: ProfileInput
+}
+
+input AuthInput {
+    username: String!
+    password: String! @hash
+}
+
+enum Role {
+    ADMIN @enum(value: 0) # Full control
+    MANAGEMENT @enum(value: 1) # read-only staticstical summary
+    LECTURER @enum(value: 2) # partial read-write of relevant modules
+    JUNIOR_STAFF @enum(value: 3)
+    STUDENT @enum(value: 4)
+    PARENT @enum(value: 5)
+    GUEST @enum(value: 6)
+}
+
+extend type Query {
+    me: User @auth
+    login(input: AuthInput! @spread): User @find
+    logout: User @guard
+    users(id: ID): [User!]! @all
+}
+
+extend type Query {
+    createUser(input: UserInput! @spread): User @create
+    updateUser(input: UserInput! @spread): User @update
+    upsertUser(input: UserInput! @spread): User @upsert
+    deleteUser(id: ID! @eq): User @delete
+}
