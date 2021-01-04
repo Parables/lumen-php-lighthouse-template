@@ -1,18 +1,18 @@
 # Object Type
 type BookRecord {
     id: ID!
-    book: Book @belongsTo
-    student: Student @belongsTo
+    book: Book! @belongsTo
+    # student: Student! @belongsTo
     # recordedBy: Staff @belongsTo
-    createdAt: DateTime
-    updatedAt: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }
 
 # Input Type
 input BookRecordInput {
     id: ID
     book: BookOperation
-    student: StudentOperation
+    # student: StudentOperation
     # recordedBy: StaffOperation
 }
 

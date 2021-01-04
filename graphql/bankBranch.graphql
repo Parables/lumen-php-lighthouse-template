@@ -2,7 +2,7 @@
 type BankBranch {
     id: ID!
     bank: Bank @belongsTo
-    branch: String
+    branch: String!
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -10,7 +10,7 @@ type BankBranch {
 # Input Type
 input BankBranchInput {
     id: ID
-    bank: BankInput
+    bank: BankOperation
     branch: String
 }
 

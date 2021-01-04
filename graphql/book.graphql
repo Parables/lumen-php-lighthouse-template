@@ -7,7 +7,7 @@ type Book {
     author: String!
     inStock: Int!
     courses: [Course!]! @belongsToMany
-    booksRecords: [BookRecord!] @hasMany
+    # booksRecords: [BookRecord!] @hasMany
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -21,7 +21,7 @@ input BookInput {
     author: String
     inStock: Int
     courses: CourseOperations
-    booksRecords: BookRecordOperations
+    # booksRecords: BookRecordOperations
 }
 
 # Single Nested Mutations

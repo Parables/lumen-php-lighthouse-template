@@ -5,7 +5,7 @@ type Fee {
     description: String
     paymentCycle: PaymentCycle!
     paymentMethods: [PaymentMethod!]!
-    banks: [Bank!]!
+    banks: [Bank!]! @hasMany
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -68,7 +68,7 @@ enum PaymentMethod {
 
 extend type Query {
     fee(id: ID! @eq): Fee @find
-    fees: [Fees] @all
+    fees: [Fee] @all
 }
 
 extend type Mutation {
