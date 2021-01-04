@@ -1,0 +1,56 @@
+
+# Object Type
+type Bank {
+    id: ID!
+    abbreviatedName: String
+    fullname: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Input Type
+input BankInput {
+    id: ID
+    abbreviatedName: String
+    fullname: String
+}
+
+
+# Single Nested Mutations
+input BankOperation {
+    create: BankInput!
+    connect: ID!
+    update: BankInput!
+    upsert: BankInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input BankOperations {
+    create: [BankInput!]
+    connect: ID!
+    update: [BankInput!]
+    upsert: [BankInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+
+# Query
+extend type Query {
+    bank(id: Int! @eq): Bank @find
+    banks: [Bank!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createBank(input: BankInput! @spread): Bank @create
+    updateBank(input: BankInput! @spread): Bank @update
+    upsertBank(input: BankInput! @spread): Bank @upsert
+    deleteBank(id: ID! @eq): Bank @delete
+}

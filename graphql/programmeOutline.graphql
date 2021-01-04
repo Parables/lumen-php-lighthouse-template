@@ -1,0 +1,56 @@
+type ProgrammeOutline{
+    id: ID!
+    programme: Programme! @belongsTo
+    level: Int!
+    semester:Int!
+    course: Course! @belongsTo
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+input ProgrammeOutlineInput {
+    id: ID
+    programme: ProgrammeOperation
+    level: Int
+    semester:Int
+    course: CourseOperation
+}
+
+
+# Single Nested Mutations
+input ProgrammeOutlineOperation {
+    create: ProgrammeOutlineInput!
+    connect: ID!
+    update: ProgrammeOutlineInput!
+    upsert: ProgrammeOutlineInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input ProgrammeOutlineOperations {
+    create: [ProgrammeOutlineInput!]
+    connect: ID!
+    update: [ProgrammeOutlineInput!]
+    upsert: [ProgrammeOutlineInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    ProgrammeOutline(id: Int! @eq): ProgrammeOutline @find
+    ProgrammeOutlines: [ProgrammeOutline!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createProgrammeOutline(input: ProgrammeOutlineInput! @spread): ProgrammeOutline @create
+    updateProgrammeOutline(input: ProgrammeOutlineInput! @spread): ProgrammeOutline @update
+    upsertProgrammeOutline(input: ProgrammeOutlineInput! @spread): ProgrammeOutline @upsert
+    deleteProgrammeOutline(id: ID! @eq): ProgrammeOutline @delete
+}

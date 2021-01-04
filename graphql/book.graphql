@@ -1,3 +1,4 @@
+# Object Type
 type Book {
     id: ID!
     cover: String!
@@ -6,10 +7,12 @@ type Book {
     author: String!
     inStock: Int!
     courses: [Course!]! @belongsToMany
+    booksRecords: [BookRecord!] @hasMany
     createdAt: DateTime!
     updatedAt: DateTime!
 }
 
+# Input Type
 input BookInput {
     id: ID @eq
     cover: String
@@ -17,21 +20,33 @@ input BookInput {
     bookCode: String
     author: String
     inStock: Int
-    courses: CreateCourseBelongsTo
+    courses: CourseOperations
+    booksRecords: BookRecordOperations
 }
 
+# Single Nested Mutations
+input BookOperation {
+    create: BookInput!
+    connect: ID!
+    update: BookInput!
+    upsert: BookInput!
+    delete: ID!
+    disconnect: ID!
+}
 
-input CreateCourseBelongsTo {
-    create: [CourseInput!]
+# List Nested Mutations
+input BookOperations {
+    create: [BookInput!]
     connect: [ID!]
-    update: [CourseInput!]
-    upsert: [CourseInput!]
+    update: [BookInput!]
+    upsert: [BookInput!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
     disconnect: [ID!]
 }
 
+# Query
 extend type Query {
     book(id: Int! @eq): Book @find
     books(
@@ -43,6 +58,7 @@ extend type Query {
     ): [Book!]! @all
 }
 
+# Mutation
 extend type Mutation {
     createBook(input: BookInput! @spread): Book @create
     updateBook(input: BookInput! @spread): Book @update

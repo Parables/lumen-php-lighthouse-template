@@ -1,0 +1,55 @@
+# Object Type
+type BookRecord {
+    id: ID!
+    book: Book @belongsTo
+    student: Student @belongsTo
+    # recordedBy: Staff @belongsTo
+    createdAt: DateTime
+    updatedAt: DateTime
+}
+
+# Input Type
+input BookRecordInput {
+    id: ID
+    book: BookOperation
+    student: StudentOperation
+    # recordedBy: StaffOperation
+}
+
+# Single Nested Mutations
+input BookRecordOperation {
+    create: BookRecordInput!
+    connect: ID!
+    update: BookRecordInput!
+    upsert: BookRecordInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input BookRecordOperations {
+    create: [BookRecordInput!]
+    connect: ID!
+    update: [BookRecordInput!]
+    upsert: [BookRecordInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    bookRecord(id: Int! @eq): BookRecord @find
+    bookRecords: [BookRecord!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createBookRecord(input: BookRecordInput! @spread): BookRecord @create
+    updateBookRecord(input: BookRecordInput! @spread): BookRecord @update
+    upsertBookRecord(input: BookRecordInput! @spread): BookRecord @upsert
+    deleteBookRecord(id: ID! @eq): BookRecord @delete
+}

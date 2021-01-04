@@ -1,19 +1,26 @@
-type Category{
+type Category {
     id: ID!
     name: String!
-    subCategories: [Category!] @hasMany
+    subCategories: [Category!] @belongsTo
     createdAt: DateTime!
     updatedAt: DateTime!
 }
 
+input CategoryInput {
+    id: ID @eq
+    name: String!
+    parent_id: ID @eq
+}
 
-input CategoryInput{
-   create: [CourseInput!]
-    connect: [ID!]
-    update: [CourseInput!]
-    upsert: [CourseInput!]
-    sync: [ID!]
-    syncWithoutDetaching: [ID!]
-    delete: [ID!]
-    disconnect: [ID!]
+extend type Query {
+    category(id: Int! @eq): Category @find
+    categories: [Category!] @all
+}
+
+extend type Mutation {
+    createCategory(input: CategoryInput! @spread): Category @create
+    # createCategory(input: CategoryInput! @spread): Category @create
+    # updateCategory(input: CategoryInput! @nest): Category @update
+    # upsertCategory(input: CategoryInput! @nest): Category @upsert
+    # deleteCategory(id: ID! @eq): Category @delete
 }

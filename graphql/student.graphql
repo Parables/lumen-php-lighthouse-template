@@ -1,0 +1,17 @@
+type Student {
+     id: ID!
+    surname: String!
+    otherNames: String!
+    picture: String!
+    dob: Date!
+    gender: Gender!
+    programme: Programme @belongsTo
+    paymentRecords: [PaymentRecord!] @hasMany
+    booksRecords: [BookRecord!] @hasMany
+    # add more later
+}
+
+input StudentInput {
+    id: ID!
+    profile:
+}

@@ -1,0 +1,69 @@
+# Object Type
+type PaymentRecord {
+    id: ID!
+    transactionDate: DateTime!
+    transactionID: String!
+    fee: Fee @belongsTo!
+    student: Student @belongsTo!
+    bank: Bank  @belongsTo!
+    bankBranch: BankBranch @belongsTo!
+    teller: Teller @belongsTo!
+    amountPaid: Float!
+    paymentMethod: PaymentMethod!
+    # recordedBy: Staff @belongsTo!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Input Type
+input PaymentRecordInput {
+    id: ID
+    transactionDate: DateTime
+    transactionID: String
+    fee: FeeOperation
+    student: StudentOperation
+    bank: BankOperation
+    bankBranch: BankBranchOperation
+    teller: BankTellerOperation
+    amountPaid: Float!
+    paymentMethod: PaymentMethod
+    # recordedBy: StaffOperation
+}
+
+# Single Nested Mutations
+input PaymentRecordOperation {
+    create: PaymentRecordInput!
+    connect: ID!
+    update: PaymentRecordInput!
+    upsert: PaymentRecordInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input PaymentRecordOperations {
+    create: [PaymentRecordInput!]
+    connect: ID!
+    update: [PaymentRecordInput!]
+    upsert: [PaymentRecordInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    paymentRecord(id: Int! @eq): PaymentRecord @find
+    paymentRecords: [PaymentRecord!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createPaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord @create
+    updatePaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord @update
+    upsertPaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord @upsert
+    deletePaymentRecord(id: ID! @eq): PaymentRecord @delete
+}

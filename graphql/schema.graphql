@@ -6,6 +6,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 
 #import book.graphql
 #import course.graphql
+#import bookRecords.graphql
 
 
 type Query {
@@ -19,4 +20,10 @@ type User {
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
+}
+
+
+enum Gender{
+    FEMALE @enum(value: 0)
+    MALE @enum(value: 1)
 }

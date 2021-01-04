@@ -1,0 +1,55 @@
+# Object Type
+type BankTeller {
+    id: ID!
+    tellerID: String
+    fullname: String!
+    branch: BankBranch! @belongsTo
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Input Type
+input BankTellerInput {
+    id: ID
+    tellerID: String
+    fullname: String
+    branch: BankBranchInput
+}
+
+# Single Nested Mutations
+input BankTellerOperation {
+    create: BankTellerInput!
+    connect: ID!
+    update: BankTellerInput!
+    upsert: BankTellerInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input BankTellerOperations {
+    create: [BankTellerInput!]
+    connect: ID!
+    update: [BankTellerInput!]
+    upsert: [BankTellerInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    bankTeller(id: Int! @eq): BankTeller @find
+    bankTellers: [BankTeller!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createBankTeller(input: BankTellerInput! @spread): BankTeller @create
+    updateBankTeller(input: BankTellerInput! @spread): BankTeller @update
+    upsertBankTeller(input: BankTellerInput! @spread): BankTeller @upsert
+    deleteBankTeller(id: ID! @eq): BankTeller @delete
+}
