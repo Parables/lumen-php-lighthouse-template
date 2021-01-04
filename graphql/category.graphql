@@ -1,0 +1,19 @@
+type Category{
+    id: ID!
+    name: String!
+    subCategories: [Category!] @hasMany
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+
+input CategoryInput{
+   create: [CourseInput!]
+    connect: [ID!]
+    update: [CourseInput!]
+    upsert: [CourseInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}

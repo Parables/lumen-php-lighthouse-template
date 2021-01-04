@@ -1,0 +1,42 @@
+#fee, bill, payment,
+
+type Fees {
+    id: ID!
+    name: String!
+    feeType: FeeType
+    amount: Float!
+    description: String!
+    paymentMethods: [PaymentMethod!]!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Make this dynamic to the DB
+enum FeeType {
+    ANNUAL @enum(value: "Annual")
+    BI_ANNUAL @enum(value: "Bi-Annual")
+    TRI_ANNUAL @enum(value: "Tri-Annual")
+    QUARTERLY @enum(value: "Quarterly")
+    MONTHLY @enum(value: "Monthly")
+    WEEKLY @enum(value: "Weekly")
+    DIALY @enum(value: "Daily")
+    PAY_AS_YOU_GO @enum(value: "Pay as you go")
+    ONE_TIME @enum(value: "One Time")
+}
+
+enum PaymentMethod {
+    TRANSFLOW @enum(value: "Transflow")
+    BANKERS_DRAFT @enum(value: "Bankers Draft")
+    CHEQUE @enum(value: "Cheque")
+    MOBILE_TRANSFER @enum(value: "Mobile Transfer")
+    CASH @enum(value: "Cash")
+}
+
+enum BANK {
+    GCB @enum(value: "Ghana Commercial Bank")
+    ADB @enum(value: "Agricultural Development Bank")
+    ZENITH @enum(value: "Zenith Bank")
+    CBG @enum(value: "Consolidated Bank Ghana LTD")
+    NIB @enum(value: "National Investment Bank")
+    PRUDENTIAL @enum(value: "Pudential Bank")
+}

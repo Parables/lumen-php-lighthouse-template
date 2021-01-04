@@ -1,0 +1,8 @@
+type Programme{
+    id: ID!
+    title: String!
+    programmeCode: String!
+    startLevel: Int!
+    endLevel: Int!
+
+}
