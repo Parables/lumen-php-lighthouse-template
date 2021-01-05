@@ -1,0 +1,53 @@
+# Object Type
+type ListItem {
+    id: ID!
+    name: String!
+    listitem: String
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Input Type
+input ListItemInput {
+    id: ID
+    name: String
+    listitem: String
+}
+
+# Single Nested Mutations
+input ListItemOperation {
+    create: ListItemInput!
+    connect: ID!
+    update: ListItemInput!
+    upsert: ListItemInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input ListItemOperations {
+    create: [ListItemInput!]
+    connect: ID!
+    update: [ListItemInput!]
+    upsert: [ListItemInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    ListItem(id: Int! @eq): ListItem @find
+    ListItems: [ListItem!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createListItem(input: ListItemInput! @spread): ListItem @create
+    updateListItem(input: ListItemInput! @spread): ListItem @update
+    upsertListItem(input: ListItemInput! @spread): ListItem @upsert
+    deleteListItem(id: ID! @eq): ListItem @delete
+}

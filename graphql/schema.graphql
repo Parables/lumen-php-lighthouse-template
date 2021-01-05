@@ -2,19 +2,17 @@
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
-#import bank.graphql
-#import bankBranch.graphql
-#import bankTeller.graphql
 #import book.graphql
 #import bookRecords.graphql
 #import course.graphql
-#import fees.graphql
 #import paymentRecords.graphql
 #import programme.graphql
 #import programmeOutline.graphql
 #import student.graphql
+#import listItem.graphql
 #import lecturer.graphql
 #import contactAddress.graphql
 #import contactEmail.graphql
@@ -34,8 +32,7 @@ type User {
     updated_at: DateTime!
 }
 
-
-enum Gender{
+enum Gender {
     FEMALE @enum(value: 0)
     MALE @enum(value: 1)
 }

@@ -5,9 +5,8 @@ type PaymentRecord {
     transactionID: String!
     fee: Fee! @belongsTo
     student: Student! @belongsTo
-    bank: Bank!  @belongsTo
+    bank: Bank! @belongsTo
     bankBranch: BankBranch! @belongsTo
-    teller: BankTeller! @belongsTo
     amountPaid: Float!
     paymentMethod: PaymentMethod!
     # recordedBy: User! @belongsTo
@@ -24,7 +23,6 @@ input PaymentRecordInput {
     student: StudentOperation
     bank: BankOperation
     bankBranch: BankBranchOperation
-    teller: BankTellerOperation
     amountPaid: Float
     paymentMethod: PaymentMethod
     # recordedBy: UserOperation
@@ -62,8 +60,11 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createPaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord @create
-    updatePaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord @update
-    upsertPaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord @upsert
+    createPaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord
+        @create
+    updatePaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord
+        @update
+    upsertPaymentRecord(input: PaymentRecordInput! @spread): PaymentRecord
+        @upsert
     deletePaymentRecord(id: ID! @eq): PaymentRecord @delete
 }
