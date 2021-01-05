@@ -1,29 +1,62 @@
 type Contact {
     id: ID!
-    profile: Profile! @belongsTo
-    group: String
+    surname: String!
+    otherNames: String!
+    picture: String!
+    # profile: Profile! @belongsTo
+    # groups: [Group!]
     phones: [Phone] @hasMany
     emails: [Email] @hasMany
     address: [Address] @hasMany
 }
-type Phone {
-    id: ID!
-    phone_number: String
-    isPrimary: Boolean
+
+# Input Type
+input ContactInput {
+    id: ID
+    surname: String
+    otherNames: String
+    picture: String
+    # profile: ProfileOperation
+    # groups: GroupOperations
+    phones: [PhoneOperations]
+    emails: [EmailOperations]
+    address: [AddressOperations]
 }
 
-type Email {
-    id: ID!
-    email_address: String
-    isPrimary: Boolean
+# Single Nested Mutations
+input ContactOperation {
+    create: ContactInput!
+    connect: ID!
+    update: ContactInput!
+    upsert: ContactInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
 }
 
-type Address {
-    id: ID!
-    country: String
-    region: State
-    city: String
-    town: String
-    house_no: String
-    digital_address: String
+# List Nested Mutations
+input ContactOperations {
+    create: [ContactInput!]
+    connect: ID!
+    update: [ContactInput!]
+    upsert: [ContactInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    contact(id: Int! @eq): Contact @find
+    contacts: [Contact!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createContact(input: ContactInput! @spread): Contact @create
+    updateContact(input: ContactInput! @spread): Contact @update
+    upsertContact(input: ContactInput! @spread): Contact @upsert
+    deleteContact(id: ID! @eq): Contact @delete
 }

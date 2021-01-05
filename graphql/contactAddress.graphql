@@ -1,0 +1,63 @@
+# Object Type
+type Address {
+    id: ID!
+    country: String
+    region: String
+    city: String
+    town: String
+    house_no: String
+    digital_address: String
+    isPrimary: Boolean
+    contact: Contact! @belongsTo
+}
+
+# Input Type
+input AddressInput {
+    id: ID!
+    country: String
+    region: String
+    city: String
+    town: String
+    house_no: String
+    digital_address: String
+    isPrimary: Boolean
+    contact: ContactOperation
+}
+
+# Single Nested Mutations
+input AddressOperation {
+    create: AddressInput!
+    connect: ID!
+    update: AddressInput!
+    upsert: AddressInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input AddressOperations {
+    create: [AddressInput!]
+    connect: ID!
+    update: [AddressInput!]
+    upsert: [AddressInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    address(id: Int! @eq): Address @find
+    addresss: [Address!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createAddress(input: AddressInput! @spread): Address @create
+    updateAddress(input: AddressInput! @spread): Address @update
+    upsertAddress(input: AddressInput! @spread): Address @upsert
+    deleteAddress(id: ID! @eq): Address @delete
+}

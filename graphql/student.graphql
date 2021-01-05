@@ -1,5 +1,6 @@
+# Object Type
 type Student {
-     id: ID!
+    id: ID!
     surname: String!
     otherNames: String!
     picture: String!
@@ -8,10 +9,57 @@ type Student {
     programme: Programme @belongsTo
     paymentRecords: [PaymentRecord!] @hasMany
     booksRecords: [BookRecord!] @hasMany
+    # contact: Contact @belongsTo
     # add more later
 }
 
+# Input Type
 input StudentInput {
-    id: ID!
-    profile:
+    id: ID
+    surname: String
+    otherNames: String
+    picture: String
+    dob: Date
+    gender: Gender
+    programme: ProgrammeOperation
+    paymentRecords: [PaymentRecordOperations!]
+    booksRecords: [BookRecordOperations!]
+}
+
+# Single Nested Mutations
+input StudentOperation {
+    create: StudentInput!
+    connect: ID!
+    update: StudentInput!
+    upsert: StudentInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input StudentOperations {
+    create: [StudentInput!]
+    connect: ID!
+    update: [StudentInput!]
+    upsert: [StudentInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    student(id: Int! @eq): Student @find
+    students: [Student!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createStudent(input: StudentInput! @spread): Student @create
+    updateStudent(input: StudentInput! @spread): Student @update
+    upsertStudent(input: StudentInput! @spread): Student @upsert
+    deleteStudent(id: ID! @eq): Student @delete
 }

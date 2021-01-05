@@ -1,9 +1,10 @@
-type ProgrammeOutline{
+type ProgrammeOutline {
     id: ID!
     programme: Programme! @belongsTo
     level: Int!
-    semester:Int!
+    semester: Int!
     course: Course! @belongsTo
+    elective: Boolean!
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -12,10 +13,10 @@ input ProgrammeOutlineInput {
     id: ID
     programme: ProgrammeOperation
     level: Int
-    semester:Int
+    semester: Int
     course: CourseOperation
+    elective: Boolean
 }
-
 
 # Single Nested Mutations
 input ProgrammeOutlineOperation {
@@ -49,8 +50,14 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createProgrammeOutline(input: ProgrammeOutlineInput! @spread): ProgrammeOutline @create
-    updateProgrammeOutline(input: ProgrammeOutlineInput! @spread): ProgrammeOutline @update
-    upsertProgrammeOutline(input: ProgrammeOutlineInput! @spread): ProgrammeOutline @upsert
+    createProgrammeOutline(
+        input: ProgrammeOutlineInput! @spread
+    ): ProgrammeOutline @create
+    updateProgrammeOutline(
+        input: ProgrammeOutlineInput! @spread
+    ): ProgrammeOutline @update
+    upsertProgrammeOutline(
+        input: ProgrammeOutlineInput! @spread
+    ): ProgrammeOutline @upsert
     deleteProgrammeOutline(id: ID! @eq): ProgrammeOutline @delete
 }

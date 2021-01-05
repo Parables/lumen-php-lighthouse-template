@@ -1,0 +1,53 @@
+# Object Type
+type Email {
+    id: ID!
+    email: String!
+    isPrimary: Boolean
+    contact: Contact! @belongsTo
+}
+
+# Input Type
+input EmailInput {
+    id: ID
+    email: String
+    isPrimary: Boolean
+    contact: ContactOperation
+}
+
+# Single Nested Mutations
+input EmailOperation {
+    create: EmailInput!
+    connect: ID!
+    update: EmailInput!
+    upsert: EmailInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input EmailOperations {
+    create: [EmailInput!]
+    connect: ID!
+    update: [EmailInput!]
+    upsert: [EmailInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    email(id: Int! @eq): Email @find
+    emails: [Email!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createEmail(input: EmailInput! @spread): Email @create
+    updateEmail(input: EmailInput! @spread): Email @update
+    upsertEmail(input: EmailInput! @spread): Email @upsert
+    deleteEmail(id: ID! @eq): Email @delete
+}

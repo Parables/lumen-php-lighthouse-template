@@ -2,8 +2,8 @@
 type BookRecord {
     id: ID!
     book: Book! @belongsTo
-    # student: Student! @belongsTo
-    # recordedBy: Staff @belongsTo
+    student: Student! @belongsTo
+    # recordedBy: User @belongsTo
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -12,8 +12,8 @@ type BookRecord {
 input BookRecordInput {
     id: ID
     book: BookOperation
-    # student: StudentOperation
-    # recordedBy: StaffOperation
+    student: StudentOperation
+    # recordedBy: UserOperation
 }
 
 # Single Nested Mutations

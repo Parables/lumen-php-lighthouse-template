@@ -3,14 +3,14 @@ type PaymentRecord {
     id: ID!
     transactionDate: DateTime!
     transactionID: String!
-    # fee: Fee! @belongsTo
-    # student: Student! @belongsTo
+    fee: Fee! @belongsTo
+    student: Student! @belongsTo
     bank: Bank!  @belongsTo
     bankBranch: BankBranch! @belongsTo
     teller: BankTeller! @belongsTo
     amountPaid: Float!
-    # paymentMethod: PaymentMethod!
-    # recordedBy: Staff! @belongsTo
+    paymentMethod: PaymentMethod!
+    # recordedBy: User! @belongsTo
     createdAt: DateTime!
     updatedAt: DateTime!
 }
@@ -20,14 +20,14 @@ input PaymentRecordInput {
     id: ID
     transactionDate: DateTime
     transactionID: String
-    # fee: FeeOperation
-    # student: StudentOperation
+    fee: FeeOperation
+    student: StudentOperation
     bank: BankOperation
     bankBranch: BankBranchOperation
     teller: BankTellerOperation
     amountPaid: Float
-    # paymentMethod: PaymentMethod
-    # recordedBy: StaffOperation
+    paymentMethod: PaymentMethod
+    # recordedBy: UserOperation
 }
 
 # Single Nested Mutations

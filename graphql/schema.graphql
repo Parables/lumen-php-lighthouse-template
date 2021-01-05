@@ -14,6 +14,12 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 #import paymentRecords.graphql
 #import programme.graphql
 #import programmeOutline.graphql
+#import student.graphql
+#import lecturer.graphql
+#import contactAddress.graphql
+#import contactEmail.graphql
+#import contactPhone.graphql
+#import contact.graphql
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)

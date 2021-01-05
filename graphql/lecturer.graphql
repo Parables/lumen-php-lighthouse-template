@@ -1,0 +1,60 @@
+# Object Type
+type Lecturer {
+    id: ID!
+    surname: String!
+    otherNames: String!
+    picture: String!
+    dob: DateTime!
+    gender: Gender!
+    courses: [Course!] @hasMany
+    # add more later
+}
+
+# Input Type
+input LecturerInput {
+    id: ID
+    surname: String
+    otherNames: String
+    picture: String
+    dob: Date
+    gender: Gender
+    courses: [CourseOperations]
+}
+
+# Single Nested Mutations
+input LecturerOperation {
+    create: LecturerInput!
+    connect: ID!
+    update: LecturerInput!
+    upsert: LecturerInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input LecturerOperations {
+    create: [LecturerInput!]
+    connect: ID!
+    update: [LecturerInput!]
+    upsert: [LecturerInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    lecturer(id: Int! @eq): Lecturer @find
+    lecturers: [Lecturer!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createLecturer(input: LecturerInput! @spread): Lecturer @create
+    updateLecturer(input: LecturerInput! @spread): Lecturer @update
+    upsertLecturer(input: LecturerInput! @spread): Lecturer @upsert
+    deleteLecturer(id: ID! @eq): Lecturer @delete
+}
