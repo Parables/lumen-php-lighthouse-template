@@ -12,12 +12,10 @@ scalar DateTime
 #import programme.graphql
 #import programmeOutline.graphql
 #import student.graphql
-#import listItem.graphql
 #import lecturer.graphql
-#import contactAddress.graphql
-#import contactEmail.graphql
-#import contactPhone.graphql
 #import contact.graphql
+#import selectOptions.graphql
+#import selectors.graphql
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)

@@ -4,12 +4,21 @@ type Programme {
     programmeCode: String!
     startLevel: Int!
     endLevel: Int!
-    programmeOutline: [ProgrammeOutline!]! @belongsTo
+    programmeOutline: [ProgrammeOutline!]! @hasMany
     createdAt: DateTime!
     updatedAt: DateTime!
 }
 
-input ProgrammeInput {
+input ProgrammeCreateInput {
+    id: ID
+    title: String!
+    programmeCode: String
+    startLevel: Int!
+    endLevel: Int!
+    programmeOutline: [ProgrammeOutlineOperations!]!
+}
+
+input ProgrammeUpdateInput {
     id: ID
     title: String
     programmeCode: String
@@ -18,13 +27,12 @@ input ProgrammeInput {
     programmeOutline: [ProgrammeOutlineOperations!]
 }
 
-
 # Single Nested Mutations
 input ProgrammeOperation {
-    create: ProgrammeInput!
+    create: ProgrammeCreateInput!
     connect: ID!
-    update: ProgrammeInput!
-    upsert: ProgrammeInput!
+    update: ProgrammeUpdateInput!
+    upsert: ProgrammeCreateInput!
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -33,10 +41,10 @@ input ProgrammeOperation {
 
 # List Nested Mutations
 input ProgrammeOperations {
-    create: [ProgrammeInput!]
+    create: [ProgrammeCreateInput!]
     connect: ID!
-    update: [ProgrammeInput!]
-    upsert: [ProgrammeInput!]
+    update: [ProgrammeUpdateInput!]
+    upsert: [ProgrammeCreateInput!]
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -51,8 +59,8 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createProgramme(input: ProgrammeInput! @spread): Programme @create
-    updateProgramme(input: ProgrammeInput! @spread): Programme @update
-    upsertProgramme(input: ProgrammeInput! @spread): Programme @upsert
+    createProgramme(input: ProgrammeCreateInput! @spread): Programme @create
+    updateProgramme(input: ProgrammeUpdateInput! @spread): Programme @update
+    upsertProgramme(input: ProgrammeCreateInput! @spread): Programme @upsert
     deleteProgramme(id: ID! @eq): Programme @delete
 }

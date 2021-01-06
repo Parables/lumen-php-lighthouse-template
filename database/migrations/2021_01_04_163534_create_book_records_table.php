@@ -15,8 +15,9 @@ class CreateBookRecordsTable extends Migration
     {
         Schema::create('book_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->compact();
-            $table->foreignId('student_id')->compact();
+            $table->foreignId('book_id')->nullable(false)->constrained();
+            $table->foreignId('student_id')->nullable(false)->constrained();
+            // $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

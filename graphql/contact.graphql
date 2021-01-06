@@ -1,46 +1,40 @@
 type Contact {
     id: ID!
-    surname: String!
-    otherNames: String!
-    picture: String!
-    # profile: Profile! @belongsTo
-    # groups: [Group!]
-    phones: [Phone] @hasMany
-    emails: [Email] @hasMany
-    address: [Address] @hasMany
+    group: SelectOption! @belongsTo
+    phone: String!
+    email: String!
+    location: String
+    digitalAddress: String
+    postalAddress: String
 }
 
-# Input Type
-input ContactInput {
+# Create Input Type
+input ContactCreateInput {
+    group: SelectOptionOperation!
+    phone: String!
+    email: String!
+    location: String
+    digitalAddress: String
+    postalAddress: String
+}
+
+# Update Input Type
+input ContactUpdateInput {
     id: ID
-    surname: String
-    otherNames: String
-    picture: String
-    # profile: ProfileOperation
-    # groups: GroupOperations
-    phones: [PhoneOperations]
-    emails: [EmailOperations]
-    address: [AddressOperations]
+    group: SelectOptionOperation
+    phone: String
+    email: String
+    location: String
+    digitalAddress: String
+    postalAddress: String
 }
 
 # Single Nested Mutations
 input ContactOperation {
-    create: ContactInput!
+    create: ContactCreateInput!
     connect: ID!
-    update: ContactInput!
-    upsert: ContactInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
-}
-
-# List Nested Mutations
-input ContactOperations {
-    create: [ContactInput!]
-    connect: ID!
-    update: [ContactInput!]
-    upsert: [ContactInput!]
+    update: ContactUpdateInput!
+    upsert: ContactCreateInput!
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -55,8 +49,8 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createContact(input: ContactInput! @spread): Contact @create
-    updateContact(input: ContactInput! @spread): Contact @update
-    upsertContact(input: ContactInput! @spread): Contact @upsert
+    createContact(input: ContactCreateInput! @spread): Contact @create
+    updateContact(input: ContactUpdateInput! @spread): Contact @update
+    upsertContact(input: ContactCreateInput! @spread): Contact @upsert
     deleteContact(id: ID! @eq): Contact @delete
 }

@@ -15,6 +15,13 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('surname')->nullable(false);
+            $table->string('otherNames')->nullable(false);
+            $table->string('picture');
+            $table->dateTime('dob')->nullable(false);
+            $table->boolean('gender')->nullable(false);
+            $table->foreignId('programme_id')->nullable(false)->constrained();
+            $table->string('contact_id')->nullable(false)->constrained();
             $table->timestamps();
         });
     }

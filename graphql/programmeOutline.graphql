@@ -10,7 +10,16 @@ type ProgrammeOutline {
     updatedAt: DateTime!
 }
 
-input ProgrammeOutlineInput {
+input ProgrammeOutlineCreateInput {
+    programme: ProgrammeOperation!
+    level: Int!
+    fees: Float!
+    course: CourseOperation!
+    semester: Int!
+    elective: Boolean!
+}
+
+input ProgrammeOutlineUpdateInput {
     id: ID
     programme: ProgrammeOperation
     level: Int
@@ -22,10 +31,10 @@ input ProgrammeOutlineInput {
 
 # Single Nested Mutations
 input ProgrammeOutlineOperation {
-    create: ProgrammeOutlineInput!
+    create: ProgrammeOutlineCreateInput!
     connect: ID!
-    update: ProgrammeOutlineInput!
-    upsert: ProgrammeOutlineInput!
+    update: ProgrammeOutlineUpdateInput!
+    upsert: ProgrammeOutlineCreateInput!
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -34,10 +43,10 @@ input ProgrammeOutlineOperation {
 
 # List Nested Mutations
 input ProgrammeOutlineOperations {
-    create: [ProgrammeOutlineInput!]
+    create: [ProgrammeOutlineCreateInput!]
     connect: ID!
-    update: [ProgrammeOutlineInput!]
-    upsert: [ProgrammeOutlineInput!]
+    update: [ProgrammeOutlineUpdateInput!]
+    upsert: [ProgrammeOutlineCreateInput!]
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -53,13 +62,13 @@ extend type Query {
 # Mutation
 extend type Mutation {
     createProgrammeOutline(
-        input: ProgrammeOutlineInput! @spread
+        input: ProgrammeOutlineCreateInput! @spread
     ): ProgrammeOutline @create
     updateProgrammeOutline(
-        input: ProgrammeOutlineInput! @spread
+        input: ProgrammeOutlineUpdateInput! @spread
     ): ProgrammeOutline @update
     upsertProgrammeOutline(
-        input: ProgrammeOutlineInput! @spread
+        input: ProgrammeOutlineCreateInput! @spread
     ): ProgrammeOutline @upsert
     deleteProgrammeOutline(id: ID! @eq): ProgrammeOutline @delete
 }

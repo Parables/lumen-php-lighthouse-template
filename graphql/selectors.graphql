@@ -1,0 +1,59 @@
+# Object Type
+type Selector {
+    id: ID!
+    for: String!
+    options: [SelectOption] @hasMany
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Create Input Type
+input SelectorCreateInput {
+    for: String!
+    options: [SelectOptionOperations!]!
+}
+
+# Update Input Type
+input SelectorUpdateInput {
+    id: ID!
+    for: String!
+    options: [SelectOptionOperations!]
+}
+
+# Single Nested Mutations
+input SelectorOperation {
+    create: SelectorCreateInput!
+    connect: ID!
+    update: SelectorUpdateInput!
+    upsert: SelectorCreateInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input SelectorOperations {
+    create: [SelectorCreateInput!]
+    connect: ID!
+    update: [SelectorUpdateInput!]
+    upsert: [SelectorCreateInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    selector(id: Int! @eq): Selector @find
+    selectors: [Selector!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createSelector(input: SelectorCreateInput! @spread): Selector @create
+    updateSelector(input: SelectorUpdateInput! @spread): Selector @update
+    upsertSelector(input: SelectorCreateInput! @spread): Selector @upsert
+    deleteSelector(id: ID! @eq): Selector @delete
+}

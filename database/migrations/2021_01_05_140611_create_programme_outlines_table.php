@@ -15,9 +15,16 @@ class CreateProgrammeOutlinesTable extends Migration
     {
         Schema::create('programme_outlines', function (Blueprint $table) {
             $table->id();
+            $table->string('programme_id')->nullable(false)->constrained();
+            $table->tinyInteger('level')->unsigned();
+            $table->float('fees');
+            $table->foreignId('course_id')->nullable(false)->constrained();
+            $table->tinyInteger('semester')->unsigned(true);
+            $table->boolean('elective')->default(false);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -9,13 +9,26 @@ type Student {
     programme: Programme @belongsTo
     paymentRecords: [PaymentRecord!] @hasMany
     booksRecords: [BookRecord!] @hasMany
-    # contact: Contact @belongsTo
+    contact: Contact @belongsTo
     # add more later
 }
 
-# Input Type
-input StudentInput {
-    id: ID
+# Create Input Type
+input StudentCreateInput {
+    surname: String!
+    otherNames: String!
+    picture: String
+    dob: Date!
+    gender: Gender!
+    programme: ProgrammeOperation!
+    paymentRecords: [PaymentRecordOperations!]!
+    booksRecords: [BookRecordOperations!]!
+    contact: ContactOperation!
+}
+
+# Update Input Type
+input StudentUpdateInput {
+    id: ID!
     surname: String
     otherNames: String
     picture: String
@@ -24,14 +37,15 @@ input StudentInput {
     programme: ProgrammeOperation
     paymentRecords: [PaymentRecordOperations!]
     booksRecords: [BookRecordOperations!]
+    contact: ContactOperation
 }
 
 # Single Nested Mutations
 input StudentOperation {
-    create: StudentInput!
+    create: StudentCreateInput!
     connect: ID!
-    update: StudentInput!
-    upsert: StudentInput!
+    update: StudentUpdateInput!
+    upsert: StudentCreateInput!
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -40,10 +54,10 @@ input StudentOperation {
 
 # List Nested Mutations
 input StudentOperations {
-    create: [StudentInput!]
+    create: [StudentCreateInput!]
     connect: ID!
-    update: [StudentInput!]
-    upsert: [StudentInput!]
+    update: [StudentUpdateInput!]
+    upsert: [StudentCreateInput!]
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -58,8 +72,8 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createStudent(input: StudentInput! @spread): Student @create
-    updateStudent(input: StudentInput! @spread): Student @update
-    upsertStudent(input: StudentInput! @spread): Student @upsert
+    createStudent(input: StudentCreateInput! @spread): Student @create
+    updateStudent(input: StudentUpdateInput! @spread): Student @update
+    upsertStudent(input: StudentCreateInput! @spread): Student @upsert
     deleteStudent(id: ID! @eq): Student @delete
 }

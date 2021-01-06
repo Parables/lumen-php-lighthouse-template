@@ -1,0 +1,68 @@
+# Object Type
+type SelectOption {
+    id: ID!
+    selector: Selector! @belongsTo
+    name: String
+    label: String
+    value: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+# Create Input Type
+input SelectOptionCreateInput {
+    for: SelectorOperation!
+    name: String
+    label: String
+    value: String!
+}
+
+# Update Input Type
+input SelectOptionUpdateInput {
+    id: ID!
+    for: SelectorOperation
+    name: String
+    label: String
+    value: String
+}
+
+# Single Nested Mutations
+input SelectOptionOperation {
+    create: SelectOptionCreateInput!
+    connect: ID!
+    update: SelectOptionUpdateInput!
+    upsert: SelectOptionCreateInput!
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# List Nested Mutations
+input SelectOptionOperations {
+    create: [SelectOptionCreateInput!]
+    connect: ID!
+    update: [SelectOptionUpdateInput!]
+    upsert: [SelectOptionCreateInput!]
+    sync: ID!
+    syncWithoutDetaching: ID!
+    delete: ID!
+    disconnect: ID!
+}
+
+# Query
+extend type Query {
+    selectOption(id: Int! @eq): SelectOption @find
+    selectOptions: [SelectOption!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createSelectOption(input: SelectOptionCreateInput! @spread): SelectOption
+        @create
+    updateSelectOption(input: SelectOptionUpdateInput! @spread): SelectOption
+        @update
+    upsertSelectOption(input: SelectOptionCreateInput! @spread): SelectOption
+        @upsert
+    deleteSelectOption(id: ID! @eq): SelectOption @delete
+}
