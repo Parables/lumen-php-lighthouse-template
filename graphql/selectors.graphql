@@ -2,15 +2,15 @@
 type Selector {
     id: ID!
     for: String!
-    options: [SelectOption] @hasMany
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    options: [SelectOption]
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 # Create Input Type
 input SelectorCreateInput {
     for: String!
-    options: [SelectOptionOperations!]!
+    options: [SelectOptionOperations!]
 }
 
 # Update Input Type
@@ -22,14 +22,14 @@ input SelectorUpdateInput {
 
 # Single Nested Mutations
 input SelectorOperation {
-    create: SelectorCreateInput!
-    connect: ID!
-    update: SelectorUpdateInput!
-    upsert: SelectorCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: SelectorCreateInput
+    connect: ID
+    update: SelectorUpdateInput
+    upsert: SelectorCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations

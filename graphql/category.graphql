@@ -2,8 +2,8 @@ type Category {
     id: ID!
     name: String!
     subCategories: [Category!] @belongsTo
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 input CategoryInput {

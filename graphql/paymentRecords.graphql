@@ -9,8 +9,8 @@ type PaymentRecord {
     paidBy: Student! @belongsTo
     paymentMethod: SelectOption! @belongsTo
     # recordedBy: User! @belongsTo
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 # Create Input Type

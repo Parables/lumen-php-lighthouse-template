@@ -19,7 +19,8 @@ class CreatePaymentRecordsTable extends Migration
             $table->string('transactionID')->nullable(false);
             $table->float('amountPaid')->nullable(false);
             // $table->foreignId('user_id')->nullable(false)->constrained();
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

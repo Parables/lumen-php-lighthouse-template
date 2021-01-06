@@ -5,8 +5,8 @@ type Course {
     courseCode: String!
     creditHours: Int
     books: [Book!] @belongsToMany
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 # Input Type

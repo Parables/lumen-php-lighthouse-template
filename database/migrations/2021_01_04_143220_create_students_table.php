@@ -20,7 +20,8 @@ class CreateStudentsTable extends Migration
             $table->string('picture');
             $table->dateTime('dob')->nullable(false);
             $table->boolean('gender')->nullable(false);
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

@@ -3,8 +3,8 @@ type User {
     username: String!
     password: String!
     role: Role!
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 input UserInput {

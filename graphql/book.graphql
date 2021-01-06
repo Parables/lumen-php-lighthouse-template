@@ -1,45 +1,56 @@
 # Object Type
 type Book {
     id: ID!
-    cover: String!
+    cover: String
     title: String!
-    bookCode: String!
-    author: String!
+    bookCode: String
+    author: String
     inStock: Int!
-    courses: [Course!]! @belongsToMany
+    # courses: [Course!]! @belongsToMany
     # booksRecords: [BookRecord!] @hasMany
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
-# Input Type
-input BookInput {
-    id: ID @eq
+# Create Input Type
+input BookCreateInput {
+    cover: String
+    title: String!
+    bookCode: String
+    author: String
+    inStock: Int!
+    # courses: CourseOperations
+    # booksRecords: BookRecordOperations
+}
+
+# Update Input Type
+input BookUpdateInput {
+    id: ID! @eq
     cover: String
     title: String
     bookCode: String
     author: String
     inStock: Int
-    courses: CourseOperations
+    # courses: CourseOperations
     # booksRecords: BookRecordOperations
 }
 
 # Single Nested Mutations
 input BookOperation {
-    create: BookInput!
-    connect: ID!
-    update: BookInput!
-    upsert: BookInput!
-    delete: ID!
-    disconnect: ID!
+    create: BookCreateInput
+    connect: ID
+    update: BookUpdateInput
+    upsert: BookCreateInput
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations
 input BookOperations {
-    create: [BookInput!]
+    create: [BookCreateInput!]
     connect: [ID!]
-    update: [BookInput!]
-    upsert: [BookInput!]
+    update: [BookUpdateInput!]
+    upsert: [BookCreateInput!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
@@ -60,8 +71,8 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createBook(input: BookInput! @spread): Book @create
-    updateBook(input: BookInput! @spread): Book @update
-    upsertBook(input: BookInput! @spread): Book @upsert
+    createBook(input: BookCreateInput! @spread): Book @create
+    updateBook(input: BookUpdateInput! @spread): Book @update
+    upsertBook(input: BookCreateInput! @spread): Book @upsert
     deleteBook(id: ID! @eq): Book @delete
 }

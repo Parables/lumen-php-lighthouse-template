@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SelectOption extends Model
 {
-   public function selector(): BelongsTo
-   {
-       return $this->belongsTo(Selector::class);
-   }
+    public $fillable = ['selector_id', 'name', 'label', 'value'];
+
+    public function for(): BelongsTo
+    {
+        return $this->belongsTo(Selector::class);
+    }
 }

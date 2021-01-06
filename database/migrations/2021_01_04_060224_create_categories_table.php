@@ -21,7 +21,8 @@ class CreateCategoriesTable extends Migration
                 ->constrained('categories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

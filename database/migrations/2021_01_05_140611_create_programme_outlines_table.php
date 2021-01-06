@@ -19,7 +19,8 @@ class CreateProgrammeOutlinesTable extends Migration
             $table->tinyInteger('level')->unsigned();
             $table->tinyInteger('semester')->unsigned(true);
             $table->float('fees');
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

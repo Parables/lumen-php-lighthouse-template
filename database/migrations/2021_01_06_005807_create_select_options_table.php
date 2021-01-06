@@ -16,7 +16,8 @@ class CreateSelectOptionsTable extends Migration
         Schema::create('selectors', function (Blueprint $table) {
             $table->id();
             $table->string('for')->unique()->nullable(false);
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
 
         Schema::create('select_options', function (Blueprint $table) {
@@ -24,7 +25,8 @@ class CreateSelectOptionsTable extends Migration
             $table->string('name');
             $table->string('label');
             $table->string('value')->nullable(false);
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

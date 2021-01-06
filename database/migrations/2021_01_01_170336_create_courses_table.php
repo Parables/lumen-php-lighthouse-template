@@ -18,7 +18,8 @@ class CreateCoursesTable extends Migration
             $table->string('title');
             $table->char('courseCode', 10);
             $table->integer('creditHours');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

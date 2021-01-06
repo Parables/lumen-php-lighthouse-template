@@ -4,8 +4,8 @@ type BookRecord {
     book: Book! @belongsTo
     student: Student! @belongsTo
     # recordedBy: User @belongsTo
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 # Input Type
@@ -18,14 +18,14 @@ input BookRecordInput {
 
 # Single Nested Mutations
 input BookRecordOperation {
-    create: BookRecordInput!
-    connect: ID!
-    update: BookRecordInput!
-    upsert: BookRecordInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: BookRecordInput
+    connect: ID
+    update: BookRecordInput
+    upsert: BookRecordInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations

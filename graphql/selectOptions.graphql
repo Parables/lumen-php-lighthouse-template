@@ -1,12 +1,12 @@
 # Object Type
 type SelectOption {
     id: ID!
-    selector: Selector! @belongsTo
+    for: Selector! @belongsTo
     name: String
     label: String
     value: String!
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 # Create Input Type
@@ -28,26 +28,26 @@ input SelectOptionUpdateInput {
 
 # Single Nested Mutations
 input SelectOptionOperation {
-    create: SelectOptionCreateInput!
-    connect: ID!
-    update: SelectOptionUpdateInput!
-    upsert: SelectOptionCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: SelectOptionCreateInput
+    connect: ID
+    update: SelectOptionUpdateInput
+    upsert: SelectOptionCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations
 input SelectOptionOperations {
     create: [SelectOptionCreateInput!]
-    connect: ID!
+    connect: ID
     update: [SelectOptionUpdateInput!]
     upsert: [SelectOptionCreateInput!]
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query

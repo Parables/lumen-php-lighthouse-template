@@ -20,7 +20,8 @@ class CreateBooksTable extends Migration
             $table->char('bookCode', 10);
             $table->string('author');
             $table->bigInteger('inStock');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

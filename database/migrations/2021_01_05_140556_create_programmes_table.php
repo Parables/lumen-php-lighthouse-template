@@ -19,7 +19,8 @@ class CreateProgrammesTable extends Migration
             $table->char('programmeCode',10);
             $table->tinyInteger('startLevel')->unsigned();
             $table->tinyInteger('endLevel')->unsigned();
-            $table->timestamps();
+                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
