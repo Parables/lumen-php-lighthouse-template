@@ -10,8 +10,16 @@ type Course {
 }
 
 # Input Type
-input CourseInput {
-    id: ID @eq
+input CourseCreateInput {
+    title: String
+    courseCode: String
+    creditHours: Int
+    books: BookOperations
+}
+
+# Input Type
+input CourseUpdateInput {
+    id: ID!
     title: String
     courseCode: String
     creditHours: Int
@@ -20,10 +28,10 @@ input CourseInput {
 
 # Single Nested Mutations
 input CourseOperation {
-    create: CourseInput!
+    create: CourseCreateInput!
     connect: ID!
-    update: CourseInput!
-    upsert: CourseInput!
+    update: CourseUpdateInput!
+    upsert: CourseCreateInput!
     sync: ID!
     syncWithoutDetaching: ID!
     delete: ID!
@@ -32,10 +40,10 @@ input CourseOperation {
 
 # List Nested Mutations
 input CourseOperations {
-    create: [CourseInput!]
+    create: [CourseCreateInput!]
     connect: [ID!]
-    update: [CourseInput!]
-    upsert: [CourseInput!]
+    update: [CourseUpdateInput!]
+    upsert: [CourseCreateInput!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
@@ -50,8 +58,8 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createCourse(input: CourseInput! @spread): Course @create
-    updateCourse(input: CourseInput! @spread): Course @update
-    upsertCourse(input: CourseInput! @spread): Course @upsert
+    createCourse(input: CourseCreateInput! @spread): Course @create
+    updateCourse(input: CourseUpdateInput! @spread): Course @update
+    upsertCourse(input: CourseCreateInput! @spread): Course @upsert
     deleteCourse(id: ID! @eq): Course @delete
 }

@@ -1,6 +1,5 @@
 type Contact {
     id: ID!
-    group: SelectOption! @belongsTo
     phone: String!
     email: String!
     location: String
@@ -10,7 +9,6 @@ type Contact {
 
 # Create Input Type
 input ContactCreateInput {
-    group: SelectOptionOperation!
     phone: String!
     email: String!
     location: String
@@ -20,8 +18,7 @@ input ContactCreateInput {
 
 # Update Input Type
 input ContactUpdateInput {
-    id: ID
-    group: SelectOptionOperation
+    id: ID!
     phone: String
     email: String
     location: String
@@ -31,14 +28,14 @@ input ContactUpdateInput {
 
 # Single Nested Mutations
 input ContactOperation {
-    create: ContactCreateInput!
-    connect: ID!
-    update: ContactUpdateInput!
-    upsert: ContactCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: ContactCreateInput
+    connect: ID
+    update: ContactUpdateInput
+    upsert: ContactCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query

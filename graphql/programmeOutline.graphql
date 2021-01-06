@@ -31,26 +31,26 @@ input ProgrammeOutlineUpdateInput {
 
 # Single Nested Mutations
 input ProgrammeOutlineOperation {
-    create: ProgrammeOutlineCreateInput!
-    connect: ID!
-    update: ProgrammeOutlineUpdateInput!
-    upsert: ProgrammeOutlineCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: ProgrammeOutlineCreateInput
+    connect: ID
+    update: ProgrammeOutlineUpdateInput
+    upsert: ProgrammeOutlineCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations
 input ProgrammeOutlineOperations {
     create: [ProgrammeOutlineCreateInput!]
-    connect: ID!
+    connect: ID
     update: [ProgrammeOutlineUpdateInput!]
     upsert: [ProgrammeOutlineCreateInput!]
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query

@@ -6,9 +6,9 @@ type Student {
     picture: String!
     dob: Date!
     gender: Gender!
-    programme: Programme @belongsTo
-    paymentRecords: [PaymentRecord!] @hasMany
-    booksRecords: [BookRecord!] @hasMany
+    programme: Programme! @belongsTo
+    paymentRecords: [PaymentRecord!]! @hasMany
+    booksRecords: [BookRecord!]! @hasMany
     contact: Contact @belongsTo
     # add more later
 }
@@ -21,8 +21,8 @@ input StudentCreateInput {
     dob: Date!
     gender: Gender!
     programme: ProgrammeOperation!
-    paymentRecords: [PaymentRecordOperations!]!
-    booksRecords: [BookRecordOperations!]!
+    paymentRecords: [PaymentRecordOperations!]
+    booksRecords: [BookRecordOperations!]
     contact: ContactOperation!
 }
 
@@ -42,26 +42,26 @@ input StudentUpdateInput {
 
 # Single Nested Mutations
 input StudentOperation {
-    create: StudentCreateInput!
-    connect: ID!
-    update: StudentUpdateInput!
-    upsert: StudentCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: StudentCreateInput
+    connect: ID
+    update: StudentUpdateInput
+    upsert: StudentCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations
 input StudentOperations {
     create: [StudentCreateInput!]
-    connect: ID!
+    connect: ID
     update: [StudentUpdateInput!]
     upsert: [StudentCreateInput!]
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query

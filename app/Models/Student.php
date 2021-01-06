@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
+    protected $fillable = [
+        'surname',
+        'otherNames',
+        'picture',
+        'dob',
+        'gender',
+    ];
+
+    protected $attributes = [
+        'picture' => ''
+    ];
+
     public function programme(): BelongsTo
     {
         return $this->belongsTo(Programme::class);

@@ -10,9 +10,8 @@ type BookRecord {
 
 # Input Type
 input BookRecordInput {
-    id: ID
-    book: BookOperation
-    student: StudentOperation
+    book: BookOperation!
+    student: StudentOperation!
     # recordedBy: UserOperation
 }
 
@@ -31,13 +30,13 @@ input BookRecordOperation {
 # List Nested Mutations
 input BookRecordOperations {
     create: [BookRecordInput!]
-    connect: ID!
+    connect: ID
     update: [BookRecordInput!]
     upsert: [BookRecordInput!]
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query

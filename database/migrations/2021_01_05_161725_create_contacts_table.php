@@ -20,7 +20,7 @@ class CreateContactsTable extends Migration
             $table->string('location');
             $table->string('digitalAddress');
             $table->string('postalAddress');
-                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
     }

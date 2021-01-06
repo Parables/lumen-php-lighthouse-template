@@ -7,19 +7,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Programme extends Model
 {
-
-    protected $attribute=[
-        'startLevel'=>100,
-        'programmeCode'=>"",
-        'programmeOutline'=>[]
-    ];
-
-    protected $fillable = [
+ protected $fillable = [
         'title',
         'programmeCode',
         'startLevel',
         'endLevel',
     ];
+
+    protected $attribute=[
+        'programmeCode'=>"",
+        'startLevel'=>100,
+    ];
+
 
     public function programmeOutline(): HasMany
     {

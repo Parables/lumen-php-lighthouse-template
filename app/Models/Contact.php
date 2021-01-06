@@ -7,7 +7,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contact extends Model
 {
-    public function group():BelongsTo{
-        return $this->belongsTo(SelectOption::class);
-    }
+    protected $fillable = [
+        'phone',
+        'email',
+        'location',
+        'digitalAddress',
+        'postalAddress',
+    ];
+
+    protected $attributes = [
+        'location' => '',
+        'digitalAddress' => '',
+        'postalAddress' => '',
+    ];
+
 }

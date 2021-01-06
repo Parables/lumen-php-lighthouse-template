@@ -28,14 +28,6 @@ class AddForeignConstraintsRelations extends Migration
             $table->foreignId('contact_id')->nullable(false)->after('programme_id')->constrained();
         });
 
-        Schema::table('select_options', function (Blueprint $table) {
-            $table->foreignId('selector_id')->after('id')->nullable(false)->constrained();
-        });
-
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->foreignId('group')->after('id')->nullable(false)->constrained('select_options');
-        });
-
         Schema::table('payment_records', function (Blueprint $table) {
             $table->foreignId('paymentMethod')->nullable(false)->after('amountPaid')->constrained('select_options');
             $table->foreignId('bank')->nullable(false)->after('paymentMethod')->constrained('select_options');

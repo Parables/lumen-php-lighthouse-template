@@ -1,7 +1,7 @@
 # Object Type
 type SelectOption {
     id: ID!
-    for: Selector! @belongsTo
+    for: String!
     name: String
     label: String
     value: String!
@@ -11,7 +11,7 @@ type SelectOption {
 
 # Create Input Type
 input SelectOptionCreateInput {
-    for: SelectorOperation!
+    for: String!
     name: String
     label: String
     value: String!
@@ -20,7 +20,7 @@ input SelectOptionCreateInput {
 # Update Input Type
 input SelectOptionUpdateInput {
     id: ID!
-    for: SelectorOperation
+    for: String
     name: String
     label: String
     value: String

@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProgrammeOutline extends Model
 {
+    protected $fillable = [
+        'level',
+        'fees',
+        'semester',
+        'elective',
+    ];
+
+    protected $attributes = [
+        'elective' => false
+    ];
     public function course():BelongsTo
     {
         return $this->belongsTo(Course::class);
