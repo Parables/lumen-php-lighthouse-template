@@ -6,7 +6,7 @@ type PaymentRecord {
     bank: SelectOption! @belongsTo
     bankBranch: SelectOption! @belongsTo
     amountPaid: Float!
-    student: Student! @belongsTo
+    paidBy: Student! @belongsTo
     paymentMethod: SelectOption! @belongsTo
     # recordedBy: User! @belongsTo
     createdAt: DateTime!

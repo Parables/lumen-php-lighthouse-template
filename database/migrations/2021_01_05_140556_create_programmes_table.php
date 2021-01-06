@@ -19,7 +19,6 @@ class CreateProgrammesTable extends Migration
             $table->char('programmeCode',10);
             $table->tinyInteger('startLevel')->unsigned();
             $table->tinyInteger('endLevel')->unsigned();
-            $table->foreignId('programmeOutline')->nullable(false)->constrained('programme_outlines');
             $table->timestamps();
         });
     }

@@ -20,8 +20,6 @@ class CreateStudentsTable extends Migration
             $table->string('picture');
             $table->dateTime('dob')->nullable(false);
             $table->boolean('gender')->nullable(false);
-            $table->foreignId('programme_id')->nullable(false)->constrained();
-            $table->string('contact_id')->nullable(false)->constrained();
             $table->timestamps();
         });
     }

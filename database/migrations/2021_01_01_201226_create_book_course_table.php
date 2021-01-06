@@ -14,8 +14,7 @@ class CreateBookCourseTable extends Migration
     public function up()
     {
         Schema::create('book_course', function (Blueprint $table) {
-            $table->foreignId('book_id')->compact();
-            $table->foreignId('course_id')->compact();
+            $table->id();
         });
     }
 

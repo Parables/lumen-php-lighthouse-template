@@ -13,15 +13,14 @@ class CreateSelectOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('selects', function (Blueprint $table) {
+        Schema::create('selectors', function (Blueprint $table) {
             $table->id();
             $table->string('for')->unique()->nullable(false);
-             $table->timestamps();
+            $table->timestamps();
         });
 
         Schema::create('select_options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('selector_id')->nullable(false)->constrained();
             $table->string('name');
             $table->string('label');
             $table->string('value')->nullable(false);

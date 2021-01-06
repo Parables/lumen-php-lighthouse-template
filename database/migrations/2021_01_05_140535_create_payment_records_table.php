@@ -17,11 +17,7 @@ class CreatePaymentRecordsTable extends Migration
             $table->id();
             $table->string('transactionDate')->nullable(false);
             $table->string('transactionID')->nullable(false);
-            $table->foreignId('bank')->nullable(false)->constrained('select_options');
-            $table->string('bankBranch')->nullable(false)->constrained('select_options');
             $table->float('amountPaid')->nullable(false);
-            $table->foreignId('student_id')->nullable(false)->constrained();
-            $table->string('paymentMethod')->nullable(false)->constrained('select_options');
             // $table->foreignId('user_id')->nullable(false)->constrained();
             $table->timestamps();
         });
