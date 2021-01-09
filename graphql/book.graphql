@@ -14,10 +14,10 @@ type Book {
 
 # Create Input Type
 input BookCreateInput {
-    cover: String
-    title: String!
-    bookCode: String
-    author: String
+    cover: String @trim
+    title: String! @trim
+    bookCode: String @trim
+    author: String @trim
     inStock: Int!
     courses: CourseOperations
     bookRecords: BookRecordOperations
@@ -26,10 +26,10 @@ input BookCreateInput {
 # Update Input Type
 input BookUpdateInput {
     id: ID! @eq
-    cover: String
-    title: String
-    bookCode: String
-    author: String
+    cover: String @trim
+    title: String @trim
+    bookCode: String @trim
+    author: String @trim
     inStock: Int
     courses: CourseOperations
     bookRecords: BookRecordOperations
@@ -61,9 +61,9 @@ input BookOperations {
 extend type Query {
     book(id: Int! @eq): Book @find
     books(
-        title: String @where(operator: "like")
-        bookCode: String @eq
-        author: String @where(operator: "%LIKE%")
+        title: String @trim @where(operator: "like")
+        bookCode: String @eq @trim
+        author: String @trim @where(operator: "%LIKE%")
         inStock: Int @eq
         courses: [Int!] @in(key: "book_course.")
     ): [Book!]! @all

@@ -9,14 +9,66 @@ type BookRecord {
 }
 
 # Input Type
-input BookRecordInput {
+input BookRecordCreateInput {
     book: BookOperation!
     student: StudentOperation!
     # recordedBy: UserOperation
 }
+# Input Type
+input BookRecordUpdateInput {
+    book: BookOperation
+    student: StudentOperation
+    # recordedBy: UserOperation
+}
+# Input Type
+input BookRecordBookNestedInput {
+    student: StudentOperation!
+    # recordedBy: UserOperation
+}
+# Input Type
+input BookRecordStudentNestedInput {
+    book: BookOperation!
+    # recordedBy: UserOperation
+}
 
-# Single Nested Mutations
-input BookRecordOperation {
+# Input Type
+input BookRecordUserNestedInput {
+    book: BookOperation!
+    student: StudentOperation!
+}
+
+# # ********************
+# # Single Nested Mutations
+# input BookRecordOperation {
+#     create: BookRecordInput
+#     connect: ID
+#     update: BookRecordInput
+#     upsert: BookRecordInput
+#     sync: ID
+#     syncWithoutDetaching: ID
+#     delete: ID
+#     disconnect: ID
+# }
+
+# # List Nested Mutations
+# input BookRecordOperations {
+#     create: [BookRecordInput!]
+#     connect: ID
+#     update: [BookRecordInput!]
+#     upsert: [BookRecordInput!]
+#     sync: ID
+#     syncWithoutDetaching: ID
+#     delete: ID
+#     disconnect: ID
+# }
+# # ********************
+
+
+
+
+# ********************
+# Single Book Nested Mutations
+input BookRecordBookNestedOperation {
     create: BookRecordInput
     connect: ID
     update: BookRecordInput
@@ -27,8 +79,8 @@ input BookRecordOperation {
     disconnect: ID
 }
 
-# List Nested Mutations
-input BookRecordOperations {
+# List Book Nested Mutations
+input BookRecordBookNestedOperations {
     create: [BookRecordInput!]
     connect: ID
     update: [BookRecordInput!]
@@ -38,6 +90,64 @@ input BookRecordOperations {
     delete: ID
     disconnect: ID
 }
+# ********************
+
+
+
+# ********************
+# Single Student Nested Mutations
+input BookRecordStudentNestedOperation {
+    create: BookRecordInput
+    connect: ID
+    update: BookRecordInput
+    upsert: BookRecordInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# List Student Nested Mutations
+input BookRecordStudentNestedOperations {
+    create: [BookRecordInput!]
+    connect: ID
+    update: [BookRecordInput!]
+    upsert: [BookRecordInput!]
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+# ********************
+
+
+
+# ********************
+# Single User Nested Mutations
+input BookRecordUserNestedOperation {
+    create: BookRecordInput
+    connect: ID
+    update: BookRecordInput
+    upsert: BookRecordInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# List User Nested Mutations
+input BookRecordUserNestedOperations {
+    create: [BookRecordInput!]
+    connect: ID
+    update: [BookRecordInput!]
+    upsert: [BookRecordInput!]
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+# ********************
+
 
 # Query
 extend type Query {

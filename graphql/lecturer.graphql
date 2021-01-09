@@ -13,9 +13,9 @@ type Lecturer {
 # Input Type
 input LecturerInput {
     id: ID
-    surname: String
-    otherNames: String
-    picture: String
+    surname: String @trim
+    otherNames: String @trim
+    picture: String @trim
     dob: Date
     gender: Gender
     courses: [CourseOperations]
@@ -23,26 +23,26 @@ input LecturerInput {
 
 # Single Nested Mutations
 input LecturerOperation {
-    create: LecturerInput!
-    connect: ID!
-    update: LecturerInput!
-    upsert: LecturerInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: LecturerInput
+    connect: ID
+    update: LecturerInput
+    upsert: LecturerInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations
 input LecturerOperations {
     create: [LecturerInput!]
-    connect: ID!
+    connect: ID
     update: [LecturerInput!]
     upsert: [LecturerInput!]
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query

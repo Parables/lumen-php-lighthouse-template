@@ -11,8 +11,8 @@ type Course {
 
 # Input Type
 input CourseCreateInput {
-    title: String
-    courseCode: String
+    title: String @trim
+    courseCode: String @trim
     creditHours: Int
     books: BookOperations
 }
@@ -20,8 +20,8 @@ input CourseCreateInput {
 # Input Type
 input CourseUpdateInput {
     id: ID!
-    title: String
-    courseCode: String
+    title: String @trim
+    courseCode: String @trim
     creditHours: Int
     books: BookOperations
 }

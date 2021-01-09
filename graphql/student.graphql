@@ -15,9 +15,9 @@ type Student {
 
 # Create Input Type
 input StudentCreateInput {
-    surname: String!
-    otherNames: String!
-    picture: String
+    surname: String! @trim
+    otherNames: String! @trim
+    picture: String @trim
     dob: Date!
     gender: Gender!
     programme: ProgrammeOperation!
@@ -29,9 +29,9 @@ input StudentCreateInput {
 # Update Input Type
 input StudentUpdateInput {
     id: ID!
-    surname: String
-    otherNames: String
-    picture: String
+    surname: String @trim
+    otherNames: String @trim
+    picture: String @trim
     dob: Date
     gender: Gender
     programme: ProgrammeOperation

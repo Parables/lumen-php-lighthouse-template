@@ -1,13 +1,13 @@
 # Object Type
 type PaymentRecord {
     id: ID!
+    receiptImage: String
     transactionDate: DateTime!
     transactionID: String!
-    bank: SelectOption! @belongsTo
-    bankBranch: SelectOption! @belongsTo
+    bank: Bank!
+    branch: String!
     amountPaid: Float!
     paidBy: Student! @belongsTo
-    paymentMethod: SelectOption! @belongsTo
     # recordedBy: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
@@ -15,51 +15,60 @@ type PaymentRecord {
 
 # Create Input Type
 input PaymentRecordCreateInput {
+    receiptImage: String @trim
     transactionDate: DateTime!
-    transactionID: String!
-    bank: SelectOptionOperation!
-    bankBranch: SelectOptionOperation!
+    transactionID: String! @trim
+    bank: Bank!
+    branch: String! @trim
     amountPaid: Float!
     student: StudentOperation!
-    paymentMethod: SelectOptionOperation!
     # recordedBy: UserOperation
 }
 
 # Update Input Type
 input PaymentRecordUpdateInput {
     id: ID
+    receiptImage: String @trim
     transactionDate: DateTime
-    transactionID: String
-    bank: SelectOptionOperation
-    bankBranch: SelectOptionOperation
+    transactionID: String @trim
+    bank: Bank
+    branch: String @trim
     amountPaid: Float
     student: StudentOperation
-    paymentMethod: SelectOptionOperation
     # recordedBy: UserOperation
+}
+
+enum Bank {
+    GCB @enum(value: "Ghana Commercial Bank")
+    ADB @enum(value: "Agricultural Development Bank")
+    ZENITH @enum(value: "Zenith Bank")
+    CBG @enum(value: "Consolidated Bank Ghana LTD")
+    NIB @enum(value: "National Investment Bank")
+    PRUDENTIAL @enum(value: "Pudential Bank")
 }
 
 # Single Nested Mutations
 input PaymentRecordOperation {
-    create: PaymentRecordCreateInput!
-    connect: ID!
-    update: PaymentRecordUpdateInput!
-    upsert: PaymentRecordCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    create: PaymentRecordCreateInput
+    connect: ID
+    update: PaymentRecordUpdateInput
+    upsert: PaymentRecordCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # List Nested Mutations
 input PaymentRecordOperations {
     create: [PaymentRecordCreateInput!]
-    connect: ID!
+    connect: ID
     update: [PaymentRecordUpdateInput!]
     upsert: [PaymentRecordCreateInput!]
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
 }
 
 # Query
@@ -70,11 +79,14 @@ extend type Query {
 
 # Mutation
 extend type Mutation {
-    createPaymentRecord(input: PaymentRecordCreateInput! @spread): PaymentRecord
-        @create
-    updatePaymentRecord(input: PaymentRecordUpdateInput! @spread): PaymentRecord
-        @update
-    upsertPaymentRecord(input: PaymentRecordCreateInput! @spread): PaymentRecord
-        @upsert
+    createPaymentRecord(
+        input: PaymentRecordCreateInput! @spread
+    ): PaymentRecord @create
+    updatePaymentRecord(
+        input: PaymentRecordUpdateInput! @spread
+    ): PaymentRecord @update
+    upsertPaymentRecord(
+        input: PaymentRecordCreateInput! @spread
+    ): PaymentRecord @upsert
     deletePaymentRecord(id: ID! @eq): PaymentRecord @delete
 }

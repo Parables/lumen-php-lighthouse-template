@@ -1,0 +1,94 @@
+type Fee {
+    id: ID!
+    programme: Programme @belongsTo
+    level: Int!
+    amountPayable: Float!
+    description: String
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+input FeeCreateInput {
+    programme: ProgrammeOperation!
+    level: Int!
+    amountPayable: Float!
+    description: String @trim
+}
+
+input FeeUpdateInput {
+    id: ID!
+    programme: ProgrammeOperation
+    level: Int
+    amountPayable: Float
+    description: String @trim
+}
+
+input FeeNestedCreateInput {
+    level: Int!
+    amountPayable: Float!
+    description: String @trim
+}
+
+input FeeNestedUpdateInput {
+    id: ID!
+    level: Int
+    amountPayable: Float
+    description: String @trim
+}
+
+# Single Nested Mutations
+input FeeOperation {
+    create: FeeNestedCreateInput
+    connect: ID
+    update: FeeNestedUpdateInput
+    upsert: FeeNestedCreateInput
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# List Nested Mutations
+input FeeOperations {
+    create: [FeeNestedCreateInput!]
+    connect: ID
+    update: [FeeNestedUpdateInput!]
+    upsert: [FeeNestedCreateInput!]
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+enum PaymentCycle {
+    ANNUAL @enum(value: "Annual")
+    BI_ANNUAL @enum(value: "Bi-Annual")
+    TRI_ANNUAL @enum(value: "Tri-Annual")
+    QUARTERLY @enum(value: "Quarterly")
+    MONTHLY @enum(value: "Monthly")
+    WEEKLY @enum(value: "Weekly")
+    DIALY @enum(value: "Daily")
+    PAY_AS_YOU_GO @enum(value: "Pay as you go")
+    ONE_TIME @enum(value: "One Time")
+}
+
+enum PaymentMethod {
+    TRANSFLOW @enum(value: "Transflow")
+    BANKERS_DRAFT @enum(value: "Bankers Draft")
+    CHEQUE @enum(value: "Cheque")
+    MOBILE_TRANSFER @enum(value: "Mobile Transfer")
+    CASH_DEPOSIT @enum(value: "Cash Deposit")
+    CASH_PAYMENT @enum(value: "Cash payment")
+}
+
+extend type Query {
+    fee(id: ID! @eq): Fee @find
+    fees: [Fee] @all
+}
+
+extend type Mutation {
+    createFee(input: FeeCreateInput! @spread): Fee @create
+    updateFee(input: FeeUpdateInput! @spread): Fee @update
+    upsertFee(input: FeeCreateInput! @spread): Fee @upsert
+    deleteFee(id: ID! @eq): Fee @delete
+}

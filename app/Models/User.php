@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',         'remember_token',
     ];
 
-       /**
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array

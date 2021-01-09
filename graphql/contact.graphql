@@ -9,21 +9,21 @@ type Contact {
 
 # Create Input Type
 input ContactCreateInput {
-    phone: String!
-    email: String!
-    location: String
-    digitalAddress: String
-    postalAddress: String
+    phone: String! @trim
+    email: String! @trim
+    location: String @trim
+    digitalAddress: String @trim
+    postalAddress: String @trim
 }
 
 # Update Input Type
 input ContactUpdateInput {
     id: ID!
-    phone: String
-    email: String
-    location: String
-    digitalAddress: String
-    postalAddress: String
+    phone: String @trim
+    email: String @trim
+    location: String @trim
+    digitalAddress: String @trim
+    postalAddress: String @trim
 }
 
 # Single Nested Mutations

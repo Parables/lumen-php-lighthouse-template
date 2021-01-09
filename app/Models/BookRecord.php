@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BookRecord extends Model
 {
-    public function book():BelongsTo
+    public function book(): BelongsTo
     {
-       return $this->belongsTo(Book::class);
+        return $this->belongsTo(Book::class);
     }
-   public function student():BelongsTo
+
+    public function student(): BelongsTo
     {
-       return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class);
     }
 }

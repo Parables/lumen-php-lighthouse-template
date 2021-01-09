@@ -4,25 +4,28 @@ type Programme {
     programmeCode: String!
     startLevel: Int!
     endLevel: Int!
+    fees(level: Int @eq): [Fee] @hasMany
     programmeOutline: [ProgrammeOutline!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
 
 input ProgrammeCreateInput {
-    title: String!
-    programmeCode: String
+    title: String! @trim
+    programmeCode: String @trim
     startLevel: Int!
     endLevel: Int!
+    fees: FeeOperations!
     programmeOutline: [ProgrammeOutlineOperations!]
 }
 
 input ProgrammeUpdateInput {
     id: ID!
-    title: String
-    programmeCode: String
+    title: String @trim
+    programmeCode: String @trim
     startLevel: Int
     endLevel: Int
+    fees: FeeOperations
     programmeOutline: [ProgrammeOutlineOperations!]
 }
 

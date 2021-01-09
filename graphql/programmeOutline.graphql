@@ -2,9 +2,8 @@ type ProgrammeOutline {
     id: ID!
     programme: Programme! @belongsTo
     level: Int!
-    fees: Float!
-    course: Course! @belongsTo
     semester: Int!
+    course: Course! @belongsTo
     elective: Boolean!
     created_at: DateTime!
     updated_at: DateTime!
@@ -13,9 +12,8 @@ type ProgrammeOutline {
 input ProgrammeOutlineCreateInput {
     programme: ProgrammeOperation!
     level: Int!
-    fees: Float!
-    course: CourseOperation!
     semester: Int!
+    course: CourseOperation!
     elective: Boolean!
 }
 
@@ -23,9 +21,8 @@ input ProgrammeOutlineUpdateInput {
     id: ID
     programme: ProgrammeOperation
     level: Int
-    fees: Float
-    course: CourseOperation
     semester: Int
+    course: CourseOperation
     elective: Boolean
 }
 

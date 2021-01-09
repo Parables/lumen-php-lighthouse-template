@@ -9,6 +9,7 @@ scalar DateTime
 #import course.graphql
 #import bookRecords.graphql
 #import programme.graphql
+#import fees.graphql
 #import programmeOutline.graphql
 #import student.graphql
 #import paymentRecords.graphql
