@@ -15,11 +15,11 @@ class CreateProgrammesTable extends Migration
     {
         Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->char('programmeCode',10);
+            $table->string('title')->unique();
+            $table->char('programmeCode', 10);
             $table->tinyInteger('startLevel')->unsigned();
             $table->tinyInteger('endLevel')->unsigned();
-                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
     }

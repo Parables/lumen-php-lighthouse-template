@@ -22,7 +22,7 @@ input StudentCreateInput {
     gender: Gender!
     programme: ProgrammeOperation!
     paymentRecords: [PaymentRecordOperations!]
-    booksRecords: [BookRecordOperations!]
+    booksRecords: [BookRecordStudentOperations!]
     contact: ContactOperation!
 }
 
@@ -36,7 +36,7 @@ input StudentUpdateInput {
     gender: Gender
     programme: ProgrammeOperation
     paymentRecords: [PaymentRecordOperations!]
-    booksRecords: [BookRecordOperations!]
+    booksRecords: [BookRecordStudentOperations!]
     contact: ContactOperation
 }
 

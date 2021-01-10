@@ -15,11 +15,11 @@ class CreateFeesTable extends Migration
     {
         Schema::create('fees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programme_id')->nullable(false)->constrained();
             $table->tinyInteger('level')->nullable(false);
             $table->float('amountPayable')->nullable(false);
-            $table->string('level');
-            $table->timestamps();
+            $table->string('description');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

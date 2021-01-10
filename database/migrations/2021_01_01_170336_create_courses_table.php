@@ -15,7 +15,7 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->char('courseCode', 10);
             $table->integer('creditHours');
             $table->timestamp('created_at')->useCurrent();

@@ -20,7 +20,7 @@ input BookCreateInput {
     author: String @trim
     inStock: Int!
     courses: CourseOperations
-    bookRecords: BookRecordOperations
+    bookRecords: BookRecordBookOperations
 }
 
 # Update Input Type
@@ -32,7 +32,7 @@ input BookUpdateInput {
     author: String @trim
     inStock: Int
     courses: CourseOperations
-    bookRecords: BookRecordOperations
+    bookRecords: BookRecordBookOperations
 }
 
 # Single Nested Mutations

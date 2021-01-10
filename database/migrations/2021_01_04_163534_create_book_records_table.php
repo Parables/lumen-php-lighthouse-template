@@ -18,7 +18,7 @@ class CreateBookRecordsTable extends Migration
             $table->foreignId('book_id')->nullable(false)->constrained();
             $table->foreignId('student_id')->nullable(false)->constrained();
             // $table->foreignId('user_id')->nullable()->constrained();
-                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
     }

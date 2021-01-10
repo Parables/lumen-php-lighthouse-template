@@ -4,7 +4,7 @@ type Programme {
     programmeCode: String!
     startLevel: Int!
     endLevel: Int!
-    fees(level: Int @eq): [Fee] @hasMany
+    fees(level: Int @eq): [Fee] @hasOne
     programmeOutline: [ProgrammeOutline!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
@@ -15,8 +15,8 @@ input ProgrammeCreateInput {
     programmeCode: String @trim
     startLevel: Int!
     endLevel: Int!
-    fees: FeeOperations!
-    programmeOutline: [ProgrammeOutlineOperations!]
+    fees: FeeOperations
+    programmeOutline: ProgrammeOutlineOperations
 }
 
 input ProgrammeUpdateInput {
@@ -26,7 +26,7 @@ input ProgrammeUpdateInput {
     startLevel: Int
     endLevel: Int
     fees: FeeOperations
-    programmeOutline: [ProgrammeOutlineOperations!]
+    programmeOutline: ProgrammeOutlineOperations
 }
 
 # Single Nested Mutations
@@ -44,13 +44,13 @@ input ProgrammeOperation {
 # List Nested Mutations
 input ProgrammeOperations {
     create: [ProgrammeCreateInput!]
-    connect: ID
+    connect: [ID]
     update: [ProgrammeUpdateInput!]
     upsert: [ProgrammeCreateInput!]
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+    sync: [ID]
+    syncWithoutDetaching: [ID]
+    delete: [ID]
+    disconnect: [ID]
 }
 
 # Query

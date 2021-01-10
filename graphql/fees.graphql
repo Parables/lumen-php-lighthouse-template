@@ -4,12 +4,12 @@ type Fee {
     level: Int!
     amountPayable: Float!
     description: String
-    createdAt: DateTime!
-    updatedAt: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 input FeeCreateInput {
-    programme: ProgrammeOperation!
+    programme: ProgrammeOperation
     level: Int!
     amountPayable: Float!
     description: String @trim
@@ -23,13 +23,13 @@ input FeeUpdateInput {
     description: String @trim
 }
 
-input FeeNestedCreateInput {
+input NestedFeeCreateInput {
     level: Int!
     amountPayable: Float!
     description: String @trim
 }
 
-input FeeNestedUpdateInput {
+input NestedFeeUpdateInput {
     id: ID!
     level: Int
     amountPayable: Float
@@ -38,10 +38,10 @@ input FeeNestedUpdateInput {
 
 # Single Nested Mutations
 input FeeOperation {
-    create: FeeNestedCreateInput
+    create: FeeCreateInput
     connect: ID
-    update: FeeNestedUpdateInput
-    upsert: FeeNestedCreateInput
+    update: FeeUpdateInput
+    upsert: FeeCreateInput
     sync: ID
     syncWithoutDetaching: ID
     delete: ID
@@ -50,14 +50,14 @@ input FeeOperation {
 
 # List Nested Mutations
 input FeeOperations {
-    create: [FeeNestedCreateInput!]
-    connect: ID
-    update: [FeeNestedUpdateInput!]
-    upsert: [FeeNestedCreateInput!]
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+    create: [FeeCreateInput!]
+    connect: [ID]
+    update: [FeeUpdateInput!]
+    upsert: [FeeCreateInput!]
+    sync: [ID]
+    syncWithoutDetaching: [ID]
+    delete: [ID]
+    disconnect: [ID]
 }
 
 enum PaymentCycle {

@@ -16,10 +16,10 @@ class CreatePaymentRecordsTable extends Migration
         Schema::create('payment_records', function (Blueprint $table) {
             $table->id();
             $table->string('transactionDate')->nullable(false);
-            $table->string('transactionID')->nullable(false);
+            $table->string('transactionID')->unique()->nullable(false);
             $table->float('amountPaid')->nullable(false);
             // $table->foreignId('user_id')->nullable(false)->constrained();
-                      $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
     }
