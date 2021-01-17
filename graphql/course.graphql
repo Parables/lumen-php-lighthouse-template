@@ -11,7 +11,7 @@ type Course {
 
 # Input Type
 input CourseCreateInput {
-    title: String @trim
+    title: String! @trim
     courseCode: String @trim
     creditHours: Int
     books: BookOperations

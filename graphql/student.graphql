@@ -2,27 +2,31 @@
 type Student {
     id: ID!
     surname: String!
-    otherNames: String!
-    picture: String!
+    firstname: String!
+    othernames: String
+    picture: String
     dob: Date!
     gender: Gender!
     programme: Programme! @belongsTo
     paymentRecords: [PaymentRecord!]! @hasMany
-    booksRecords: [BookRecord!]! @hasMany
+    bookRecords: [BookRecord!]! @hasMany
     contact: Contact @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
     # add more later
 }
 
 # Create Input Type
 input StudentCreateInput {
     surname: String! @trim
-    otherNames: String! @trim
+    firstname: String! @trim
+    othernames: String @trim
     picture: String @trim
     dob: Date!
     gender: Gender!
     programme: ProgrammeOperation!
     paymentRecords: [PaymentRecordOperations!]
-    booksRecords: [BookRecordStudentOperations!]
+    bookRecords: [BookRecordStudentOperations!]
     contact: ContactOperation!
 }
 
@@ -30,13 +34,14 @@ input StudentCreateInput {
 input StudentUpdateInput {
     id: ID!
     surname: String @trim
-    otherNames: String @trim
+    firstname: String @trim
+    othernames: String @trim
     picture: String @trim
     dob: Date
     gender: Gender
     programme: ProgrammeOperation
     paymentRecords: [PaymentRecordOperations!]
-    booksRecords: [BookRecordStudentOperations!]
+    bookRecords: [BookRecordStudentOperations!]
     contact: ContactOperation
 }
 

@@ -5,6 +5,8 @@ type Contact {
     location: String
     digitalAddress: String
     postalAddress: String
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 # Create Input Type
@@ -20,7 +22,7 @@ input ContactCreateInput {
 input ContactUpdateInput {
     id: ID!
     phone: String @trim
-    email: String @trim
+    email: String @trim # @rules(apply: ["email"], attribute: "email address")
     location: String @trim
     digitalAddress: String @trim
     postalAddress: String @trim

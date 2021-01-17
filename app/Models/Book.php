@@ -20,7 +20,6 @@ class Book extends Model
         'cover' => '',
         'bookCode' => '',
         'author' => '',
-        'inStock' => 0,
     ];
 
     public function courses(): BelongsToMany
@@ -29,7 +28,8 @@ class Book extends Model
     }
 
 
-    public function bookRecords(): HasMany{
+    public function bookRecords(): HasMany
+    {
         return $this->hasMany(BookRecord::class);
     }
 }
