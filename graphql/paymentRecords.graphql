@@ -27,24 +27,23 @@ input PaymentRecordCreateInput {
 
 # Update Input Type
 input PaymentRecordUpdateInput {
-    id: ID
+    id: ID!
     receiptImage: String @trim
     transactionDate: DateTime
     transactionID: String @trim
     bank: Bank
-    branch: String @trim
     amountPaid: Float
     student: StudentOperation
     # recordedBy: UserOperation
 }
 
 enum Bank {
-    GCB @enum(value: "Ghana Commercial Bank")
-    ADB @enum(value: "Agricultural Development Bank")
-    ZENITH @enum(value: "Zenith Bank")
-    CBG @enum(value: "Consolidated Bank Ghana LTD")
-    NIB @enum(value: "National Investment Bank")
-    PRUDENTIAL @enum(value: "Pudential Bank")
+    GCB @enum(value: 0)
+    ADB @enum(value: 1)
+    ZENITH @enum(value: 2)
+    CBG @enum(value: 3)
+    NIB @enum(value: 4)
+    PRUDENTIAL @enum(value: 5)
 }
 
 # Single Nested Mutations
