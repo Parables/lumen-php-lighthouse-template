@@ -12,6 +12,15 @@ type Book {
     updated_at: DateTime!
 }
 
+# Find/searach input
+input FindBookByInput {
+    id: ID @eq
+    title: String @trim @where(operator: "LIKE")
+    bookCode: String @eq @trim
+    author: String @trim @where(operator: "%LIKE%")
+    inStock: Int @eq
+}
+
 # Create Input Type
 input BookCreateInput {
     cover: String @trim
@@ -59,14 +68,8 @@ input BookOperations {
 
 # Query
 extend type Query {
-    book(id: Int! @eq): Book @find
-    books(
-        title: String @trim @where(operator: "like")
-        bookCode: String @eq @trim
-        author: String @trim @where(operator: "%LIKE%")
-        inStock: Int @eq
-        courses: [Int!] @in(key: "book_course.")
-    ): [Book!]! @all
+    book(id: ID! @eq): Book @find
+    books(findBy: FindBookByInput): [Book!]! @all
 }
 
 # Mutation
