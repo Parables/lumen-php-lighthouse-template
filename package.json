@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "larasocket-js": "^1.0.16"
+  }
+}

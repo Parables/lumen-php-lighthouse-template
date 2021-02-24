@@ -6,8 +6,11 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
+        "beyondcode/laravel-websockets": "^2.0@beta",
+        "endyjasmi/cuid": "^2.1",
         "flipbox/lumen-generator": "^8.2",
         "fruitcake/laravel-cors": "^2.0",
+        "larasocket/larasocket-driver": "^1.0",
         "laravel/lumen-framework": "^8.0",
         "laravelista/lumen-vendor-publish": "^8.0",
         "mll-lab/laravel-graphql-playground": "^2.4",
