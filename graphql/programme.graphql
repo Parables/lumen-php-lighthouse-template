@@ -1,56 +1,104 @@
+# Object Type #
 type Programme {
     id: ID!
     title: String!
     programmeCode: String
     startLevel: Int!
     endLevel: Int!
-    fees(level: Int @eq): [Fee!] @hasOne
-    programmeOutline(level: Int @eq, semester: Int @eq): [ProgrammeOutline!] @hasMany
+    fees(level: Int @eq): [Fee!] @hasMany
+    programmeOutlines(level: Int @eq, semester: Int @eq): [ProgrammeOutline!] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
 
+# Create Input Type #
 input ProgrammeCreateInput {
     title: String! @trim
     programmeCode: String @trim
     startLevel: Int!
     endLevel: Int!
-    fees: FeeOperations
-    programmeOutline: ProgrammeOutlineOperations
+    fees: NestedFeesCreateInput
+    programmeOutlines: NestedProgrammeOutlinesCreateInput
 }
 
+# Update Input Type #
 input ProgrammeUpdateInput {
     id: ID!
     title: String @trim
     programmeCode: String @trim
     startLevel: Int
     endLevel: Int
-    fees: FeeOperations
-    programmeOutline: ProgrammeOutlineOperations
+    fees: NestedFeesUpdateInput
+    programmeOutlines: NestedProgrammeOutlinesUpdateInput
 }
 
-# Single Nested Mutations
-input ProgrammeOperation {
+# Upsert Input Type #
+input ProgrammeUpsertInput {
+    id: ID!
+    title: String! @trim
+    programmeCode: String @trim
+    startLevel: Int
+    endLevel: Int
+    fees: NestedFeesUpsertInput
+    programmeOutlines: NestedProgrammeOutlinesUpsertInput
+}
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedProgrammeCreateInput {
     create: ProgrammeCreateInput
+    upsert: ProgrammeUpsertInput
     connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedProgrammeUpdateInput {
+    create: ProgrammeCreateInput
     update: ProgrammeUpdateInput
-    upsert: ProgrammeCreateInput
+    upsert: ProgrammeUpsertInput
+    connect: ID
     sync: ID
     syncWithoutDetaching: ID
     delete: ID
     disconnect: ID
 }
 
+# Nested Single Upsert Input #
+input NestedProgrammeUpsertInput {
+    create: ProgrammeCreateInput
+    upsert: ProgrammeUpsertInput
+    connect: ID
+    sync: ID
+}
+
 # List Nested Mutations
-input ProgrammeOperations {
+# Nested List Create Input #
+input NestedProgrammesCreateInput {
     create: [ProgrammeCreateInput!]
+    upsert: [ProgrammeUpsertInput!]
     connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedProgrammesUpdateInput {
+    create: [ProgrammeCreateInput!]
     update: [ProgrammeUpdateInput!]
-    upsert: [ProgrammeCreateInput!]
+    upsert: [ProgrammeUpsertInput!]
+    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
     disconnect: [ID!]
+}
+
+# Nested List Upsert Input #
+input NestedProgrammesUpsertInput {
+    create: [ProgrammeCreateInput!]
+    upsert: [ProgrammeUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
 }
 
 # Query

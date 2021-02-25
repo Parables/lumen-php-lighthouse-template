@@ -1,73 +1,173 @@
 # Object Type
 type Student {
     id: ID!
+    fullName: String!
     surname: String!
     firstname: String!
     othernames: String
     picture: String
+    dob: Date
+    gender: Gender
+    programme: Programme! @belongsTo
+    currentLevel: Int!
+    paymentRecords: [PaymentRecord!] @hasMany
+    bookRecords: [BookRecord!] @hasMany
+    contact: Contact @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    # add more later
+    # TODO: implement these
+    # maritalStatus: MaritalStatus
+    # groups: [Category!] @belongsToMany
+    # schedules: [Schedule!] @hasMany
+    # yearGroup: Batch
+    # friends: Students
+    # collegues: Students
+
+}
+
+# Create Input Type
+input StudentCreateInput {
+      id: ID!
+    fullName: String! @trim
+    surname: String! @trim
+    firstname: String! @trim
+    othernames: String! @trim
+    picture: String @trim
     dob: Date!
     gender: Gender!
     programme: Programme! @belongsTo
+    currentLevel: Int!
     paymentRecords: [PaymentRecord!]! @hasMany
     bookRecords: [BookRecord!]! @hasMany
     contact: Contact @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
     # add more later
-}
+    # TODO: implement these
+    # maritalStatus: MaritalStatus
+    # groups: [Category!] @belongsToMany
+    # schedules: [Schedule!] @hasMany
+    # yearGroup: Batch
+    # friends: Students
+    # collegues: Students
 
-# Create Input Type
-input StudentCreateInput {
-    surname: String! @trim
-    firstname: String! @trim
-    othernames: String @trim
-    picture: String @trim
-    dob: Date!
-    gender: Gender!
-    programme: ProgrammeOperation!
-    paymentRecords: [PaymentRecordOperations!]
-    bookRecords: [BookRecordStudentOperations!]
-    contact: ContactOperation!
 }
 
 # Update Input Type
 input StudentUpdateInput {
-    id: ID!
-    surname: String @trim
-    firstname: String @trim
-    othernames: String @trim
+   id: ID!
+    fullName: String! @trim
+    surname: String! @trim
+    firstname: String! @trim
+    othernames: String! @trim
     picture: String @trim
-    dob: Date
-    gender: Gender
-    programme: ProgrammeOperation
-    paymentRecords: [PaymentRecordOperations!]
-    bookRecords: [BookRecordStudentOperations!]
-    contact: ContactOperation
+    dob: Date!
+    gender: Gender!
+    programme: Programme! @belongsTo
+    currentLevel: Int!
+    paymentRecords: [PaymentRecord!]! @hasMany
+    bookRecords: [BookRecord!]! @hasMany
+    contact: Contact @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    # add more later
+    # TODO: implement these
+    # maritalStatus: MaritalStatus
+    # groups: [Category!] @belongsToMany
+    # schedules: [Schedule!] @hasMany
+    # yearGroup: Batch
+    # friends: Students
+    # collegues: Students
+
 }
 
-# Single Nested Mutations
-input StudentOperation {
+# Upsert Input Type #
+input StudentUpsertInput {
+     id: ID!
+    fullName: String! @trim
+    surname: String! @trim
+    firstname: String! @trim
+    othernames: String! @trim
+    picture: String @trim
+    dob: Date!
+    gender: Gender!
+    programme: Programme! @belongsTo
+    currentLevel: Int!
+    paymentRecords: [PaymentRecord!]! @hasMany
+    bookRecords: [BookRecord!]! @hasMany
+    contact: Contact @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    # add more later
+    # TODO: implement these
+    # groups: [Category!] @belongsToMany
+    # schedules: [Schedule!] @hasMany
+    # yearGroup: Batch
+    # friends: Students
+    # collegues: Students
+
+}
+
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedStudentCreateInput {
     create: StudentCreateInput
+    upsert: StudentUpsertInput
     connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedStudentUpdateInput {
+    create: StudentCreateInput
     update: StudentUpdateInput
-    upsert: StudentCreateInput
+    upsert: StudentUpsertInput
+    connect: ID
     sync: ID
     syncWithoutDetaching: ID
     delete: ID
     disconnect: ID
+}
+
+# Nested Single Upsert Input #
+input NestedStudentUpsertInput {
+    create: StudentCreateInput
+    upsert: StudentUpsertInput
+    connect: ID
+    sync: ID
 }
 
 # List Nested Mutations
-input StudentOperations {
+# Nested List Create Input #
+input NestedStudentsCreateInput {
     create: [StudentCreateInput!]
-    connect: ID
-    update: [StudentUpdateInput!]
-    upsert: [StudentCreateInput!]
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+    upsert: [StudentUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
 }
+
+# Nested List Update Input #
+input NestedStudentsUpdateInput {
+    create: [StudentCreateInput!]
+    update: [StudentUpdateInput!]
+    upsert: [StudentUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}
+
+# Nested List Upsert Input #
+input NestedStudentsUpsertInput {
+    create: [StudentCreateInput!]
+    upsert: [StudentUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
 
 # Query
 extend type Query {

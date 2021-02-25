@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@playlyfe/gql": "^2.6.2",
     "larasocket-js": "^1.0.16"
   }
 }

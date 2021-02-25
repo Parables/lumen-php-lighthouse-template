@@ -1,98 +1,94 @@
-# Object Type
+# Object Type #
 type BookRecord {
     id: ID!
     book: Book! @belongsTo
     student: Student! @belongsTo
+    # TODO: Implement this
     # recordedBy: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
 }
 
+# Create Input Type #
 input BookRecordCreateInput {
-    book: BookOperation!
-    student: StudentOperation!
+    book: NestedBookCreateInput!
+    student: NestedStudentCreateInput!
     # recordedBy: UserOperation!
 }
 
+# Update Input Type #
 input BookRecordUpdateInput {
-    book: BookOperation
-    student: StudentOperation
+    id: ID!
+    book: NestedBookUpdateInput
+    student: NestedStudentUpdateInput
     # recordedBy: UserOperation
 }
 
-# ********************
-# Input Type
-input BookNestedBookRecordCreateInput {
-    student: StudentOperation!
-    # recordedBy: UserOperation!
-}
-
-input BookNestedBookRecordUpdateInput {
-    student: StudentOperation
+# Upsert Input Type #
+input BookRecordUpsertInput {
+    id: ID!
+    book: NestedBookUpsertInput!
+    student: NestedStudentUpsertInput!
     # recordedBy: UserOperation
 }
 
-# List Book Nested Mutations
-input BookRecordBookOperations {
-    create: [BookNestedBookRecordCreateInput!]
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedBookRecordCreateInput {
+    create: BookRecordCreateInput
+    upsert: BookRecordUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedBookRecordUpdateInput {
+    create: BookRecordCreateInput
+    update: BookRecordUpdateInput
+    upsert: BookRecordUpsertInput
+    connect: ID
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# Nested Single Upsert Input #
+input NestedBookRecordUpsertInput {
+    create: BookRecordCreateInput
+    upsert: BookRecordUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Nested List  Mutations
+# Nested List Create Input #
+input NestedBookRecordsCreateInput {
+    create: [BookRecordCreateInput!]
+    upsert: [BookRecordUpsertInput!]
     connect: [ID!]
-    update: [BookNestedBookRecordUpdateInput!]
-    upsert: [BookNestedBookRecordCreateInput!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedBookRecordsUpdateInput {
+    create: [BookRecordCreateInput!]
+    update: [BookRecordUpdateInput!]
+    upsert: [BookRecordUpsertInput!]
+    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
     disconnect: [ID!]
 }
-# ********************
 
-# ********************
-# Input Type
-input StudentNestedBookRecordCreateInput {
-    book: BookOperation!
-    # recordedBy: UserOperation!
-}
-input StudentNestedBookRecordUpdateInput {
-    book: BookOperation
-    # recordedBy: UserOperation
-}
-
-# List Student Nested Mutations
-input BookRecordStudentOperations {
-    create: [StudentNestedBookRecordCreateInput!]
+# Nested List Upsert Input #
+input NestedBookRecordsUpsertInput {
+    create: [BookRecordCreateInput!]
+    upsert: [BookRecordUpsertInput!]
     connect: [ID!]
-    update: [StudentNestedBookRecordUpdateInput!]
-    upsert: [StudentNestedBookRecordCreateInput!]
     sync: [ID!]
-    syncWithoutDetaching: [ID!]
-    delete: [ID!]
-    disconnect: [ID!]
 }
-# ********************
-
-# ********************
-# Input Type
-input UserNestedBookRecordCreateInput {
-    book: BookOperation!
-    student: StudentOperation!
-}
-
-input UserNestedBookRecordUpdateInput {
-    book: BookOperation!
-    student: StudentOperation!
-}
-
-# List User Nested Mutations
-input BookRecordUserOperations {
-    create: [UserNestedBookRecordCreateInput!]
-    connect: [ID!]
-    update: [UserNestedBookRecordUpdateInput!]
-    upsert: [UserNestedBookRecordCreateInput!]
-    sync: [ID!]
-    syncWithoutDetaching: [ID!]
-    delete: [ID!]
-    disconnect: [ID!]
-}
-# ********************
 
 # Query
 extend type Query {

@@ -56,6 +56,35 @@ input BookUpsertInput {
     bookRecords: NestedBookRecordsUpsertInput
 }
 
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedBookCreateInput {
+    create: BookCreateInput
+    upsert: BookUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedBookUpdateInput {
+    create: BookCreateInput
+    update: BookUpdateInput
+    upsert: BookUpsertInput
+    connect: ID
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# Nested Single Upsert Input #
+input NestedBookUpsertInput {
+    create: BookCreateInput
+    upsert: BookUpsertInput
+    connect: ID
+    sync: ID
+}
+
 # Nested List  Mutations
 # Nested List Create Input #
 input NestedBooksCreateInput {

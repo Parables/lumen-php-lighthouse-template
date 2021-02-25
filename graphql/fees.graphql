@@ -1,3 +1,4 @@
+# Object Type #
 type Fee {
     id: ID!
     programme: Programme! @belongsTo
@@ -11,56 +12,88 @@ type Fee {
     updated_at: DateTime!
 }
 
+# Create Input Type #
 input FeeCreateInput {
-    programme: ProgrammeOperation!
+    programme: NestedProgrammeCreateInput!
     level: Int!
     amountPayable: Float!
     description: String @trim
 }
 
+# Update Input Type #
 input FeeUpdateInput {
     id: ID!
-    programme: ProgrammeOperation
+    programme: NestedProgrammeUpdateInput
     level: Int
     amountPayable: Float
     description: String @trim
 }
 
-input NestedFeeCreateInput {
+# Upsert Input Type #
+input NestedFeeUpsertInput {
+    id: ID!
+    programme: NestedProgrammeUpsertInput!
     level: Int!
     amountPayable: Float!
     description: String @trim
 }
 
-input NestedFeeUpdateInput {
-    id: ID!
-    level: Int
-    amountPayable: Float
-    description: String @trim
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedFeeCreateInput {
+    create: FeeCreateInput
+    upsert: FeeUpsertInput
+    connect: ID
+    sync: ID
 }
 
-# Single Nested Mutations
-input FeeOperation {
+# Nested Single Update Input #
+input NestedFeeUpdateInput {
     create: FeeCreateInput
-    connect: ID
     update: FeeUpdateInput
-    upsert: FeeCreateInput
+    upsert: FeeUpsertInput
+    connect: ID
     sync: ID
     syncWithoutDetaching: ID
     delete: ID
     disconnect: ID
 }
 
+# Nested Single Upsert Input #
+input NestedFeeUpsertInput {
+    create: FeeCreateInput
+    upsert: FeeUpsertInput
+    connect: ID
+    sync: ID
+}
+
 # List Nested Mutations
-input FeeOperations {
+# Nested List Create Input #
+input NestedFeesCreateInput {
     create: [FeeCreateInput!]
-    connect: [ID]
+    upsert: [FeeUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedFeesUpdateInput {
+    create: [FeeCreateInput!]
     update: [FeeUpdateInput!]
-    upsert: [FeeCreateInput!]
-    sync: [ID]
-    syncWithoutDetaching: [ID]
-    delete: [ID]
-    disconnect: [ID]
+    upsert: [FeeUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}
+
+# Nested List Upsert Input #
+input NestedFeesUpsertInput {
+    create: [FeeCreateInput!]
+    upsert: [FeeUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
 }
 
 enum PaymentCycle {

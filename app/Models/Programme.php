@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Programme extends Model
@@ -17,16 +16,17 @@ class Programme extends Model
 
     protected $attribute = [
         'programmeCode' => "",
+        'startLevel' => 100,
+        'endLevel' => 100,
     ];
 
 
-
-    public function fees(): BelongsToMany
+    public function fees(): HasMany
     {
-        return $this->belongsToMany(Fee::class);
+        return $this->hasMany(Fee::class);
     }
 
-    public function programmeOutline(): HasMany
+    public function programmeOutlines(): HasMany
     {
         return $this->hasMany(ProgrammeOutline::class);
     }

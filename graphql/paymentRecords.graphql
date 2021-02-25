@@ -5,9 +5,9 @@ type PaymentRecord {
     transactionDate: DateTime!
     transactionID: String!
     bank: Bank!
-    branch: String!
     amountPaid: Float!
     paidBy: Student! @belongsTo
+    # TODO: Implement this
     # recordedBy: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
@@ -19,10 +19,9 @@ input PaymentRecordCreateInput {
     transactionDate: DateTime!
     transactionID: String! @trim
     bank: Bank!
-    branch: String! @trim
     amountPaid: Float!
-    student: StudentOperation!
-    # recordedBy: UserOperation
+    paidBy: NestedStudentCreateInput!
+    # recordedBy: UserOperation!
 }
 
 # Update Input Type
@@ -33,8 +32,20 @@ input PaymentRecordUpdateInput {
     transactionID: String @trim
     bank: Bank
     amountPaid: Float
-    student: StudentOperation
+    student: NestedStudentUpdateInput
     # recordedBy: UserOperation
+}
+
+# Upsert Input Type #
+input PaymentRecordUpsertInput {
+    id: ID!
+    receiptImage: String @trim
+    transactionDate: DateTime!
+    transactionID: String! @trim
+    bank: Bank!
+    amountPaid: Float!
+    student: NestedStudentUpsertInput!
+    # recordedBy: UserOperation!
 }
 
 enum Bank {

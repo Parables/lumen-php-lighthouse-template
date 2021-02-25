@@ -1,3 +1,4 @@
+# Object Type #
 type ProgrammeOutline {
     id: ID!
     programme: Programme! @belongsTo
@@ -9,51 +10,97 @@ type ProgrammeOutline {
     updated_at: DateTime!
 }
 
+# Create Input Type #
 input ProgrammeOutlineCreateInput {
-    programme: ProgrammeOperation!
+    programme: NestedProgrammeCreateInput!
     level: Int!
     semester: Int!
-    course: CourseOperation!
+    course: NestedCourseCreateInput!
     elective: Boolean!
 }
 
+# Update Input Type #
 input ProgrammeOutlineUpdateInput {
     id: ID!
-    programme: ProgrammeOperation
+    programme: NestedProgrammeUpdateInput
     level: Int
     semester: Int
-    course: CourseOperation
+    course: NestedCourseUpdateInput
     elective: Boolean
 }
 
-# Single Nested Mutations
-input ProgrammeOutlineOperation {
+# Upsert Input Type #
+input ProgrammeOutlineUpsertInput {
+    id: ID!
+    programme: NestedProgrammeUpsertInput!
+    level: Int!
+    semester: Int!
+    course: NestedCourseUpsertInput!
+    elective: Boolean
+}
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedProgrammeOutlineCreateInput {
     create: ProgrammeOutlineCreateInput
+    upsert: ProgrammeOutlineUpsertInput
     connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedProgrammeOutlineUpdateInput {
+    create: ProgrammeOutlineCreateInput
     update: ProgrammeOutlineUpdateInput
-    upsert: ProgrammeOutlineCreateInput
+    upsert: ProgrammeOutlineUpsertInput
+    connect: ID
     sync: ID
     syncWithoutDetaching: ID
     delete: ID
     disconnect: ID
 }
 
+# Nested Single Upsert Input #
+input NestedProgrammeOutlineUpsertInput {
+    create: ProgrammeOutlineCreateInput
+    upsert: ProgrammeOutlineUpsertInput
+    connect: ID
+    sync: ID
+}
+
 # List Nested Mutations
-input ProgrammeOutlineOperations {
+# Nested List Create Input #
+input NestedProgrammeOutlinesCreateInput {
     create: [ProgrammeOutlineCreateInput!]
+    upsert: [ProgrammeOutlineUpsertInput!]
     connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedProgrammeOutlinesUpdateInput {
+    create: [ProgrammeOutlineCreateInput!]
     update: [ProgrammeOutlineUpdateInput!]
-    upsert: [ProgrammeOutlineCreateInput!]
+    upsert: [ProgrammeOutlineUpsertInput!]
+    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
     disconnect: [ID!]
 }
 
+# Nested List Upsert Input #
+input NestedProgrammeOutlinesUpsertInput {
+    create: [ProgrammeOutlineCreateInput!]
+    upsert: [ProgrammeOutlineUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
 # Query
 extend type Query {
-    ProgrammeOutline(id: ID! @eq): ProgrammeOutline @find
-    ProgrammeOutlines(programme: ID @eq): [ProgrammeOutline!] @all
+    programmeOutline(id: ID! @eq): ProgrammeOutline @find
+    programmeOutlines(programme: ID @eq): [ProgrammeOutline!] @all
 }
 
 # Mutation
