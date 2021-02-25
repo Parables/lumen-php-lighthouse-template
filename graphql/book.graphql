@@ -1,18 +1,18 @@
-# Object Type
+# Object Type #
 type Book {
     id: ID!
-    cover: String
+    cover: String!
     title: String!
-    bookCode: String
+    bookCode: String!
     author: String
     inStock: Int!
-    courses: [Course!]! @belongsToMany
+    courses: [Course!] @belongsToMany
     bookRecords: [BookRecord!] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
 
-# Find/searach input
+# Find/searach input #
 input FindBookByInput {
     id: ID @eq
     title: String @trim @where(operator: "LIKE")
@@ -21,61 +21,80 @@ input FindBookByInput {
     inStock: Int @eq
 }
 
-# Create Input Type
+# Create Input Type #
 input BookCreateInput {
-    cover: String @trim
     title: String! @trim
-    bookCode: String @trim
-    author: String @trim
-    inStock: Int!
-    courses: CourseOperations
-    bookRecords: BookRecordBookOperations
-}
-
-# Update Input Type
-input BookUpdateInput {
-    id: ID! @eq
     cover: String @trim
-    title: String @trim
     bookCode: String @trim
     author: String @trim
     inStock: Int
-    courses: CourseOperations
-    bookRecords: BookRecordBookOperations
+    courses: NestedCoursesCreateInput
+    bookRecords: NestedBookRecordsCreateInput
 }
 
-# Single Nested Mutations
-input BookOperation {
-    create: BookCreateInput
-    connect: ID
-    update: BookUpdateInput
-    upsert: BookCreateInput
-    delete: ID
-    disconnect: ID
+# Update Input Type #
+input BookUpdateInput {
+    id: ID! @eq
+    title: String @trim
+    cover: String @trim
+    bookCode: String @trim
+    author: String @trim
+    inStock: Int
+    courses: NestedCoursesUpdateInput
+    bookRecords: NestedBookRecordsUpdateInput
 }
 
-# List Nested Mutations
-input BookOperations {
+# Upsert Input Type #
+input BookUpsertInput {
+    id: ID! @eq
+    title: String! @trim
+    cover: String @trim
+    bookCode: String @trim
+    author: String @trim
+    inStock: Int
+    courses: NestedCoursesUpsertInput
+    bookRecords: NestedBookRecordsUpsertInput
+}
+
+# Nested List  Mutations
+# Nested List Create Input #
+input NestedBooksCreateInput {
     create: [BookCreateInput!]
+    upsert: [BookUpsertInput!]
     connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedBooksUpdateInput {
+    create: [BookCreateInput!]
     update: [BookUpdateInput!]
-    upsert: [BookCreateInput!]
+    upsert: [BookUpsertInput!]
+    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
     disconnect: [ID!]
 }
 
-# Query
+# Nested List Upsert Input #
+input NestedBooksUpsertInput {
+    create: [BookCreateInput!]
+    upsert: [BookUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Query #
 extend type Query {
     book(id: ID! @eq): Book @find
     books(findBy: FindBookByInput): [Book!]! @all
 }
 
-# Mutation
+# Mutation #
 extend type Mutation {
     createBook(input: BookCreateInput! @spread): Book @create
     updateBook(input: BookUpdateInput! @spread): Book @update
-    upsertBook(input: BookCreateInput! @spread): Book @upsert
+    upsertBook(input: BookUpsertInput! @spread): Book @upsert
     deleteBook(id: ID! @eq): Book @delete
 }

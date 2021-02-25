@@ -20,6 +20,7 @@ class Book extends Model
         'cover' => '',
         'bookCode' => '',
         'author' => '',
+        'inStock' => 0,
     ];
 
     public function courses(): BelongsToMany

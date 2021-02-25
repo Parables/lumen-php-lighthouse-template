@@ -1,62 +1,110 @@
-# Object Type
+# Object Type #
 type Course {
     id: ID!
     title: String!
     courseCode: String
     creditHours: Int
     books: [Book!] @belongsToMany
+    # TODO: Implement Timetable
+    # schedule(level: Int): [Schedule!] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
 
-# Input Type
+# Create Input Type #
 input CourseCreateInput {
     title: String! @trim
     courseCode: String @trim
     creditHours: Int
-    books: BookOperations
+    books: NestedBooksCreateInput
+    # schedules: NestedSchedulesCreateInput
 }
 
-# Input Type
+# Update Input Type #
 input CourseUpdateInput {
     id: ID!
     title: String @trim
     courseCode: String @trim
     creditHours: Int
-    books: BookOperations
+    books: NestedBooksUpdateInput
+    # schedules: NestedSchedulesUpdateInput
 }
 
-# Single Nested Mutations
-input CourseOperation {
-    create: CourseCreateInput!
-    connect: ID!
-    update: CourseUpdateInput!
-    upsert: CourseCreateInput!
-    sync: ID!
-    syncWithoutDetaching: ID!
-    delete: ID!
-    disconnect: ID!
+# Upsert Input Type #
+input CourseUpsertInput {
+    id: ID!
+    title: String! @trim
+    courseCode: String @trim
+    creditHours: Int
+    books: NestedBooksUpsertInput
+    # schedules: NestedSchedulesUpsertInput
+}
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedCourseCreateInput {
+    create: CourseCreateInput
+    upsert: CourseUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedCourseUpdateInput {
+    create: CourseCreateInput
+    update: CourseUpdateInput
+    upsert: CourseUpsertInput
+    connect: ID
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# Nested Single Upsert Input #
+input NestedCourseUpsertInput {
+    create: CourseCreateInput
+    upsert: CourseUpsertInput
+    connect: ID
+    sync: ID
 }
 
 # List Nested Mutations
-input CourseOperations {
+# Nested List Create Input #
+input NestedCoursesCreateInput {
     create: [CourseCreateInput!]
+    upsert: [CourseUpsertInput!]
     connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedCoursesUpdateInput {
+    create: [CourseCreateInput!]
     update: [CourseUpdateInput!]
-    upsert: [CourseCreateInput!]
+    upsert: [CourseUpsertInput!]
+    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
     delete: [ID!]
     disconnect: [ID!]
 }
 
-# Query
+# Nested List Upsert Input #
+input NestedCoursesUpsertInput {
+    create: [CourseCreateInput!]
+    upsert: [CourseUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Query #
 extend type Query {
     course(id: ID! @eq): Course @find
     courses(title: String @where(operator: "%LIKE%")): [Course!]! @all
 }
 
-# Mutation
+# Mutation #
 extend type Mutation {
     createCourse(input: CourseCreateInput! @spread): Course @create
     updateCourse(input: CourseUpdateInput! @spread): Course @update
