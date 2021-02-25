@@ -72,7 +72,7 @@ input PaymentRecordOperations {
 
 # Query
 extend type Query {
-    paymentRecord(id: Int! @eq): PaymentRecord @find
+    paymentRecord(id: ID! @eq): PaymentRecord @find
     paymentRecords: [PaymentRecord!] @all
 }
 

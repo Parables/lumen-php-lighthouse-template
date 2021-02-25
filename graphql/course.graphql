@@ -2,7 +2,7 @@
 type Course {
     id: ID!
     title: String!
-    courseCode: String!
+    courseCode: String
     creditHours: Int
     books: [Book!] @belongsToMany
     created_at: DateTime!

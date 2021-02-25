@@ -52,7 +52,7 @@ input SelectOptionOperations {
 
 # Query
 extend type Query {
-    selectOption(id: Int! @eq): SelectOption @find
+    selectOption(id: ID! @eq): SelectOption @find
     selectOptions: [SelectOption!] @all
 }
 

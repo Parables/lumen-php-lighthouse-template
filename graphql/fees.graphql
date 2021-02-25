@@ -1,15 +1,18 @@
 type Fee {
     id: ID!
-    programme: Programme @belongsTo
+    programme: Programme! @belongsTo
     level: Int!
     amountPayable: Float!
     description: String
+    # TODO: Implement this
+    # paymentCycle: PaymentCycle
+    # paymentMethod: PaymentMethod
     created_at: DateTime!
     updated_at: DateTime!
 }
 
 input FeeCreateInput {
-    programme: ProgrammeOperation
+    programme: ProgrammeOperation!
     level: Int!
     amountPayable: Float!
     description: String @trim

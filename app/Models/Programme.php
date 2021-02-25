@@ -17,7 +17,6 @@ class Programme extends Model
 
     protected $attribute = [
         'programmeCode' => "",
-        'startLevel' => 100,
     ];
 
 

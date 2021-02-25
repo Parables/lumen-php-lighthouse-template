@@ -71,7 +71,7 @@ input StudentOperations {
 
 # Query
 extend type Query {
-    student(id: Int! @eq): Student @find
+    student(id: ID! @eq): Student @find
     students: [Student!] @all
 }
 

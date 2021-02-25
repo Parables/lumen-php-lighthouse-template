@@ -1,11 +1,11 @@
 type Programme {
     id: ID!
     title: String!
-    programmeCode: String!
+    programmeCode: String
     startLevel: Int!
     endLevel: Int!
-    fees(level: Int @eq): [Fee] @hasOne
-    programmeOutline: [ProgrammeOutline!]! @hasMany
+    fees(level: Int @eq): [Fee!] @hasOne
+    programmeOutline(level: Int @eq, semester: Int @eq): [ProgrammeOutline!] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -44,18 +44,18 @@ input ProgrammeOperation {
 # List Nested Mutations
 input ProgrammeOperations {
     create: [ProgrammeCreateInput!]
-    connect: [ID]
+    connect: [ID!]
     update: [ProgrammeUpdateInput!]
     upsert: [ProgrammeCreateInput!]
-    sync: [ID]
-    syncWithoutDetaching: [ID]
-    delete: [ID]
-    disconnect: [ID]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
 }
 
 # Query
 extend type Query {
-    Programme(id: Int! @eq): Programme @find
+    Programme(id: ID! @eq): Programme @find
     Programmes: [Programme!] @all
 }
 

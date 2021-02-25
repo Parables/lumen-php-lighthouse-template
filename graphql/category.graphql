@@ -13,7 +13,7 @@ input CategoryInput {
 }
 
 extend type Query {
-    category(id: Int! @eq): Category @find
+    category(id: ID! @eq): Category @find
     categories: [Category!] @all
 }
 

@@ -42,7 +42,7 @@ input ContactOperation {
 
 # Query
 extend type Query {
-    contact(id: Int! @eq): Contact @find
+    contact(id: ID! @eq): Contact @find
     contacts: [Contact!] @all
 }
 

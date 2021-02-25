@@ -18,7 +18,7 @@ input ProgrammeOutlineCreateInput {
 }
 
 input ProgrammeOutlineUpdateInput {
-    id: ID
+    id: ID!
     programme: ProgrammeOperation
     level: Int
     semester: Int
@@ -41,19 +41,19 @@ input ProgrammeOutlineOperation {
 # List Nested Mutations
 input ProgrammeOutlineOperations {
     create: [ProgrammeOutlineCreateInput!]
-    connect: ID
+    connect: [ID!]
     update: [ProgrammeOutlineUpdateInput!]
     upsert: [ProgrammeOutlineCreateInput!]
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
 }
 
 # Query
 extend type Query {
-    ProgrammeOutline(id: Int! @eq): ProgrammeOutline @find
-    ProgrammeOutlines: [ProgrammeOutline!] @all
+    ProgrammeOutline(id: ID! @eq): ProgrammeOutline @find
+    ProgrammeOutlines(programme: ID @eq): [ProgrammeOutline!] @all
 }
 
 # Mutation

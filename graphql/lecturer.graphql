@@ -47,7 +47,7 @@ input LecturerOperations {
 
 # Query
 extend type Query {
-    lecturer(id: Int! @eq): Lecturer @find
+    lecturer(id: ID! @eq): Lecturer @find
     lecturers: [Lecturer!] @all
 }
 

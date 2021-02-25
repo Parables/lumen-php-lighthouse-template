@@ -96,7 +96,7 @@ input BookRecordUserOperations {
 
 # Query
 extend type Query {
-    bookRecord(id: Int! @eq): BookRecord @find
+    bookRecord(id: ID! @eq): BookRecord @find
     bookRecords: [BookRecord!] @all
 }
 
