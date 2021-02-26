@@ -34,10 +34,7 @@ class AddForeignKeys extends Migration
         });
 
         Schema::table('payment_records', function (Blueprint $table) {
-            $table->foreignId('paymentMethod')->nullable(false)->after('amountPaid')->constrained('select_options');
-            $table->foreignId('bank')->nullable(false)->after('paymentMethod')->constrained('select_options');
-            $table->foreignId('bankBranch')->nullable(false)->after('bank')->constrained('select_options');
-            $table->foreignId('paidBy')->nullable(false)->after('bankBranch')->constrained('students');
+             $table->foreignId('paidBy')->nullable(false)->constrained('students');
         });
     }
 

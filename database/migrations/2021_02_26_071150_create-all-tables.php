@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSelectOptionsTable extends Migration
+class CreateAllTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateSelectOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('select_options', function (Blueprint $table) {
+        // Create table for books
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('for')->nullable(false);
-            $table->string('name');
-            $table->string('label');
-            $table->string('value')->nullable(false);
+            $table->string('cover');
+            $table->string('title')->unique();
+            $table->char('bookCode', 10);
+            $table->string('author');
+            $table->bigInteger('inStock');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
@@ -31,6 +33,11 @@ class CreateSelectOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('select_options');
+        // Drop all constraints first
+
+        // Drop all tables
+        Schema::dropIfExists('books');
+
+
     }
 }

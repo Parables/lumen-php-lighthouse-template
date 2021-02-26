@@ -6,8 +6,8 @@ type Book {
     bookCode: String!
     author: String
     inStock: Int!
-    courses: [Course!] @belongsToMany
-    bookRecords: [BookRecord!] @hasMany
+    # courses: [Course!] @belongsToMany
+    # bookRecords: [BookRecord!] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -28,8 +28,8 @@ input BookCreateInput {
     bookCode: String @trim
     author: String @trim
     inStock: Int
-    courses: NestedCoursesCreateInput
-    bookRecords: NestedBookRecordsCreateInput
+    # courses: NestedCoursesCreateInput
+    # bookRecords: NestedBookRecordsCreateInput
 }
 
 # Update Input Type #
@@ -40,8 +40,8 @@ input BookUpdateInput {
     bookCode: String @trim
     author: String @trim
     inStock: Int
-    courses: NestedCoursesUpdateInput
-    bookRecords: NestedBookRecordsUpdateInput
+    # courses: NestedCoursesUpdateInput
+    # bookRecords: NestedBookRecordsUpdateInput
 }
 
 # Upsert Input Type #
@@ -52,8 +52,8 @@ input BookUpsertInput {
     bookCode: String @trim
     author: String @trim
     inStock: Int
-    courses: NestedCoursesUpsertInput
-    bookRecords: NestedBookRecordsUpsertInput
+    # courses: NestedCoursesUpsertInput
+    # bookRecords: NestedBookRecordsUpsertInput
 }
 
 # Nested Single  Mutations

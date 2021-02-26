@@ -20,5 +20,4 @@ class Contact extends Model
         'digitalAddress' => '',
         'postalAddress' => '',
     ];
-
 }
