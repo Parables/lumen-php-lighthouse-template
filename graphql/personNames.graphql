@@ -1,0 +1,105 @@
+# Object Type
+type PersonName {
+    id: ID!
+    profile: Profile @belongsTo
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+
+# Create Input Type
+input PersonNameCreateInput {
+    profile: NestedProfileCreateInput
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+
+# Update Input Type
+input PersonNameUpdateInput {
+    id: ID!
+    profile: NestedProfileUpdateInput
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+
+# Upsert Input Type #
+input PersonNameUpsertInput {
+     id: ID!
+    profile: NestedProfileUpsertInput
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedPersonNameCreateInput {
+    create: PersonNameCreateInput
+    upsert: PersonNameUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedPersonNameUpdateInput {
+    create: PersonNameCreateInput
+    update: PersonNameUpdateInput
+    upsert: PersonNameUpsertInput
+    connect: ID
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# Nested Single Upsert Input #
+input NestedPersonNameUpsertInput {
+    create: PersonNameCreateInput
+    upsert: PersonNameUpsertInput
+    connect: ID
+    sync: ID
+}
+
+
+# Query
+extend type Query {
+    personName(id: ID! @eq): PersonName @find
+    personName: [PersonName!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createPersonName(input: PersonNameCreateInput! @spread): PersonName @create
+    updatePersonName(input: PersonNameUpdateInput! @spread): PersonName @update
+    upsertPersonName(input: PersonNameCreateInput! @spread): PersonName @upsert
+    deletePersonName(id: ID! @eq): PersonName @delete
+}

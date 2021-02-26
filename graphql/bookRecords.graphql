@@ -100,6 +100,6 @@ extend type Query {
 extend type Mutation {
     createBookRecord(input: BookRecordCreateInput! @spread): BookRecord @create
     updateBookRecord(input: BookRecordUpdateInput! @spread): BookRecord @update
-    upsertBookRecord(input: BookRecordCreateInput! @spread): BookRecord @upsert
+    upsertBookRecord(input: BookRecordUpsertInput! @spread): BookRecord @upsert
     deleteBookRecord(id: ID! @eq): BookRecord @delete
 }

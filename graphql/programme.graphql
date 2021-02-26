@@ -111,6 +111,6 @@ extend type Query {
 extend type Mutation {
     createProgramme(input: ProgrammeCreateInput! @spread): Programme @create
     updateProgramme(input: ProgrammeUpdateInput! @spread): Programme @update
-    upsertProgramme(input: ProgrammeCreateInput! @spread): Programme @upsert
+    upsertProgramme(input: ProgrammeUpsertInput! @spread): Programme @upsert
     deleteProgramme(id: ID! @eq): Programme @delete
 }

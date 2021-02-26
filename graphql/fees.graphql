@@ -1,41 +1,59 @@
 # Object Type #
 type Fee {
     id: ID!
+    name: String!
+    description: String
+    # TODO: Replace Programme and Level by Group
+    # So that fees may be billed to group of people
     programme: Programme! @belongsTo
     level: Int!
     amountPayable: Float!
-    description: String
     # TODO: Implement this
-    # paymentCycle: PaymentCycle
-    # paymentMethod: PaymentMethod
+    paymentCycle: PaymentCycle
+    paymentMethod: PaymentMethod
     created_at: DateTime!
     updated_at: DateTime!
 }
 
 # Create Input Type #
 input FeeCreateInput {
+    name: String!
+    description: String @trim
+    # TODO: Replace Programme and Level by Group
+    # So that fees may be billed to group of people
     programme: NestedProgrammeCreateInput!
     level: Int!
     amountPayable: Float!
-    description: String @trim
+    paymentCycle: PaymentCycle
+    paymentMethod: PaymentMethod
 }
 
 # Update Input Type #
 input FeeUpdateInput {
     id: ID!
+    name: String!
+    description: String @trim
+    # TODO: Replace Programme and Level by Group
+    # So that fees may be billed to group of people
     programme: NestedProgrammeUpdateInput
     level: Int
     amountPayable: Float
-    description: String @trim
+    paymentCycle: PaymentCycle
+    paymentMethod: PaymentMethod
 }
 
 # Upsert Input Type #
-input NestedFeeUpsertInput {
+input FeeUpsertInput {
     id: ID!
+    name: String!
+    description: String @trim
+    # TODO: Replace Programme and Level by Group
+    # So that fees may be billed to group of people
     programme: NestedProgrammeUpsertInput!
     level: Int!
     amountPayable: Float!
-    description: String @trim
+    paymentCycle: PaymentCycle
+    paymentMethod: PaymentMethod
 }
 
 # Nested Single  Mutations
@@ -125,6 +143,6 @@ extend type Query {
 extend type Mutation {
     createFee(input: FeeCreateInput! @spread): Fee @create
     updateFee(input: FeeUpdateInput! @spread): Fee @update
-    upsertFee(input: FeeCreateInput! @spread): Fee @upsert
+    upsertFee(input: FeeUpsertInput! @spread): Fee @upsert
     deleteFee(id: ID! @eq): Fee @delete
 }

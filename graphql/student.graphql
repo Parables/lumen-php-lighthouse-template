@@ -1,114 +1,50 @@
 # Object Type
 type Student {
     id: ID!
-    fullName: String!
-    surname: String!
-    firstname: String!
-    othernames: String
-    picture: String
-    dob: Date
-    gender: Gender
+    profile: Profile @belongsTo
     programme: Programme! @belongsTo
     currentLevel: Int!
     paymentRecords: [PaymentRecord!] @hasMany
     bookRecords: [BookRecord!] @hasMany
-    contact: Contact @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
     # add more later
     # TODO: implement these
-    # maritalStatus: MaritalStatus
-    # groups: [Category!] @belongsToMany
+    ## groups: [Category!] @belongsToMany
     # schedules: [Schedule!] @hasMany
     # yearGroup: Batch
     # friends: Students
     # collegues: Students
-
 }
 
 # Create Input Type
 input StudentCreateInput {
-      id: ID!
-    fullName: String! @trim
-    surname: String! @trim
-    firstname: String! @trim
-    othernames: String! @trim
-    picture: String @trim
-    dob: Date!
-    gender: Gender!
-    programme: Programme! @belongsTo
+    profile: NestedProfileCreateInput!
+    programme: NestedProgrammeCreateInput!
     currentLevel: Int!
-    paymentRecords: [PaymentRecord!]! @hasMany
-    bookRecords: [BookRecord!]! @hasMany
-    contact: Contact @belongsTo
-    created_at: DateTime!
-    updated_at: DateTime!
-    # add more later
-    # TODO: implement these
-    # maritalStatus: MaritalStatus
-    # groups: [Category!] @belongsToMany
-    # schedules: [Schedule!] @hasMany
-    # yearGroup: Batch
-    # friends: Students
-    # collegues: Students
-
+    paymentRecords: NestedPaymentRecordsCreateInput
+    bookRecords: NestedBookRecordsCreateInput
 }
 
 # Update Input Type
 input StudentUpdateInput {
-   id: ID!
-    fullName: String! @trim
-    surname: String! @trim
-    firstname: String! @trim
-    othernames: String! @trim
-    picture: String @trim
-    dob: Date!
-    gender: Gender!
-    programme: Programme! @belongsTo
-    currentLevel: Int!
-    paymentRecords: [PaymentRecord!]! @hasMany
-    bookRecords: [BookRecord!]! @hasMany
-    contact: Contact @belongsTo
-    created_at: DateTime!
-    updated_at: DateTime!
-    # add more later
-    # TODO: implement these
-    # maritalStatus: MaritalStatus
-    # groups: [Category!] @belongsToMany
-    # schedules: [Schedule!] @hasMany
-    # yearGroup: Batch
-    # friends: Students
-    # collegues: Students
-
+    id: ID!
+    profile: NestedProfileUpdateInput
+    programme: NestedProgrammeUpdateInput
+    currentLevel: Int
+    paymentRecords: NestedPaymentRecordsUpdateInput
+    bookRecords: NestedBookRecordsUpdateInput
 }
 
 # Upsert Input Type #
 input StudentUpsertInput {
-     id: ID!
-    fullName: String! @trim
-    surname: String! @trim
-    firstname: String! @trim
-    othernames: String! @trim
-    picture: String @trim
-    dob: Date!
-    gender: Gender!
-    programme: Programme! @belongsTo
+    id: ID!
+    profile: NestedProfileUpsertInput!
+    programme: NestedProgrammeUpsertInput!
     currentLevel: Int!
-    paymentRecords: [PaymentRecord!]! @hasMany
-    bookRecords: [BookRecord!]! @hasMany
-    contact: Contact @belongsTo
-    created_at: DateTime!
-    updated_at: DateTime!
-    # add more later
-    # TODO: implement these
-    # groups: [Category!] @belongsToMany
-    # schedules: [Schedule!] @hasMany
-    # yearGroup: Batch
-    # friends: Students
-    # collegues: Students
-
+    paymentRecords: NestedPaymentRecordUpsertInput
+    bookRecords: BookRecordUpdateInput
 }
-
 
 # Nested Single  Mutations
 # Nested Single Create Input #
@@ -167,7 +103,6 @@ input NestedStudentsUpsertInput {
     connect: [ID!]
     sync: [ID!]
 }
-
 
 # Query
 extend type Query {

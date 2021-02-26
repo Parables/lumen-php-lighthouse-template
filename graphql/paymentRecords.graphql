@@ -32,7 +32,7 @@ input PaymentRecordUpdateInput {
     transactionID: String @trim
     bank: Bank
     amountPaid: Float
-    student: NestedStudentUpdateInput
+    paidBy: NestedStudentUpdateInput
     # recordedBy: UserOperation
 }
 
@@ -41,10 +41,10 @@ input PaymentRecordUpsertInput {
     id: ID!
     receiptImage: String @trim
     transactionDate: DateTime!
-    transactionID: String! @trim
+    transactionID:student
     bank: Bank!
     amountPaid: Float!
-    student: NestedStudentUpsertInput!
+    paidBy: NestedStudentUpsertInput!
     # recordedBy: UserOperation!
 }
 
@@ -57,28 +57,63 @@ enum Bank {
     PRUDENTIAL @enum(value: 5)
 }
 
-# Single Nested Mutations
-input PaymentRecordOperation {
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedPaymentRecordCreateInput {
     create: PaymentRecordCreateInput
+    upsert: PaymentRecordUpsertInput
     connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedPaymentRecordUpdateInput {
+    create: PaymentRecordCreateInput
     update: PaymentRecordUpdateInput
-    upsert: PaymentRecordCreateInput
+    upsert: PaymentRecordUpsertInput
+    connect: ID
     sync: ID
     syncWithoutDetaching: ID
     delete: ID
     disconnect: ID
 }
 
-# List Nested Mutations
-input PaymentRecordOperations {
-    create: [PaymentRecordCreateInput!]
+# Nested Single Upsert Input #
+input NestedPaymentRecordUpsertInput {
+    create: PaymentRecordCreateInput
+    upsert: PaymentRecordUpsertInput
     connect: ID
-    update: [PaymentRecordUpdateInput!]
-    upsert: [PaymentRecordCreateInput!]
     sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+}
+
+# List Nested Mutations
+# Nested List Create Input #
+input NestedPaymentRecordsCreateInput {
+    create: [PaymentRecordCreateInput!]
+    upsert: [PaymentRecordUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedPaymentRecordsUpdateInput {
+    create: [PaymentRecordCreateInput!]
+    update: [PaymentRecordUpdateInput!]
+    upsert: [PaymentRecordUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}
+
+# Nested List Upsert Input #
+input NestedPaymentRecordsUpsertInput {
+    create: [PaymentRecordCreateInput!]
+    upsert: [PaymentRecordUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
 }
 
 # Query
@@ -96,7 +131,7 @@ extend type Mutation {
         input: PaymentRecordUpdateInput! @spread
     ): PaymentRecord @update
     upsertPaymentRecord(
-        input: PaymentRecordCreateInput! @spread
+        input: PaymentRecordUpsertInput! @spread
     ): PaymentRecord @upsert
     deletePaymentRecord(id: ID! @eq): PaymentRecord @delete
 }

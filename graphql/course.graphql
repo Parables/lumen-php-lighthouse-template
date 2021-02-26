@@ -6,6 +6,7 @@ type Course {
     creditHours: Int
     books: [Book!] @belongsToMany
     # TODO: Implement Timetable
+    # lecturers: [Lecturer]
     # schedule(level: Int): [Schedule!] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
@@ -17,6 +18,7 @@ input CourseCreateInput {
     courseCode: String @trim
     creditHours: Int
     books: NestedBooksCreateInput
+    # lecturers: [Lecturer]
     # schedules: NestedSchedulesCreateInput
 }
 
@@ -27,6 +29,7 @@ input CourseUpdateInput {
     courseCode: String @trim
     creditHours: Int
     books: NestedBooksUpdateInput
+    # lecturers: [Lecturer]
     # schedules: NestedSchedulesUpdateInput
 }
 
@@ -37,6 +40,7 @@ input CourseUpsertInput {
     courseCode: String @trim
     creditHours: Int
     books: NestedBooksUpsertInput
+    # lecturers: [Lecturer]
     # schedules: NestedSchedulesUpsertInput
 }
 
@@ -108,6 +112,6 @@ extend type Query {
 extend type Mutation {
     createCourse(input: CourseCreateInput! @spread): Course @create
     updateCourse(input: CourseUpdateInput! @spread): Course @update
-    upsertCourse(input: CourseCreateInput! @spread): Course @upsert
+    upsertCourse(input: CourseUpsertInput! @spread): Course @upsert
     deleteCourse(id: ID! @eq): Course @delete
 }

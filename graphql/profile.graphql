@@ -1,0 +1,183 @@
+# Object Type
+type Profile {
+    id: ID!
+    # user: User @belongsTo
+    name: PersonName!
+    picture: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contact: Contact @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type PersonName {
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+# Create Input Type
+input PersonNameCreateInput {
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+
+# Update Input Type
+input PersonNameUpdateInput {
+    id: ID!
+    title: String
+    fullName: String
+    lastName: String
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+
+# Upsert Input Type #
+input PersonNameUpsertInput {
+     id: ID!
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String
+    otherNames: String
+    maidenName: String
+    nickname: String
+    prefix: String
+    suffix: String
+}
+
+enum MaritalStatus {
+    MARRIED @enum(value: "Married")
+    DIVORCED @enum(value: "Divored")
+    SEPARATED @enum(value: "Separated")
+    SINGLE @enum(value: "Single")
+    ENGAGED @enum(value: "Engaged")
+    WIDOW/WIDOWER @enum(value: "Widow/Widower")
+    DATING @enum(value: "Dating")
+}
+
+
+# Create Input Type
+input ProfileCreateInput {
+    name: NestedPersonNameCreateInput!
+    picture: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contact: NestedContactCreateInput
+    # user: NestedUserCreateInput
+}
+
+# Update Input Type
+input ProfileUpdateInput {
+    id: ID!
+    name: NestedPersonNameUpdateInput
+    picture: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contact: NestedContactUpdateInput
+    # user: NestedUserUpdateInput
+}
+
+# Upsert Input Type #
+input ProfileUpsertInput {
+    id: ID!
+     name: NestedPersonNameUpsertInput!
+    picture: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contact: NestedContactUpsertInput
+    # user: NestedUserUpsertInput
+}
+
+# Nested Single  Mutations
+# Nested Single Create Input #
+input NestedProfileCreateInput {
+    create: ProfileCreateInput
+    upsert: ProfileUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Nested Single Update Input #
+input NestedProfileUpdateInput {
+    create: ProfileCreateInput
+    update: ProfileUpdateInput
+    upsert: ProfileUpsertInput
+    connect: ID
+    sync: ID
+    syncWithoutDetaching: ID
+    delete: ID
+    disconnect: ID
+}
+
+# Nested Single Upsert Input #
+input NestedProfileUpsertInput {
+    create: ProfileCreateInput
+    upsert: ProfileUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# List Nested Mutations
+# Nested List Create Input #
+input NestedProfilesCreateInput {
+    create: [ProfileCreateInput!]
+    upsert: [ProfileUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Nested List Update Input #
+input NestedProfilesUpdateInput {
+    create: [ProfileCreateInput!]
+    update: [ProfileUpdateInput!]
+    upsert: [ProfileUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}
+
+# Nested List Upsert Input #
+input NestedProfilesUpsertInput {
+    create: [ProfileCreateInput!]
+    upsert: [ProfileUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Query
+extend type Query {
+    profile(id: ID! @eq): Profile @find
+    profiles: [Profile!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createProfile(input: ProfileCreateInput! @spread): Profile @create
+    updateProfile(input: ProfileUpdateInput! @spread): Profile @update
+    upsertProfile(input: ProfileUpsertInput! @spread): Profile @upsert
+    deleteProfile(id: ID! @eq): Profile @delete
+}
