@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\GenerateCUID;
 
 class ProgrammeOutline extends Model
 {
+    use GenerateCUID;
     protected $fillable = [
         'level',
         'fees',

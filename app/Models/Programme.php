@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\GenerateCUID;
 
 class Programme extends Model
 {
+    use GenerateCUID;
     protected $fillable = [
         'title',
         'programmeCode',
