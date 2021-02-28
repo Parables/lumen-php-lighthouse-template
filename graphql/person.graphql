@@ -1,13 +1,14 @@
 # Object Type
 type Person {
-   # TODO: Create Account Type to replace user
+    id: ID!
+    # TODO: Create Account Type to replace user
     # A person can have more than one account
     # accounts: [Account] @hasMany
     picture: String
     title: String
     fullName: String!
-    lastName: String!
-    firstName: String!
+    lastName: String
+    firstName: String
     middleName: String
     maidenName: String
     otherNames: String

@@ -13,27 +13,32 @@ class CreateAllTables extends Migration
      */
     public function up()
     {
-        Schema::create('persons', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
+            // $table->id();
             $table->uuid('id')->primary();
-            $table->string('picture');
-            $table->string('title');
+            $table->string('picture')->nullable();
+            $table->string('title')->nullable();
             $table->string('fullName');
-            $table->string('lastName');
-            $table->string('firstName');
-            $table->string('middleName');
-            $table->string('maidenName');
-            $table->string('otherNames');
-            $table->string('nickname');
-            $table->string('prefix');
-            $table->string('suffix');
-            $table->string('dob');
-            $table->char('gender', 6);
-            $table->char('maritalStatus', 12);
+            $table->string('lastName')->nullable();
+            $table->string('firstName')->nullable();
+            $table->string('middleName')->nullable();
+            $table->string('maidenName')->nullable();
+            $table->string('otherNames')->nullable();
+            $table->string('nickname')->nullable();
+            $table->string('prefix')->nullable();
+            $table->string('suffix')->nullable();
+            $table->string('dob')->nullable();
+            $table->char('gender', 6)->nullable();
+            $table->char('maritalStatus', 12)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
 
         Schema::create('contacts', function (Blueprint $table) {
+            /*
+            $table->id();
+            $table->foreignId('person_id')->constrained();
+             */
             $table->uuid('id')->primary();
             $table->foreignUuid('person_id')->constrained();
             $table->char('contact_type', 20);
@@ -43,6 +48,7 @@ class CreateAllTables extends Migration
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
         });
+
         /*
       // Create table for books
         Schema::create('books', function (Blueprint $table) {
@@ -185,7 +191,7 @@ class CreateAllTables extends Migration
         // Disable all constraints first
         Schema::disableForeignKeyConstraints();
         // Drop all tables
-        Schema::dropIfExists('persons');
+        Schema::dropIfExists('people');
         Schema::dropIfExists('contacts');
         /*    Schema::dropIfExists('book_records');
         Schema::dropIfExists('book_course');
