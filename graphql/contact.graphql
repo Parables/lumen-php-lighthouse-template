@@ -1,9 +1,9 @@
 type Contact {
     id: ID!
     person: Person @belongsTo
-    contact_type: ContactType
-    contact_value: String
-    contact_tags: ContactTag
+    contact_type: ContactType!
+    contact_value: String!
+    contact_tags: ContactTag!
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -34,17 +34,17 @@ enum ContactTag {
 
 # Create Input Type
 input ContactCreateInput {
-    person: PersonCreateOperation
+    person: PersonCreateOperation!
     contact_type: ContactType!
     contact_value: String! @trim
-    contact_tags: ContactTag @trim
+    contact_tags: ContactTag! @trim
 }
 
 # Input for person @hasMany contacts
 input ContactsCreateInput {
     contact_type: ContactType!
     contact_value: String! @trim
-    contact_tags: ContactTag @trim
+    contact_tags: ContactTag! @trim
 }
 
 

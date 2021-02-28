@@ -13,7 +13,38 @@ class CreateAllTables extends Migration
      */
     public function up()
     {
-        // Create table for books
+        Schema::create('persons', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('picture');
+            $table->string('title');
+            $table->string('fullName');
+            $table->string('lastName');
+            $table->string('firstName');
+            $table->string('middleName');
+            $table->string('maidenName');
+            $table->string('otherNames');
+            $table->string('nickname');
+            $table->string('prefix');
+            $table->string('suffix');
+            $table->string('dob');
+            $table->char('gender', 6);
+            $table->char('maritalStatus', 12);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+        });
+
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('person_id')->constrained();
+            $table->char('contact_type', 20);
+            $table->string('contact_value')->unique();
+            $table->char('contact_tags', 20);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
+        });
+        /*
+      // Create table for books
         Schema::create('books', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('cover');
@@ -25,7 +56,7 @@ class CreateAllTables extends Migration
             $table->timestamp('updated_at')->useCurrent();
         });
 
-        // Create table for courses
+         // Create table for courses
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title')->unique();
@@ -141,7 +172,7 @@ class CreateAllTables extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
-
+ */
     }
 
     /**
@@ -154,7 +185,9 @@ class CreateAllTables extends Migration
         // Disable all constraints first
         Schema::disableForeignKeyConstraints();
         // Drop all tables
-        Schema::dropIfExists('book_records');
+        Schema::dropIfExists('persons');
+        Schema::dropIfExists('contacts');
+        /*    Schema::dropIfExists('book_records');
         Schema::dropIfExists('book_course');
         Schema::dropIfExists('books');
         Schema::dropIfExists('programme_outlines');
@@ -164,9 +197,8 @@ class CreateAllTables extends Migration
         Schema::dropIfExists('programmes');
         Schema::dropIfExists('contacts');
         Schema::dropIfExists('students');
-        Schema::dropIfExists('lecturers');
+        Schema::dropIfExists('lecturers'); */
         // Enable foreignKey constraints
         Schema::enableForeignKeyConstraints();
-
     }
 }

@@ -9,17 +9,18 @@ use App\Traits\GenerateCUID;
 class Contact extends Model
 {
     use GenerateCUID;
+
     protected $fillable = [
-        'phone',
-        'email',
-        'location',
-        'digitalAddress',
-        'postalAddress',
+        'contact_type',
+        'contact_value',
+        'contact_tags'
     ];
 
-    protected $attributes = [
-        'location' => '',
-        'digitalAddress' => '',
-        'postalAddress' => '',
-    ];
+    protected $attributes = [];
+    protected $hidden = [];
+
+    public function person(): BelongsTo
+    {
+        return $this->belongsTo(Person::class);
+    }
 }
