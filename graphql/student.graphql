@@ -1,7 +1,7 @@
 # Object Type
 type Student {
     id: ID!
-    profile: Profile @belongsTo
+    person: Person @belongsTo
     programme: Programme! @belongsTo
     currentLevel: Int!
     paymentRecords: [PaymentRecord!] @hasMany
@@ -19,7 +19,7 @@ type Student {
 
 # Create Input Type
 input StudentCreateInput {
-    profile: NestedProfileCreateInput!
+    person: NestedPersonCreateInput!
     programme: NestedProgrammeCreateInput!
     currentLevel: Int!
     paymentRecords: NestedPaymentRecordsCreateInput
@@ -29,7 +29,7 @@ input StudentCreateInput {
 # Update Input Type
 input StudentUpdateInput {
     id: ID!
-    profile: NestedProfileUpdateInput
+    person: NestedPersonUpdateInput
     programme: NestedProgrammeUpdateInput
     currentLevel: Int
     paymentRecords: NestedPaymentRecordsUpdateInput
@@ -39,7 +39,7 @@ input StudentUpdateInput {
 # Upsert Input Type #
 input StudentUpsertInput {
     id: ID!
-    profile: NestedProfileUpsertInput!
+    person: NestedPersonUpsertInput!
     programme: NestedProgrammeUpsertInput!
     currentLevel: Int!
     paymentRecords: NestedPaymentRecordUpsertInput

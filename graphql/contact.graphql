@@ -1,44 +1,63 @@
 type Contact {
     id: ID!
-    phone: String!
-    email: String!
-    location: String
-    digitalAddress: String
-    postalAddress: String
+    person: Person @belongsTo
+    contact_type: ContactType
+    contact_value: String
+    contact_tags: ContactTag
     created_at: DateTime!
     updated_at: DateTime!
 }
 
+enum ContactType {
+    PHONE @enum(value: "phone")
+    EMAIL @enum(value: "email")
+    ADDRESS @enum(value: "address")
+    SOCIAL_MEDIA  @enum(value: "social_media")
+    WEBSITE @enum(value: "website")
+}
+
+enum ContactTag {
+    PHONE @enum(value: "phone")
+    EMAIL @enum(value: "email")
+    POSTAL_ADDRESS @enum(value: "postalAddress")
+    DIGITAL_ADDRESS @enum(value: "digitalAddress")
+    ADDRESSS @enum(value: "Address")
+    SM_TWITTER @enum(value: "twitter")
+    SM_FACEBOOK @enum(value: "facebook")
+    SM_INSTAGRAM @enum(value: "instagram")
+    SM_YOUTUBE @enum(value: "youtube")
+    SM_LINKEDIN @enum(value: "linkedin")
+    SM_GITHUB @enum(value: "github")
+    WEBSITE @enum(value: "website")
+}
+
+
 # Create Input Type
 input ContactCreateInput {
-    phone: String! @trim
-    email: String! @trim
-    location: String @trim
-    digitalAddress: String @trim
-    postalAddress: String @trim
+    person: PersonCreateOperation
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: ContactTag @trim
 }
 
-# Update Input Type
-input ContactUpdateInput {
-    id: ID!
-    phone: String @trim
-    email: String @trim # @rules(apply: ["email"], attribute: "email address")
-    location: String @trim
-    digitalAddress: String @trim
-    postalAddress: String @trim
+# Input for person @hasMany contacts
+input ContactsCreateInput {
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: ContactTag @trim
 }
 
-# Single Nested Mutations
-input ContactOperation {
-    create: ContactCreateInput
-    connect: ID
-    update: ContactUpdateInput
-    upsert: ContactCreateInput
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+
+# List Create Input #
+
+# Person  List Create Input #
+input ContactsCreateOperation {
+    create: [ContactsCreateInput!]
+    # upsert: [PersonContactsUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
 }
+
 
 # Query
 extend type Query {
@@ -49,7 +68,7 @@ extend type Query {
 # Mutation
 extend type Mutation {
     createContact(input: ContactCreateInput! @spread): Contact @create
-    updateContact(input: ContactUpdateInput! @spread): Contact @update
-    upsertContact(input: ContactCreateInput! @spread): Contact @upsert
-    deleteContact(id: ID! @eq): Contact @delete
+    # updateContact(input: ContactUpdateInput! @spread): Contact @update
+    # upsertContact(input: ContactCreateInput! @spread): Contact @upsert
+    # deleteContact(id: ID! @eq): Contact @delete
 }

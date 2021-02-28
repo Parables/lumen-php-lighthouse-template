@@ -1,0 +1,83 @@
+# Object Type
+type Person {
+   # TODO: Create Account Type to replace user
+    # A person can have more than one account
+    # accounts: [Account] @hasMany
+    picture: String
+    title: String
+    fullName: String!
+    lastName: String!
+    firstName: String!
+    middleName: String
+    maidenName: String
+    otherNames: String
+    nickname: String
+    prefix: String
+    suffix: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contacts: [Contact] @hasMany # TODO: Implement this
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum Gender {
+    FEMALE @enum(value: "female")
+    MALE @enum(value: "male")
+}
+
+enum MaritalStatus {
+    MARRIED @enum(value: "Married")
+    DIVORCED @enum(value: "Divored")
+    SEPARATED @enum(value: "Separated")
+    SINGLE @enum(value: "Single")
+    ENGAGED @enum(value: "Engaged")
+    WIDOW @enum(value: "Widow")
+    WIDOWER @enum(value: "Widower")
+    DATING @enum(value: "Dating")
+}
+
+
+# Create Input Type
+input PersonCreateInput {
+    # accounts: [Account] @hasMany
+    picture: String
+    title: String
+    fullName: String!
+    lastName: String
+    firstName: String
+    middleName: String
+    maidenName: String
+    otherNames: String
+    nickname: String
+    prefix: String
+    suffix: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contacts: ContactsCreateOperation
+}
+
+
+#  Single Create Input #
+input PersonCreateOperation {
+    create: PersonCreateInput
+    # upsert: PersonUpsertInput
+    connect: ID
+    sync: ID
+}
+
+# Query
+extend type Query {
+    person(id: ID! @eq): Person @find
+    people: [Person!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createPerson(input: PersonCreateInput! @spread): Person @create
+    # updatePerson(input: PersonUpdateInput! @spread): Person @update
+    # upsertPerson(input: PersonUpsertInput! @spread): Person @upsert
+    # deletePerson(id: ID! @eq): Person @delete
+}

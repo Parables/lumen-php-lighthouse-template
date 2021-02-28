@@ -1,0 +1,182 @@
+type Contact {
+    id: ID!
+    person: Person @belongsTo
+    contact_type: ContactType
+    contact_value: String
+    contact_tags: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum ContactType {
+    PHONE @enum(value: "phone")
+    EMAIL @enum(value: "email")
+    ADDRESS @enum(value: "address")
+    SOCIAL_MEDIA  @enum(value: "social_media")
+    WEBSITE @enum(value: "website")
+}
+
+enum ContactTag {
+    PHONE @enum(value: "phone")
+    EMAIL @enum(value: "email")
+    POSTAL_ADDRESS @enum(value: "postalAddress")
+    DIGITAL_ADDRESS @enum(value: "digitalAddress")
+    ADDRESSS @enum(value: "Address")
+    SM_TWITTER @enum(value: "twitter")
+    SM_FACEBOOK @enum(value: "facebook")
+    SM_INSTAGRAM @enum(value: "instagram")
+    SM_YOUTUBE @enum(value: "youtube")
+    SM_LINKEDIN @enum(value: "linkedin")
+    SM_GITHUB @enum(value: "github")
+    WEBSITE @enum(value: "website")
+}
+
+type ContactInfo {
+    phones: [Phone]
+    emails: [Email]
+    address: [Address]
+    social_media: [SocialMedia]
+    websites: [Website]
+}
+
+type Phone {
+    phoneNo: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime!
+}
+
+type Email {
+    emailAdresss: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime!
+}
+
+type Address {
+    location: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime!
+}
+
+type SocialMedia {
+    handle: String
+    platform: Platform
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime!
+}
+
+enum Platform {
+    twitter @enum()
+    facebook @enum()
+    instagram  @enum()
+    youtube @enum()
+    linkedin @enum()
+    github @enum()
+}
+
+type Website {
+    url: String!
+    created_at: DateTime!
+    updated_at: DateTContactPersonCreateInputime!
+    deleted_at: DateTime!
+}
+
+
+# Create Input Type
+input ContactCreateInput {
+    person: ContactPersonCreateOperation
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: String @trim
+}
+
+input PersonContactsCreateInput {
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: String @trim
+}
+
+# Update Input Type
+input ContactUpdateInput {
+    id: ID!
+    person: ContactPersonUpdateOperation
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: String @trim
+}
+
+input PersonContactsUpdateInput {
+    id: ID!
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: String @trim
+}
+
+# Upsert Input Type
+input ContactUpsertInput {
+    id: ID!
+    person: ContactPersonUpsertOperation
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: String @trim
+}
+
+input PersonContactsUpsertInput {
+    id: ID!
+    contact_type: ContactType!
+    contact_value: String! @trim
+    contact_tags: String @trim
+}
+
+# List Create Input #
+
+# Person  List Create Input #
+input ContactPersonCreateOperation {
+    create: [PersonContactsCreateInput!]
+    upsert: [PersonContactsUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+input PersonContactsCreateOperation {
+    create: [PersonContactsCreateInput!]
+    upsert: [PersonContactsUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+input PersonContactsUpdateOperation {
+    create: [PersonContactsCreateInput!]
+    update: [PersonContactsUpdateInput!]
+    upsert: [PersonContactsUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    delete: [ID!]
+    disconnect: [ID!]
+}
+
+#  List Upsert Input #
+input PersonContactsUpsertInput {
+    create: [PersonContactsCreateInput!]
+    upsert: [PersonContactsUpsertInput!]
+    connect: [ID!]
+    sync: [ID!]
+}
+
+# Query
+extend type Query {
+    contact(id: ID! @eq): Contact @find
+    contacts: [Contact!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createContact(input: ContactCreateInput! @spread): Contact @create
+    updateContact(input: ContactUpdateInput! @spread): Contact @update
+    upsertContact(input: ContactCreateInput! @spread): Contact @upsert
+    deleteContact(id: ID! @eq): Contact @delete
+}

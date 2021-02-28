@@ -1,3 +1,4 @@
+# TODO: Implement this with Categories/Groups
 # Object Type
 type SelectOption {
     id: ID!

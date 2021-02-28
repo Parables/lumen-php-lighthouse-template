@@ -1,4 +1,5 @@
-type User {
+# TODO: Implement Account with Nu.ID Authentication
+type Account {
     id: ID!
     username: String!
     password: String!
@@ -30,15 +31,15 @@ enum Role {
 }
 
 extend type Query {
-    me: User @auth
-    login(input: AuthInput! @spread): User @find
-    logout: User @guard
-    users(id: ID): [User!]! @all
+    me: Account @auth
+    login(input: AuthInput! @spread): Account @find
+    logout: Account @guard
+    users(id: ID): [Account!]! @all
 }
 
 extend type Query {
-    createUser(input: UserInput! @spread): User @create
-    updateUser(input: UserInput! @spread): User @update
-    upsertUser(input: UserInput! @spread): User @upsert
-    deleteUser(id: ID! @eq): User @delete
+    createUser(input: UserInput! @spread): Account @create
+    updateUser(input: UserInput! @spread): Account @update
+    upsertUser(input: UserInput! @spread): Account @upsert
+    deleteUser(id: ID! @eq): Account @delete
 }
