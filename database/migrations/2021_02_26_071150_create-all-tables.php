@@ -14,7 +14,6 @@ class CreateAllTables extends Migration
     public function up()
     {
         Schema::create('people', function (Blueprint $table) {
-            // $table->id();
             $table->uuid('id')->primary();
             $table->string('picture')->nullable();
             $table->string('title')->nullable();
@@ -35,10 +34,6 @@ class CreateAllTables extends Migration
         });
 
         Schema::create('contacts', function (Blueprint $table) {
-            /*
-            $table->id();
-            $table->foreignId('person_id')->constrained();
-             */
             $table->uuid('id')->primary();
             $table->foreignUuid('person_id')->constrained();
             $table->char('contact_type', 20);

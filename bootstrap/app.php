@@ -101,7 +101,8 @@ $app->register(\Nuwave\Lighthouse\LighthouseServiceProvider::class);
 $app->register(MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class);
 // Generator library
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
-
+// Clockwork Client-side logging
+$app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

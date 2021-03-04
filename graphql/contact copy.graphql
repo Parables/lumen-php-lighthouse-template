@@ -8,15 +8,9 @@ type Contact {
     updated_at: DateTime!
 }
 
-enum ContactType {
-    PHONE @enum(value: "phone")
-    EMAIL @enum(value: "email")
-    ADDRESS @enum(value: "address")
-    SOCIAL_MEDIA  @enum(value: "social_media")
-    WEBSITE @enum(value: "website")
-}
 
-enum ContactTag {
+
+enum ContactType {
     PHONE @enum(value: "phone")
     EMAIL @enum(value: "email")
     POSTAL_ADDRESS @enum(value: "postalAddress")
@@ -29,14 +23,15 @@ enum ContactTag {
     SM_LINKEDIN @enum(value: "linkedin")
     SM_GITHUB @enum(value: "github")
     WEBSITE @enum(value: "website")
+    OTHERS @enum(value: "others")
 }
 
 type ContactInfo {
-    phones: [Phone]
-    emails: [Email]
-    address: [Address]
-    social_media: [SocialMedia]
-    websites: [Website]
+    phones: [String] # [Phone]
+    emails: [String] # [Email]
+    address: String # [Address]
+    social_media: String # [SocialMedia]
+    websites: String # [Website]
 }
 
 type Phone {

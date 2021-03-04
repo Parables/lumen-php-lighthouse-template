@@ -31,9 +31,16 @@ enum ContactTag {
     WEBSITE @enum(value: "website")
 }
 
+type ContactInfo {
+    phones: [String] # [Phone]
+    emails: [String] # [Email]
+    address: String # [Address]
+    social_media: String # [SocialMedia]
+    websites: String # [Website]
+}
 
 # Create Input Type
-input ContactCreateInput {
+input CreateContactInput {
     person: PersonCreateOperation!
     contact_type: ContactType!
     contact_value: String! @trim
@@ -41,7 +48,7 @@ input ContactCreateInput {
 }
 
 # Input for person @hasMany contacts
-input ContactsCreateInput {
+input CreateContactsInput {
     contact_type: ContactType!
     contact_value: String! @trim
     contact_tags: ContactTag! @trim
@@ -52,7 +59,7 @@ input ContactsCreateInput {
 
 # Person  List Create Input #
 input ContactsCreateOperation {
-    create: [ContactsCreateInput!]
+    create: [CreateContactsInput!]
     # upsert: [PersonContactsUpsertInput!]
     connect: [ID!]
     sync: [ID!]
@@ -63,12 +70,13 @@ input ContactsCreateOperation {
 extend type Query {
     contact(id: ID! @eq): Contact @find
     contacts: [Contact!] @all
+    contactInfo(personID:ID @eq): ContactInfo @field(resolver: "ContactInfo" )
 }
 
 # Mutation
 extend type Mutation {
-    createContact(input: ContactCreateInput! @spread): Contact @create
+    createContact(input: CreateContactInput! @spread): Contact @create
     # updateContact(input: ContactUpdateInput! @spread): Contact @update
-    # upsertContact(input: ContactCreateInput! @spread): Contact @upsert
+    # upsertContact(input: CreateContactInput! @spread): Contact @upsert
     # deleteContact(id: ID! @eq): Contact @delete
 }
