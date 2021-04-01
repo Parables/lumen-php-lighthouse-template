@@ -3,22 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\GenerateCUID;
 
 class SelectOption extends Model
 {
-    use GenerateCUID;
+    use SoftDeletes, GenerateCUID;
     public $fillable = [
-        'for',
+        'field',
+        'parentID',
         'name',
         'label',
         'value'
     ];
 
-
-    protected $attributes = [
-        'name' => '',
-        'label' => '',
-    ];
+    protected $attributes = [];
 }

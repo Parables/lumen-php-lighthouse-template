@@ -12,7 +12,7 @@ type Student {
     paymentRecords: [PaymentRecord!] @hasMany
     enrollments: [Enrollment!] @hasMany
     remarks: String
-    admissionStatus: AdmissionStatus
+    admissionStatus: SelectOption @belongsTo
     admitted_on: DateTime!
     completed_on: DateTime
     created_at: DateTime!
@@ -26,30 +26,20 @@ type Student {
     # collegues: Students
 }
 
-enum AdmissionStatus {
-    ADMITTED @enum
-    GRADUATED @enum
-    WITHDRAWN @enum
-    TRANSFERRED @enum
-    SUSPENDED @enum
-    OTHER @enum
-}
-
-
 # Create Input Type
 input CreateStudentInput {
-    applicationID: String!
-    examsNumber: String!
+    applicationID: String! @trim
+    examsNumber: String!  @trim
     profile: ProfileOperation!
-    academicYear: String!
+    academicYear: String!  @trim
     programme: ProgrammeOperation!
     startLevel: Int!
     currentLevel: Int!
     endLevel: Int!
     paymentRecords: PaymentRecordsOperation
     enrollments: StudentEnrollmentsOperation
-    remarks: String
-    admissionStatus: AdmissionStatus
+    remarks: String  @trim
+    admissionStatus: SelectOptionOperation
     admitted_on: DateTime!
     completed_on: DateTime
 }
@@ -57,18 +47,18 @@ input CreateStudentInput {
 # Update Input Type
 input UpdateStudentInput {
     id: ID!
-    applicationID: String
-    examsNumber: String
+    applicationID: String @trim
+    examsNumber: String @trim
     profile: ProfileOperation
-    academicYear: String
+    academicYear: String @trim
     programme: ProgrammeOperation
     startLevel: Int
     currentLevel: Int
     endLevel: Int
     paymentRecords: PaymentRecordsOperation
     enrollments: StudentEnrollmentsOperation
-    remarks: String
-    admissionStatus: AdmissionStatus
+    remarks: String @trim
+    admissionStatus: SelectOptionOperation
     admitted_on: DateTime
     completed_on: DateTime
 }
@@ -77,18 +67,18 @@ input UpdateStudentInput {
 # Upsert Input Type #
 input UpsertStudentInput {
     id: ID!
-    applicationID: String!
-    examsNumber: String!
+    applicationID: String! @trim
+    examsNumber: String! @trim
     profile: ProfileOperation!
-    academicYear: String!
+    academicYear: String! @trim
     programme: ProgrammeOperation!
     startLevel: Int!
     currentLevel: Int!
     endLevel: Int!
     paymentRecords: PaymentRecordsOperation
     enrollments: StudentEnrollmentsOperation
-    remarks: String
-    admissionStatus: AdmissionStatus
+    remarks: String @trim
+    admissionStatus: SelectOptionOperation
     admitted_on: DateTime!
     completed_on: DateTime
 }

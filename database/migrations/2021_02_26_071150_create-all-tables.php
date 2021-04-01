@@ -13,9 +13,21 @@ class CreateAllTables extends Migration
      */
     public function up()
     {
+        // Create table for selectOptions
+        Schema::create('selectOptions', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('fieldName');
+            $table->uuid('parentID')->nullable();
+            $table->string('name')->nullable();
+            $table->string('label')->nullable();
+            $table->string('value');
+
+        });
+
         // Create table for profiles
         Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignUuid('type')->constrained('selectOptions');
             $table->string('picture')->nullable();
             $table->string('title')->nullable();
             $table->string('fullName');
@@ -29,7 +41,7 @@ class CreateAllTables extends Migration
             $table->string('suffix')->nullable();
             $table->string('dob')->nullable();
             $table->char('gender', 6)->nullable();
-            $table->char('maritalStatus', 12)->nullable();
+            $table->foreignUuid('maritalStatus')->nullable()->constrained('selectOptions');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -39,8 +51,8 @@ class CreateAllTables extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('profile_id')->constrained();
-            $table->char('contact_type', 20);
-            $table->string('contact_value')->unique();
+            $table->foreignUuid('contactType')->constrained('selectOptions');
+            $table->string('contactValue')->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -86,20 +98,7 @@ class CreateAllTables extends Migration
             $table->char('programmeCode', 10)->nullable();
             $table->tinyInteger('startLevel')->unsigned()->default(100);
             $table->tinyInteger('endLevel')->unsigned()->default(100);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
-            $table->softDeletes();
-        });
-
-
-        // Create table for programme_outlines
-        Schema::create('outlines', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('programme_id')->constrained();
-            $table->tinyInteger('level')->unsigned()->default(100);
-            $table->tinyInteger('semester')->unsigned();
-            $table->foreignUuid('course_id')->constrained();
-            $table->boolean('elective')->default(false);
+            $table->jsonb('programmeOutline');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -108,8 +107,18 @@ class CreateAllTables extends Migration
         // Create table for students
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('applicationID')->unique();
+            $table->string('examsNumber')->unique();
             $table->foreignUuid('profile_id')->constrained();
-            $table->foreignUuid('enrollment_id')->constrained();
+            $table->string('academicYear');
+            $table->foreignUuid('programme_id')->constrained();
+            $table->tinyInteger('startLevel')->default(100);
+            $table->tinyInteger('currentLevel')->default(100);
+            $table->tinyInteger('endLevel')->default(100);
+            $table->string('remarks')->nullable();
+            $table->foreignUuid('admissionStatus')->constrained('selectOptions');
+            $table->dateTime('admitted_on');
+            $table->dateTime('completed_on');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -118,16 +127,12 @@ class CreateAllTables extends Migration
         // Create table for enrollments
         Schema::create('enrollments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('applicationID')->unique();
-            $table->string('examsNumber')->unique();
             $table->foreignUuid('student_id')->constrained();
-            $table->foreignUuid('programme_id')->constrained();
-            $table->string('academicYear');
-            $table->tinyInteger('startLevel')->unsigned()->default(100);
-            $table->tinyInteger('currentLevel')->unsigned()->default(100);
-            $table->tinyInteger('endLevel')->unsigned()->default(100);
-            $table->char('status', 20);
-            $table->string('description');
+            $table->foreignUuid('semester')->constrained('selectOptions');
+            $table->tinyInteger('level')->unsigned()->default(100);
+            $table->foreignUuid('course_id')->constrained();
+            $table->foreignUuid('enrollmentStatus')->constrained('selectOptions');
+            $table->string('remarks');
             $table->dateTime('enrolled_on');
             $table->dateTime('completed_on');
             $table->timestamp('created_at')->useCurrent();
@@ -137,55 +142,51 @@ class CreateAllTables extends Migration
         });
 
 
-// Create table for fees
-        // TODO: Expand this to cater for all incomes & expenses for financial department
+        // Create table for fees
         Schema::create('fees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type');
+            $table->foreignUuid('type')->constrained('selectOptions');
             $table->string('description')->nullable();
-            $table->foreignUuid('programme_id')->constrained();
-            $table->tinyInteger('level')->unsigned()->default(100);
             $table->float('amountPayable')->unsigned();
+            $table->foreignUuid('paymentCycle')->constrained('selectOptions');
+            $table->foreignUuid('paymentMethod')->constrained('selectOptions');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
         });
 
         // Create table for payment_records
-        // TODO: Expand this to cater for all payments made cornering the university
         Schema::create('payment_records', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('transactionDate')->nullable(false);
             $table->string('transactionID')->unique()->nullable(false);
             $table->float('amountPaid')->nullable(false);
-            // TODO: Payments should be linked to person not student
-            $table->foreignUuid('paidBy')->nullable(false)->constrained('students');
-            // $table->foreignUuid('recorded_by')->nullable(false)->constrained('users);
+            $table->foreignUuid('paidBy')->constrained('students');
+            $table->tinyInteger('level');
+            $table->foreignUuid('semesterType')->constrained('selectOptions');
+            // $table->foreignUuid('recorded_by')->constrained('users);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
-        /*
 
-
-
-
-
-
-
-
-                // Create table for lecturers
-        // TODO: Sync columns with GraphQL Types
-        Schema::create('lecturers', function (Blueprint $table) {
+        // Create table for transaction_records
+        Schema::create('transaction_records', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('receiptImageUrl');
+            $table->dateTime('transactionDate');
+            $table->string('transactionID')->unique()->nullable(false);
+            $table->char('transactionType', 8);
+            $table->foreignUuid('paymentMethod')->constrained('selectOptions');
+            $table->float('amountPaid');
+            $table->foreignUuid('paidBy')->constrained('profiles');
+            $table->multiLineString('description')->nullable();
+            $table->foreignUuid('tags')->constrained('selectOptions');
+            // $table->foreignUuid('recorded_by')->constrained('users);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
-
-
-
-
-
- */
     }
 
     /**
@@ -198,20 +199,21 @@ class CreateAllTables extends Migration
         // Disable all constraints first
         Schema::disableForeignKeyConstraints();
         // Drop all tables
-        Schema::dropIfExists('people');
+        Schema::dropIfExists('selectOptions');
+        Schema::dropIfExists('profiles');
         Schema::dropIfExists('contacts');
-        /*    Schema::dropIfExists('book_records');
         Schema::dropIfExists('book_course');
         Schema::dropIfExists('books');
-        Schema::dropIfExists('programme_outlines');
         Schema::dropIfExists('courses');
         Schema::dropIfExists('payment_records');
+        Schema::dropIfExists('transaction_records');
         Schema::dropIfExists('fees');
         Schema::dropIfExists('programmes');
         Schema::dropIfExists('contacts');
         Schema::dropIfExists('students');
-        Schema::dropIfExists('lecturers'); */
-        // Enable foreignKey constraints
+        Schema::dropIfExists('enrollments');
+        Schema::dropIfExists('lecturers');
+// Enable foreignKey constraints
         Schema::enableForeignKeyConstraints();
     }
 }

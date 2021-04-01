@@ -17,10 +17,10 @@ class ContactInfo
         //1. When args = null get the profile id from the root field
         //2. If both are null, return an [{fullName: ContactInfo}]
         $contacts =   DB::table("contacts")
-        ->select(['*', 'contact_value as value'])
+        ->select(['*', 'contactValue as value'])
         ->where("profile_id", "=", $args['profileID'])->get();
         $collection = collect($contacts);
-        $contactInfo = $collection->groupBy('contact_type')->all();
+        $contactInfo = $collection->groupBy('contactType')->all();
         return json_decode(json_encode($contactInfo));
     }
 }

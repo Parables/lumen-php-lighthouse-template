@@ -4,15 +4,17 @@ type PaymentRecord {
     receiptImageUrl: String
     transactionDate: DateTime!
     transactionID: String!
-    bank: Bank!
-    otherBankName: String
+    bank: SelectOption!
     amountPaid: Float!
     paidBy: Student! @belongsTo
+    level: Int!
+    semesterType: SelectOption!@belongsTo
     # TODO: Implement this
     # fee: Fee
     # recordedBy: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
+    deleted_at: DateTime
 }
 
 # Create Input Type
@@ -20,10 +22,11 @@ input PaymentRecordCreateInput {
     receiptImageUrl: String @trim
     transactionDate: DateTime!
     transactionID: String! @trim
-    bank: Bank!
-    otherBankName: String @trim
+    bank: SelectOptionsOperation!
     amountPaid: Float!
     paidBy: StudentOperation!
+    level: Int!
+    semesterType: SelectOptionOperation!
     # recordedBy: UserOperation!
 }
 
@@ -33,10 +36,11 @@ input PaymentRecordUpdateInput {
     receiptImageUrl: String @trim
     transactionDate: DateTime
     transactionID: String @trim
-    bank: Bank
-    otherBankName: String @trim
+    bank: SelectOptionsOperation
     amountPaid: Float
     paidBy: StudentOperation
+    level: Int
+    semesterType: SelectOptionOperation
     # recordedBy: UserOperation
 }
 
@@ -46,23 +50,13 @@ input PaymentRecordUpsertInput {
     receiptImageUrl: String @trim
     transactionDate: DateTime!
     transactionID: String @trim
-    bank: Bank!
-    otherBankName: String @trim
+    bank: SelectOptionsOperation
     amountPaid: Float!
     paidBy: StudentOperation!
+    level: Int!
+    semesterType: SelectOptionOperation!
     # recordedBy: UserOperation!
 }
-
-enum Bank {
-    GCB @enum
-    ADB @enum
-    ZENITH @enum
-    CBG @enum
-    NIB @enum
-    PRUDENTIAL @enum
-    OTHER @enum
-}
-
 
 # Single Nested Mutations
 input PaymentRecordOperation {

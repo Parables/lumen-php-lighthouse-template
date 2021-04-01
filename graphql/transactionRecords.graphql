@@ -5,23 +5,16 @@ type TransactionRecord {
     transactionDate: DateTime!
     transactionID: String!
     transactionType: TransactionType!
-    paymentMethod: PaymentMethod!
+    paymentMethod: SelectOption! @belongsTo
     amountPaid: Float!
     paidBy: Profile! @belongsTo
-    purpose: String
-    tag: TransactionTags!
+    description: String
+    tag: SelectOption! @belongsTo
     # TODO: Implement this
     # recordedBy: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
-}
-
-enum TransactionTags {
-    FEES @enum
-    DUES @enum
-    CONTRIBUTIONS @enum
-    UTILITY @enum
-    OTHER @enum
+    deleted_at: DateTime
 }
 
 enum TransactionType {
@@ -35,11 +28,11 @@ input CreateTransactionRecordInput {
     transactionDate: DateTime!
     transactionID: String!
     transactionType: TransactionType!
-    paymentMethod: PaymentMethod!
+    paymentMethod: SelectOptionOperation!
     amountPaid: Float!
     paidBy: ProfileOperation!
-    purpose: String
-    tag: TransactionTags!
+    description: String
+    tag: SelectOptionOperation!
 }
 
 # Update Input Type
@@ -49,11 +42,11 @@ input UpdateTransactionRecordInput {
     transactionDate: DateTime
     transactionID: String
     transactionType: TransactionType
-    paymentMethod: PaymentMethod
+    paymentMethod: SelectOptionOperation
     amountPaid: Float
     paidBy: ProfileOperation
-    purpose: String
-    tag: TransactionTags
+    description: String
+    tag: SelectOptionOperation
 }
 
 # Upsert Input Type #
@@ -63,11 +56,11 @@ input UpsertTransactionRecordInput {
     transactionDate: DateTime!
     transactionID: String!
     transactionType: TransactionType!
-    paymentMethod: PaymentMethod!
+    paymentMethod: SelectOptionOperation!
     amountPaid: Float!
     paidBy: ProfileOperation!
-    purpose: String
-    tag: TransactionTags!
+    description: String
+    tag: SelectOptionOperation!
 }
 
 # Single Nested Mutations

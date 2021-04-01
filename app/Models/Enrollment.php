@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -13,18 +14,24 @@ class Enrollment extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function programme(): BelongsTo
+    public function semester(): BelongsTo
     {
-        return $this->belongsTo(Programme::class);
+        return $this->belongsTo(SelectOption::class, 'semester');
     }
 
-    public function booksRecords(): HasMany
+    public function course(): BelongsTo
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(Course::class, 'semester');
     }
 
-    public function paymentRecords(): HasMany
+    public function enrollmentStatus(): BelongsTo
     {
-        return $this->hasMany(PaymentRecord::class);
+        return $this->belongsTo(SelectOption::class, 'enrollmentStatus');
     }
+
+    public function booksGiven(): HasMany
+    {
+        return $this->hasMany(Book::class, 'booksGiven');
+    }
+
 }

@@ -4,7 +4,7 @@ type Profile {
     # TODO: Create Account Type to replace user
     # A Profile can have more than one account
     # accounts: [Account] @hasMany
-    type: ProfileType!
+    type: SelectOption! @belongsTo
     picture: String
     title: String
     fullName: String!
@@ -18,18 +18,12 @@ type Profile {
     suffix: String
     dob: Date
     gender: Gender
-    maritalStatus: MaritalStatus
-    contactInfo: ContactInfo # TODO: Implement this
+    maritalStatus: SelectOption @belongsTo
+    contactInfo: ContactInfo
     contacts: [Contact] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
-}
-enum ProfileType{
-    STUDENT @enum
-    LECTURER @enum
-    STAFF @enum
-    USER @enum
 }
 
 enum Gender {
@@ -37,22 +31,10 @@ enum Gender {
     MALE @enum
 }
 
-enum MaritalStatus {
-    MARRIED @enum
-    DIVORCED @enum
-    SEPARATED @enum
-    SINGLE @enum
-    ENGAGED @enum
-    WIDOW @enum
-    WIDOWER @enum
-    DATING @enum
-    OTHER @enum
-}
-
 # Create Input Type
 input CreateProfileInput {
     # accounts: [Account] @hasMany
-    type: ProfileType!
+    type: SelectOptionOperation!
     picture: String
     title: String
     fullName: String!
@@ -66,7 +48,7 @@ input CreateProfileInput {
     suffix: String
     dob: Date
     gender: Gender
-    maritalStatus: MaritalStatus
+    maritalStatus: SelectOptionOperation
     contacts: ProfileContactsOperation
 }
 
@@ -74,7 +56,7 @@ input CreateProfileInput {
 input UpdateProfileInput {
     id: ID!
     # accounts: [Account] @hasMany
-    type: ProfileType
+    type: SelectOptionOperation
     picture: String
     title: String
     fullName: String
@@ -88,7 +70,7 @@ input UpdateProfileInput {
     suffix: String
     dob: Date
     gender: Gender
-    maritalStatus: MaritalStatus
+    maritalStatus: SelectOptionOperation
     contacts: ProfileContactsOperation
 }
 
@@ -96,7 +78,7 @@ input UpdateProfileInput {
 input UpsertProfileInput {
     id: ID!
     # accounts: [Account] @hasMany
-    type: ProfileType!
+    type: SelectOptionOperation!
     picture: String
     title: String
     fullName: String!
@@ -110,7 +92,7 @@ input UpsertProfileInput {
     suffix: String
     dob: Date
     gender: Gender
-    maritalStatus: MaritalStatus
+    maritalStatus: SelectOptionOperation
     contacts: ProfileContactsOperation
 }
 
@@ -132,7 +114,6 @@ input ProfilesOperation {
     syncWithoutDetaching: [ID!]
     disconnect: [ID!]
 }
-
 
 # Query
 extend type Query {

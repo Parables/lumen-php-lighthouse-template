@@ -1,81 +1,42 @@
 # Object Type #
 type Fee {
     id: ID!
-    type: FeeType!
-    otherType: String
+    type: SelectOption!
     description: String
     amountPayable: Float!
-    paymentCycle: PaymentCycle
-    paymentMethod: PaymentMethod
-    otherPaymentMethod: String
+    paymentCycle: SelectOption!
+    paymentMethod: SelectOption!
     created_at: DateTime!
     updated_at: DateTime!
 }
 
-enum  FeeType{
-    SCHOOL_FEES @enum
-    DEPARTMENTAL_FEES @enum
-    SRC_DUES @enum
-    EXTRA_CURICULUM_FEES @enum
-    OTHER @enum
-}
-
-enum PaymentCycle {
-    ANNUAL @enum
-    BI_ANNUAL @enum
-    TRI_ANNUAL @enum
-    QUARTERLY @enum
-    MONTHLY @enum
-    WEEKLY @enum
-    DIALY @enum
-    PAY_AS_YOU_GO @enum
-    ONE_TIME @enum
-}
-
-enum PaymentMethod {
-    TRANSFLOW @enum
-    BANKERS_DRAFT @enum
-    CHEQUE @enum
-    MOBILE_TRANSFER @enum
-    ACCOUNT_TRANSFER @enum
-    CASH_DEPOSIT @enum
-    CASH_PAYMENT @enum
-    OTHER @enum
-}
-
 # Create Input Type #
 input CreateFeeInput {
-    type: FeeType!
-    otherType: String
+    type: SelectOptionsOperation!
     description: String @trim
     amountPayable: Float!
-    paymentCycle: PaymentCycle!
-    paymentMethod: PaymentMethod!
-    otherPaymentMethod: String
+    paymentCycle: SelectOptionsOperation!
+    paymentMethod: SelectOptionsOperation!
 }
 
 # Update Input Type #
 input UpdateFeeInput {
     id: ID!
-    type: FeeType
-    otherType: String
+    type: SelectOptionsOperation!
     description: String @trim
     amountPayable: Float
-    paymentCycle: PaymentCycle
-    paymentMethod: PaymentMethod
-    otherPaymentMethod: String @trim
+    paymentCycle: SelectOptionsOperation
+    paymentMethod: SelectOptionsOperation
 }
 
 # Upsert Input Type #
 input UpsertFeeInput {
     id: ID!
-    type: FeeType!
-    otherType: String
+    type: SelectOptionsOperation!
     description: String @trim
     amountPayable: Float!
-    paymentCycle: PaymentCycle!
-    paymentMethod: PaymentMethod!
-    otherPaymentMethod: String @trim
+    paymentCycle: SelectOptionsOperation!
+    paymentMethod: SelectOptionsOperation!
 }
 
 # Single Nested Mutations

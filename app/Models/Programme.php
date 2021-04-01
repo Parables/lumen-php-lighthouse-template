@@ -3,17 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\GenerateCUID;
 
 class Programme extends Model
 {
-    use GenerateCUID;
+    use SoftDeletes, GenerateCUID;
     protected $fillable = [
         'title',
         'programmeCode',
         'startLevel',
         'endLevel',
+        'programmeOutline'
     ];
 
     protected $attribute = [
@@ -22,14 +25,18 @@ class Programme extends Model
         'endLevel' => 100,
     ];
 
-
     public function fees(): HasMany
     {
         return $this->hasMany(Fee::class);
     }
 
-    public function programmeOutlines(): HasMany
+    public function type(): BelongsTo
     {
-        return $this->hasMany(ProgrammeOutline::class);
+        return $this->belongsTo(SelectOption::class, 'type');
+    }
+
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course');
     }
 }

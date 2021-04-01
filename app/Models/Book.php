@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\GenerateCUID;
 
 class Book extends Model
 {
-    use GenerateCUID;
+    use SoftDeletes,GenerateCUID;
 
     protected $fillable = [
         'cover',
@@ -20,9 +20,6 @@ class Book extends Model
     ];
 
     protected $attributes = [
-        'cover' => '',
-        'bookCode' => '',
-        'author' => '',
         'inStock' => 0,
     ];
 
@@ -31,9 +28,4 @@ class Book extends Model
         return $this->belongsToMany(Course::class);
     }
 
-
-    public function bookRecords(): HasMany
-    {
-        return $this->hasMany(BookRecord::class);
-    }
 }

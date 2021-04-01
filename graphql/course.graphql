@@ -50,7 +50,6 @@ input CourseOperation {
     connect: ID
     update: CourseUpdateInput
     upsert: CourseUpsertInput
-
 }
 
 # List Nested Mutations

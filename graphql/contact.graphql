@@ -1,21 +1,10 @@
 type Contact {
     profile: Profile @belongsTo
-    contact_type: ContactType!
-    contact_value: String!
+    contactType: SelectOption! @belongsTo
+    contactValue: String!
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
-}
-
-enum ContactType {
-    PHONE @enum
-    EMAIL @enum
-    POSTAL_ADDRESS @enum
-    DIGITAL_ADDRESS @enum
-    ADDRESSS @enum
-    SOCIAL_MEDIA_HANDLE @enum
-    WEBSITE @enum
-    OTHERS @enum
 }
 
 type ContactInfo {
@@ -37,53 +26,53 @@ type ContactTypeInfo {
 # Create Input Type
 input CreateContactInput {
     profile: ProfileOperation!
-    contact_type: ContactType!
-    contact_value: String! @trim
+    contactType: SelectOptionOperation!
+    contactValue: String! @trim
 }
 
 # Create Input Type for Profile
 input CreateProfileContactInput {
-    contact_type: ContactType!
-    contact_value: String! @trim
+    contactType: SelectOptionOperation!
+    contactValue: String! @trim
 }
 
 # Create Input Type
 input UpdateContactInput {
     id: ID!
     profile: ProfileOperation
-    contact_type: ContactType
-    contact_value: String @trim
+    contactType: SelectOptionOperation
+    contactValue: String @trim
 }
 
 #  Create Input Type for Profile
 input UpdateProfileContactInput {
     id: ID!
-    contact_type: ContactType
-    contact_value: String @trim
+    contactType: SelectOptionOperation
+    contactValue: String @trim
 }
 
 input UpsertContactInput {
     id: ID!
     profile: ProfileOperation!
-    contact_type: ContactType!
-    contact_value: String! @trim
+    contactType: SelectOptionOperation!
+    contactValue: String! @trim
 }
 
 input UpsertProfileContactInput {
     id: ID!
-    contact_type: ContactType!
-    contact_value: String! @trim
+    contactType: SelectOptionOperation!
+    contactValue: String! @trim
 }
 
 # List Create Input #
 input ContactsOperation {
-        create: [CreateContactInput!]
-        connect: [ID!]
-        update: [UpdateContactInput!]
-        upsert: [UpsertContactInput!]
-        sync: [ID!]
-        syncWithoutDetaching: [ID!]
-        disconnect: [ID!]
+    create: [CreateContactInput!]
+    connect: [ID!]
+    update: [UpdateContactInput!]
+    upsert: [UpsertContactInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    disconnect: [ID!]
 }
 
 input ProfileContactsOperation {

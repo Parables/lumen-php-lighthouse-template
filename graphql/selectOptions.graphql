@@ -39,6 +39,14 @@ input UpsertSelectOptionInput {
     value: String!
 }
 
+# Single Nested Mutations
+input SelectOptionOperation {
+    create: CreateSelectOptionInput
+    connect: ID
+    update: UpdateSelectOptionInput
+    upsert: UpsertSelectOptionInput
+}
+
 # List Nested Mutations
 input SelectOptionsOperation {
     create: [CreateSelectOptionInput!]
@@ -54,6 +62,7 @@ input SelectOptionsOperation {
 extend type Query {
     selectOption(id: ID! @eq): SelectOption @find
     selectOptions(fieldName: String!, parentID: ID): [SelectOption!] @all
+childrenSelectOptions(id: ID @eq): [SelectOption!]  @field(resolver: "SelectOption@childrenOptions")
 }
 
 # Mutation

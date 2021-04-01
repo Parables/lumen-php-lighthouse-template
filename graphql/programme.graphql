@@ -17,19 +17,12 @@ type ProgrammeOutline {
 }
 
 type Semester {
-    type: SEMESTER_TYPE!
-    otherType: String
+    type: SelectOption! @belongsTo
     courses: [SemesterCourse!]!
 }
 
-enum SEMESTER_TYPE{
-    FIRST_SEMESTER @enum
-    SECOND_SEMESTER @enum
-    OTHER @enum
-}
-
 type SemesterCourse {
-    course : Course!
+    course : Course! @belongsTo
     elective: Boolean
 }
 
@@ -40,7 +33,7 @@ input ProgrammeOutlineInput {
 }
 
 input SemesterInput {
-    type: SEMESTER_TYPE!
+    type: SelectOptionOperation!
     otherType: String
     courses: [SemesterCourseInput!]!
 }
@@ -49,7 +42,6 @@ input SemesterCourseInput {
     course : CourseOperation!
     elective: Boolean
 }
-
 
 # Create Input Type #
 input CreateProgrammeInput {
