@@ -1,0 +1,128 @@
+# Object Type #
+type Enrollment {
+    id: ID!
+    student: Student! @belongsTo
+    semester: SEMESTER_TYPE!
+    level: Int!
+    course: Course!
+    booksGiven: [Book!] @hasMany
+    enrollmentStatus: EnrollmentStatus!
+    enrolled_on: DateTime!
+    completed_on: DateTime
+    remarks: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+enum EnrollmentStatus {
+    ENROLLED @enum
+    DEFFERED @enum
+    COMPLETED @enum
+    TRAILED @enum
+    OTHER @enum
+}
+
+# Create Input Type #
+input CreateEnrollmentInput {
+    student: StudentOperation!
+    semester: SEMESTER_TYPE!
+    level: Int!
+    course: CourseOperation!
+    booksGiven: BooksOperation
+    enrollmentStatus: EnrollmentStatus!
+    remarks: String
+    enrolled_on: DateTime!
+    completed_on: DateTime
+}
+
+# Create Input Type for Student
+input CreateStudentEnrollmentInput {
+    semester: SEMESTER_TYPE!
+    level: Int!
+    course: CourseOperation!
+    booksGiven: BooksOperation
+    enrollmentStatus: EnrollmentStatus!
+    remarks: String
+    enrolled_on: DateTime!
+    completed_on: DateTime
+}
+
+# Update Input Type #
+input UpdateEnrollmentInput {
+    id: ID! @eq
+    student: StudentOperation
+    semester: SEMESTER_TYPE
+    level: Int
+    course: CourseOperation
+    booksGiven: BooksOperation
+    enrollmentStatus: EnrollmentStatus
+    remarks: String
+    enrolled_on: DateTime
+    completed_on: DateTime
+}
+
+# Update Input Type for Student #
+input UpdateStudentEnrollmentInput {
+    id: ID! @eq
+    semester: SEMESTER_TYPE
+    level: Int
+    course: CourseOperation
+    booksGiven: BooksOperation
+    enrollmentStatus: EnrollmentStatus
+    remarks: String
+    enrolled_on: DateTime
+    completed_on: DateTime
+}
+
+# Upsert Input Type #
+input UpsertEnrollmentInput {
+    id: ID! @eq
+    student: StudentOperation!
+    semester: SEMESTER_TYPE!
+    level: Int!
+    course: CourseOperation!
+    booksGiven: BooksOperation
+    enrollmentStatus: EnrollmentStatus!
+    remarks: String
+    enrolled_on: DateTime!
+    completed_on: DateTime
+}
+
+# Upsert Input Type for Student#
+input UpsertStudentEnrollmentInput {
+    id: ID! @eq
+    semester: SEMESTER_TYPE!
+    level: Int!
+    course: CourseOperation!
+    booksGiven: BooksOperation
+    enrollmentStatus: EnrollmentStatus!
+    remarks: String
+    enrolled_on: DateTime!
+    completed_on: DateTime
+}
+
+# List Nested Mutations
+input StudentEnrollmentsOperation {
+    create: [CreateStudentEnrollmentInput!]
+    connect: [ID!]
+    update: [UpdateStudentEnrollmentInput!]
+    upsert: [UpsertStudentEnrollmentInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    disconnect: [ID!]
+}
+
+# Query #
+extend type Query {
+    enrollment(id: ID! @eq): Enrollment @find
+    enrollments: [Enrollment!]! @all
+}
+
+# Mutation #
+extend type Mutation {
+    createEnrollment(input: CreateEnrollmentInput! @spread): Enrollment @create
+    updateEnrollment(input: UpdateEnrollmentInput! @spread): Enrollment @update
+    upsertEnrollment(input: UpsertEnrollmentInput! @spread): Enrollment @upsert
+    deleteEnrollment(id: ID! @eq): Enrollment @delete
+}

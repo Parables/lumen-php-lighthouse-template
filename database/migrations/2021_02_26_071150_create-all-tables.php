@@ -13,7 +13,8 @@ class CreateAllTables extends Migration
      */
     public function up()
     {
-        Schema::create('people', function (Blueprint $table) {
+        // Create table for profiles
+        Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('picture')->nullable();
             $table->string('title')->nullable();
@@ -31,40 +32,42 @@ class CreateAllTables extends Migration
             $table->char('maritalStatus', 12)->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
+        // Create table for contacts
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('person_id')->constrained();
+            $table->foreignUuid('profile_id')->constrained();
             $table->char('contact_type', 20);
             $table->string('contact_value')->unique();
-            $table->char('contact_tags', 20);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
         });
 
-        /*
-      // Create table for books
+        // Create table for books
         Schema::create('books', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('cover');
             $table->string('title')->unique();
-            $table->char('bookCode', 10);
-            $table->string('author');
-            $table->bigInteger('inStock');
+            $table->char('bookCode', 10)->nullable();
+            $table->string('author')->nullable();
+            $table->bigInteger('inStock')->unsigned()->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
-         // Create table for courses
+        // Create table for courses
         Schema::create('courses', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title')->unique();
-            $table->char('courseCode', 10);
-            $table->integer('creditHours');
+            $table->char('courseCode', 10)->nullable();
+            $table->tinyInteger('creditHours')->unsigned()->default(3);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
         // Create table for book_course
@@ -72,96 +75,84 @@ class CreateAllTables extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('book_id')->constrained();
             $table->foreignUuid('course_id')->constrained();
+            $table->softDeletes();
         });
+
 
         // Create table for programmes
         Schema::create('programmes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title')->unique();
-            $table->char('programmeCode', 10);
-            $table->tinyInteger('startLevel')->unsigned();
-            $table->tinyInteger('endLevel')->unsigned();
+            $table->char('programmeCode', 10)->nullable();
+            $table->tinyInteger('startLevel')->unsigned()->default(100);
+            $table->tinyInteger('endLevel')->unsigned()->default(100);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
+
 
         // Create table for programme_outlines
-        Schema::create('programme_outlines', function (Blueprint $table) {
+        Schema::create('outlines', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('programme_id')->nullable(false)->constrained();
-            $table->foreignUuid('course_id')->nullable(false)->constrained();
+            $table->foreignUuid('programme_id')->constrained();
+            $table->tinyInteger('level')->unsigned()->default(100);
+            $table->tinyInteger('semester')->unsigned();
+            $table->foreignUuid('course_id')->constrained();
             $table->boolean('elective')->default(false);
-            $table->tinyInteger('level')->unsigned();
-            $table->tinyInteger('semester')->unsigned(true);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
-
+            $table->softDeletes();
         });
-
-        // Create table for contacts
-        // TODO: Sync columns with GraphQL Types
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('phone')->nullable(false);
-            $table->string('email')->nullable(false);
-            $table->string('location');
-            $table->string('digitalAddress');
-            $table->string('postalAddress');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
-        });
-
-        // Create table for contacts
-        // TODO: Create Person
 
         // Create table for students
-        // TODO: Sync columns with GraphQL Types
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('surname')->nullable(false);
-            $table->string('otherNames')->nullable(false);
-            $table->string('picture');
-            $table->dateTime('dob')->nullable(false);
-            $table->boolean('gender')->nullable(false);
-            $table->foreignUuid('programme_id')->nullable(false)->constrained();
-            $table->foreignUuid('contact_id')->nullable(false)->constrained();
+            $table->foreignUuid('profile_id')->constrained();
+            $table->foreignUuid('enrollment_id')->constrained();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
-                // Create table for lecturers
-        // TODO: Sync columns with GraphQL Types
-        Schema::create('lecturers', function (Blueprint $table) {
+        // Create table for enrollments
+        Schema::create('enrollments', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('applicationID')->unique();
+            $table->string('examsNumber')->unique();
+            $table->foreignUuid('student_id')->constrained();
+            $table->foreignUuid('programme_id')->constrained();
+            $table->string('academicYear');
+            $table->tinyInteger('startLevel')->unsigned()->default(100);
+            $table->tinyInteger('currentLevel')->unsigned()->default(100);
+            $table->tinyInteger('endLevel')->unsigned()->default(100);
+            $table->char('status', 20);
+            $table->string('description');
+            $table->dateTime('enrolled_on');
+            $table->dateTime('completed_on');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
+
         });
 
 
-        // Create table for book_records
-        Schema::create('book_records', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('book_id')->nullable(false)->constrained();
-            $table->foreignUuid('student_id')->nullable(false)->constrained();
-            // $table->foreignUuid('user_id')->nullable()->constrained();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
-        });
-
-        // Create table for fees
+// Create table for fees
         // TODO: Expand this to cater for all incomes & expenses for financial department
         Schema::create('fees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('programme_id')->nullable(false)->constrained();
-            $table->tinyInteger('level')->nullable(false);
-            $table->float('amountPayable')->nullable(false);
-            $table->string('description');
+            $table->string('type');
+            $table->string('description')->nullable();
+            $table->foreignUuid('programme_id')->constrained();
+            $table->tinyInteger('level')->unsigned()->default(100);
+            $table->float('amountPayable')->unsigned();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
         // Create table for payment_records
-        // TODO: Expand this to cater for all payments made corncenring the university
+        // TODO: Expand this to cater for all payments made cornering the university
         Schema::create('payment_records', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('transactionDate')->nullable(false);
@@ -173,6 +164,27 @@ class CreateAllTables extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
+        /*
+
+
+
+
+
+
+
+
+                // Create table for lecturers
+        // TODO: Sync columns with GraphQL Types
+        Schema::create('lecturers', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+        });
+
+
+
+
+
  */
     }
 

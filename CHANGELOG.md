@@ -1,0 +1,180 @@
+#Composer Update  2021-03-29 02:05 AM
+parables@kryzina:~/workspace/projects/idel-lumen-api$ composer update
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 0 installs, 62 updates, 0 removals
+- Upgrading asm89/stack-cors (v2.0.2 => v2.0.3)
+- Upgrading beyondcode/laravel-websockets (2.0.0-beta.32 => 2.0.0-beta.33)
+- Upgrading guzzlehttp/psr7 (1.7.0 => 1.8.1)
+- Upgrading illuminate/auth (v8.27.0 => v8.34.0)
+- Upgrading illuminate/broadcasting (v8.27.0 => v8.34.0)
+- Upgrading illuminate/bus (v8.27.0 => v8.34.0)
+- Upgrading illuminate/cache (v8.27.0 => v8.34.0)
+- Upgrading illuminate/collections (v8.27.0 => v8.34.0)
+- Upgrading illuminate/config (v8.27.0 => v8.34.0)
+- Upgrading illuminate/console (v8.27.0 => v8.34.0)
+- Upgrading illuminate/container (v8.27.0 => v8.34.0)
+- Upgrading illuminate/contracts (v8.27.0 => v8.34.0)
+- Upgrading illuminate/database (v8.27.0 => v8.34.0)
+- Upgrading illuminate/encryption (v8.27.0 => v8.34.0)
+- Upgrading illuminate/events (v8.27.0 => v8.34.0)
+- Upgrading illuminate/filesystem (v8.27.0 => v8.34.0)
+- Upgrading illuminate/hashing (v8.27.0 => v8.34.0)
+- Upgrading illuminate/http (v8.27.0 => v8.34.0)
+- Upgrading illuminate/log (v8.27.0 => v8.34.0)
+- Upgrading illuminate/macroable (v8.27.0 => v8.34.0)
+- Upgrading illuminate/pagination (v8.27.0 => v8.34.0)
+- Upgrading illuminate/pipeline (v8.27.0 => v8.34.0)
+- Upgrading illuminate/queue (v8.27.0 => v8.34.0)
+- Upgrading illuminate/routing (v8.27.0 => v8.34.0)
+- Upgrading illuminate/session (v8.27.0 => v8.34.0)
+- Upgrading illuminate/support (v8.27.0 => v8.34.0)
+- Upgrading illuminate/testing (v8.27.0 => v8.34.0)
+- Upgrading illuminate/translation (v8.27.0 => v8.34.0)
+- Upgrading illuminate/validation (v8.27.0 => v8.34.0)
+- Upgrading illuminate/view (v8.27.0 => v8.34.0)
+- Upgrading itsgoingd/clockwork (v5.0.6 => v5.0.7)
+- Upgrading mockery/mockery (1.4.2 => 1.4.3)
+- Upgrading nesbot/carbon (2.45.1 => 2.46.0)
+- Upgrading phar-io/version (3.0.4 => 3.1.0)
+- Upgrading phpspec/prophecy (1.12.2 => 1.13.0)
+- Upgrading phpunit/php-code-coverage (9.2.5 => 9.2.6)
+- Upgrading phpunit/phpunit (9.5.2 => 9.5.4)
+- Upgrading psr/container (1.0.0 => 1.1.1)
+- Upgrading psy/psysh (v0.10.6 => v0.10.7)
+- Upgrading pusher/pusher-php-server (v4.1.5 => 5.0.3)
+- Upgrading react/dns (v1.4.0 => v1.5.0)
+- Upgrading symfony/console (v5.2.3 => v5.2.5)
+- Upgrading symfony/error-handler (v5.2.3 => v5.2.4)
+- Upgrading symfony/event-dispatcher (v5.2.3 => v5.2.4)
+- Upgrading symfony/finder (v5.2.3 => v5.2.4)
+- Upgrading symfony/http-foundation (v5.2.3 => v5.2.4)
+- Upgrading symfony/http-kernel (v5.2.3 => v5.2.5)
+- Upgrading symfony/mime (v5.2.3 => v5.2.5)
+- Upgrading symfony/polyfill-ctype (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-intl-grapheme (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-intl-idn (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-intl-normalizer (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-mbstring (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-php72 (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-php73 (v1.22.0 => v1.22.1)
+- Upgrading symfony/polyfill-php80 (v1.22.0 => v1.22.1)
+- Upgrading symfony/process (v5.2.3 => v5.2.4)
+- Upgrading symfony/routing (v5.2.3 => v5.2.4)
+- Upgrading symfony/string (v5.2.3 => v5.2.4)
+- Upgrading symfony/translation (v5.2.3 => v5.2.5)
+- Upgrading symfony/var-dumper (v5.2.3 => v5.2.5)
+- Upgrading webmozart/assert (1.9.1 => 1.10.0)
+  Writing lock file
+  Installing dependencies from lock file (including require-dev)
+  Package operations: 0 installs, 62 updates, 0 removals
+- Downloading symfony/http-foundation (v5.2.4)
+- Downloading symfony/event-dispatcher (v5.2.4)
+- Downloading symfony/var-dumper (v5.2.5)
+- Downloading symfony/error-handler (v5.2.4)
+- Downloading symfony/http-kernel (v5.2.5)
+- Downloading pusher/pusher-php-server (5.0.3)
+- Downloading symfony/translation (v5.2.5)
+- Downloading nesbot/carbon (2.46.0)
+- Downloading psr/container (1.1.1)
+- Downloading illuminate/contracts (v8.34.0)
+- Downloading illuminate/collections (v8.34.0)
+- Downloading illuminate/support (v8.34.0)
+- Downloading symfony/routing (v5.2.4)
+- Downloading symfony/finder (v5.2.4)
+- Downloading illuminate/filesystem (v8.34.0)
+- Downloading illuminate/session (v8.34.0)
+- Downloading symfony/mime (v5.2.5)
+- Downloading illuminate/http (v8.34.0)
+- Downloading illuminate/container (v8.34.0)
+- Downloading illuminate/routing (v8.34.0)
+- Downloading symfony/string (v5.2.4)
+- Downloading symfony/console (v5.2.5)
+- Downloading illuminate/database (v8.34.0)
+- Downloading illuminate/console (v8.34.0)
+- Downloading illuminate/queue (v8.34.0)
+- Downloading illuminate/broadcasting (v8.34.0)
+- Downloading guzzlehttp/psr7 (1.8.1)
+- Downloading react/dns (v1.5.0)
+- Downloading beyondcode/laravel-websockets (2.0.0-beta.33)
+- Downloading psy/psysh (v0.10.7)
+- Downloading asm89/stack-cors (v2.0.3)
+- Downloading itsgoingd/clockwork (v5.0.7)
+- Downloading illuminate/events (v8.34.0)
+- Downloading illuminate/translation (v8.34.0)
+- Downloading illuminate/validation (v8.34.0)
+- Downloading illuminate/testing (v8.34.0)
+- Downloading illuminate/pagination (v8.34.0)
+- Downloading illuminate/log (v8.34.0)
+- Downloading illuminate/encryption (v8.34.0)
+- Downloading illuminate/cache (v8.34.0)
+- Downloading illuminate/auth (v8.34.0)
+- Downloading webmozart/assert (1.10.0)
+- Downloading phpunit/php-code-coverage (9.2.6)
+- Downloading phpspec/prophecy (1.13.0)
+- Downloading phpunit/phpunit (9.5.4)
+- Upgrading symfony/polyfill-php80 (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/polyfill-mbstring (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/http-foundation (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading symfony/polyfill-php73 (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/polyfill-ctype (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/event-dispatcher (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading symfony/var-dumper (v5.2.3 => v5.2.5): Extracting archive
+- Upgrading symfony/error-handler (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading symfony/http-kernel (v5.2.3 => v5.2.5): Extracting archive
+- Upgrading pusher/pusher-php-server (v4.1.5 => 5.0.3): Extracting archive
+- Upgrading symfony/translation (v5.2.3 => v5.2.5): Extracting archive
+- Upgrading nesbot/carbon (2.45.1 => 2.46.0): Extracting archive
+- Upgrading illuminate/macroable (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading psr/container (1.0.0 => 1.1.1): Extracting archive
+- Upgrading illuminate/contracts (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/collections (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/support (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading symfony/routing (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading symfony/finder (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading illuminate/filesystem (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/session (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/pipeline (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading symfony/polyfill-php72 (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/polyfill-intl-normalizer (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/polyfill-intl-idn (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/mime (v5.2.3 => v5.2.5): Extracting archive
+- Upgrading illuminate/http (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/container (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/routing (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading symfony/process (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading symfony/polyfill-intl-grapheme (v1.22.0 => v1.22.1): Extracting archive
+- Upgrading symfony/string (v5.2.3 => v5.2.4): Extracting archive
+- Upgrading symfony/console (v5.2.3 => v5.2.5): Extracting archive
+- Upgrading illuminate/database (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/console (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/queue (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/bus (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/broadcasting (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading guzzlehttp/psr7 (1.7.0 => 1.8.1): Extracting archive
+- Upgrading react/dns (v1.4.0 => v1.5.0): Extracting archive
+- Upgrading beyondcode/laravel-websockets (2.0.0-beta.32 => 2.0.0-beta.33): Extracting archive
+- Upgrading psy/psysh (v0.10.6 => v0.10.7): Extracting archive
+- Upgrading asm89/stack-cors (v2.0.2 => v2.0.3): Extracting archive
+- Upgrading itsgoingd/clockwork (v5.0.6 => v5.0.7): Extracting archive
+- Upgrading illuminate/events (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/view (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/translation (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/validation (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/testing (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/pagination (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/log (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/hashing (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/encryption (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/config (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/cache (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading illuminate/auth (v8.27.0 => v8.34.0): Extracting archive
+- Upgrading webmozart/assert (1.9.1 => 1.10.0): Extracting archive
+- Upgrading mockery/mockery (1.4.2 => 1.4.3): Extracting archive
+- Upgrading phpunit/php-code-coverage (9.2.5 => 9.2.6): Extracting archive
+- Upgrading phpspec/prophecy (1.12.2 => 1.13.0): Extracting archive
+- Upgrading phar-io/version (3.0.4 => 3.1.0): Extracting archive
+- Upgrading phpunit/phpunit (9.5.2 => 9.5.4): Extracting archive
+  Generating optimized autoload files
+
+

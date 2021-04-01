@@ -2,7 +2,8 @@
 # Object Type
 type SelectOption {
     id: ID!
-    for: String!
+    fieldName: String!
+    parentID: ID
     name: String
     label: String
     value: String!
@@ -11,59 +12,57 @@ type SelectOption {
 }
 
 # Create Input Type
-input SelectOptionCreateInput {
-    for: String!
+input CreateSelectOptionInput {
+    fieldName: String!
+    parentID: ID
     name: String
     label: String
     value: String!
 }
 
 # Update Input Type
-input SelectOptionUpdateInput {
+input UpdateSelectOptionInput {
     id: ID!
-    for: String
+    fieldName: String
+    parentID: ID
     name: String
     label: String
     value: String
 }
 
-# Single Nested Mutations
-input SelectOptionOperation {
-    create: SelectOptionCreateInput
-    connect: ID
-    update: SelectOptionUpdateInput
-    upsert: SelectOptionCreateInput
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+# Upsert Input Type
+input UpsertSelectOptionInput {
+    fieldName: String!
+    parentID: ID
+    name: String
+    label: String
+    value: String!
 }
 
 # List Nested Mutations
-input SelectOptionOperations {
-    create: [SelectOptionCreateInput!]
-    connect: ID
-    update: [SelectOptionUpdateInput!]
-    upsert: [SelectOptionCreateInput!]
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
+input SelectOptionsOperation {
+    create: [CreateSelectOptionInput!]
+    connect: [ID]
+    update: [UpdateSelectOptionInput!]
+    upsert: [UpsertSelectOptionInput!]
+    sync: [ID]
+    syncWithoutDetaching: [ID]
+    delete: [ID]
 }
 
 # Query
 extend type Query {
     selectOption(id: ID! @eq): SelectOption @find
-    selectOptions: [SelectOption!] @all
+    selectOptions(fieldName: String!, parentID: ID): [SelectOption!] @all
 }
 
 # Mutation
 extend type Mutation {
-    createSelectOption(input: SelectOptionCreateInput! @spread): SelectOption
+    createSelectOption(input: CreateSelectOptionInput! @spread): SelectOption
         @create
-    updateSelectOption(input: SelectOptionUpdateInput! @spread): SelectOption
+    updateSelectOption(input: UpdateSelectOptionInput! @spread): SelectOption
         @update
-    upsertSelectOption(input: SelectOptionCreateInput! @spread): SelectOption
+    upsertSelectOption(input: CreateSelectOptionInput! @spread): SelectOption
         @upsert
     deleteSelectOption(id: ID! @eq): SelectOption @delete
 }

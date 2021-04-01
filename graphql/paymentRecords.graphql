@@ -1,13 +1,15 @@
 # Object Type
 type PaymentRecord {
     id: ID!
-    receiptImage: String
+    receiptImageUrl: String
     transactionDate: DateTime!
     transactionID: String!
     bank: Bank!
+    otherBankName: String
     amountPaid: Float!
     paidBy: Student! @belongsTo
     # TODO: Implement this
+    # fee: Fee
     # recordedBy: User! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
@@ -15,123 +17,82 @@ type PaymentRecord {
 
 # Create Input Type
 input PaymentRecordCreateInput {
-    receiptImage: String @trim
+    receiptImageUrl: String @trim
     transactionDate: DateTime!
     transactionID: String! @trim
     bank: Bank!
+    otherBankName: String @trim
     amountPaid: Float!
-    paidBy: NestedStudentCreateInput!
+    paidBy: StudentOperation!
     # recordedBy: UserOperation!
 }
 
 # Update Input Type
 input PaymentRecordUpdateInput {
     id: ID!
-    receiptImage: String @trim
+    receiptImageUrl: String @trim
     transactionDate: DateTime
     transactionID: String @trim
     bank: Bank
+    otherBankName: String @trim
     amountPaid: Float
-    paidBy: NestedStudentUpdateInput
+    paidBy: StudentOperation
     # recordedBy: UserOperation
 }
 
 # Upsert Input Type #
 input PaymentRecordUpsertInput {
     id: ID!
-    receiptImage: String @trim
+    receiptImageUrl: String @trim
     transactionDate: DateTime!
-    transactionID:student
+    transactionID: String @trim
     bank: Bank!
+    otherBankName: String @trim
     amountPaid: Float!
-    paidBy: NestedStudentUpsertInput!
+    paidBy: StudentOperation!
     # recordedBy: UserOperation!
 }
 
 enum Bank {
-    GCB @enum(value: 0)
-    ADB @enum(value: 1)
-    ZENITH @enum(value: 2)
-    CBG @enum(value: 3)
-    NIB @enum(value: 4)
-    PRUDENTIAL @enum(value: 5)
+    GCB @enum
+    ADB @enum
+    ZENITH @enum
+    CBG @enum
+    NIB @enum
+    PRUDENTIAL @enum
+    OTHER @enum
 }
 
 
-# Nested Single  Mutations
-# Nested Single Create Input #
-input NestedPaymentRecordCreateInput {
+# Single Nested Mutations
+input PaymentRecordOperation {
     create: PaymentRecordCreateInput
-    upsert: PaymentRecordUpsertInput
     connect: ID
-    sync: ID
-}
-
-# Nested Single Update Input #
-input NestedPaymentRecordUpdateInput {
-    create: PaymentRecordCreateInput
     update: PaymentRecordUpdateInput
     upsert: PaymentRecordUpsertInput
-    connect: ID
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
-}
-
-# Nested Single Upsert Input #
-input NestedPaymentRecordUpsertInput {
-    create: PaymentRecordCreateInput
-    upsert: PaymentRecordUpsertInput
-    connect: ID
-    sync: ID
 }
 
 # List Nested Mutations
-# Nested List Create Input #
-input NestedPaymentRecordsCreateInput {
+input PaymentRecordsOperation {
     create: [PaymentRecordCreateInput!]
-    upsert: [PaymentRecordUpsertInput!]
     connect: [ID!]
-    sync: [ID!]
-}
-
-# Nested List Update Input #
-input NestedPaymentRecordsUpdateInput {
-    create: [PaymentRecordCreateInput!]
     update: [PaymentRecordUpdateInput!]
     upsert: [PaymentRecordUpsertInput!]
-    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
-    delete: [ID!]
     disconnect: [ID!]
-}
-
-# Nested List Upsert Input #
-input NestedPaymentRecordsUpsertInput {
-    create: [PaymentRecordCreateInput!]
-    upsert: [PaymentRecordUpsertInput!]
-    connect: [ID!]
-    sync: [ID!]
 }
 
 # Query
 extend type Query {
     paymentRecord(id: ID! @eq): PaymentRecord @find
-    paymentRecords: [PaymentRecord!] @all
+    paymentRecords(paidBy: ID @eq): [PaymentRecord!] @all
 }
 
 # Mutation
 extend type Mutation {
-    createPaymentRecord(
-        input: PaymentRecordCreateInput! @spread
-    ): PaymentRecord @create
-    updatePaymentRecord(
-        input: PaymentRecordUpdateInput! @spread
-    ): PaymentRecord @update
-    upsertPaymentRecord(
-        input: PaymentRecordUpsertInput! @spread
-    ): PaymentRecord @upsert
+    createPaymentRecord(input: PaymentRecordCreateInput! @spread): PaymentRecord @create
+    updatePaymentRecord(input: PaymentRecordUpdateInput! @spread): PaymentRecord @update
+    upsertPaymentRecord(input: PaymentRecordUpsertInput! @spread): PaymentRecord @upsert
     deletePaymentRecord(id: ID! @eq): PaymentRecord @delete
 }

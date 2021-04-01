@@ -1,0 +1,111 @@
+# Object Type
+type TransactionRecord {
+    id: ID!
+    receiptImageUrl: String
+    transactionDate: DateTime!
+    transactionID: String!
+    transactionType: TransactionType!
+    paymentMethod: PaymentMethod!
+    amountPaid: Float!
+    paidBy: Profile! @belongsTo
+    purpose: String
+    tag: TransactionTags!
+    # TODO: Implement this
+    # recordedBy: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum TransactionTags {
+    FEES @enum
+    DUES @enum
+    CONTRIBUTIONS @enum
+    UTILITY @enum
+    OTHER @enum
+}
+
+enum TransactionType {
+    CREDIT @enum
+    DEBIT @enum
+}
+
+# Create Input Type
+input CreateTransactionRecordInput {
+    receiptImageUrl: String
+    transactionDate: DateTime!
+    transactionID: String!
+    transactionType: TransactionType!
+    paymentMethod: PaymentMethod!
+    amountPaid: Float!
+    paidBy: ProfileOperation!
+    purpose: String
+    tag: TransactionTags!
+}
+
+# Update Input Type
+input UpdateTransactionRecordInput {
+    id: ID!
+    receiptImageUrl: String
+    transactionDate: DateTime
+    transactionID: String
+    transactionType: TransactionType
+    paymentMethod: PaymentMethod
+    amountPaid: Float
+    paidBy: ProfileOperation
+    purpose: String
+    tag: TransactionTags
+}
+
+# Upsert Input Type #
+input UpsertTransactionRecordInput {
+    id: ID!
+    receiptImageUrl: String
+    transactionDate: DateTime!
+    transactionID: String!
+    transactionType: TransactionType!
+    paymentMethod: PaymentMethod!
+    amountPaid: Float!
+    paidBy: ProfileOperation!
+    purpose: String
+    tag: TransactionTags!
+}
+
+# Single Nested Mutations
+input TransactionRecordOperation {
+    create: CreateTransactionRecordInput
+    connect: ID
+    update: UpdateTransactionRecordInput
+    upsert: UpsertTransactionRecordInput
+}
+
+# List Nested Mutations
+input TransactionRecordsOperation {
+    create: [CreateTransactionRecordInput!]
+    connect: [ID!]
+    update: [UpdateTransactionRecordInput!]
+    upsert: [UpsertTransactionRecordInput!]
+#    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+#    disconnect: [ID!]
+}
+
+
+# Query
+extend type Query {
+    transactionRecord(id: ID! @eq): TransactionRecord @find
+    transactionRecords: [TransactionRecord!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createTransactionRecord(
+        input: CreateTransactionRecordInput! @spread
+    ): TransactionRecord @create
+    updateTransactionRecord(
+        input: UpdateTransactionRecordInput! @spread
+    ): TransactionRecord @update
+    upsertTransactionRecord(
+        input: UpsertTransactionRecordInput! @spread
+    ): TransactionRecord @upsert
+#    deleteTransactionRecord(id: ID! @eq): TransactionRecord @delete
+}

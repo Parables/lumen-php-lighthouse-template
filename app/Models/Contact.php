@@ -13,7 +13,6 @@ class Contact extends Model
     protected $fillable = [
         'contact_type',
         'contact_value',
-        'contact_tags'
     ];
 
     protected $attributes = [];
@@ -21,6 +20,6 @@ class Contact extends Model
 
     public function person(): BelongsTo
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Profile::class);
     }
 }

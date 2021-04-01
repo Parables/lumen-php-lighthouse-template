@@ -5,112 +5,110 @@ type Programme {
     programmeCode: String
     startLevel: Int!
     endLevel: Int!
-    fees(level: Int @eq): [Fee!] @hasMany
-    programmeOutlines(level: Int @eq, semester: Int @eq): [ProgrammeOutline!] @hasMany
+    programmeOutline: [ProgrammeOutline!]!
     created_at: DateTime!
     updated_at: DateTime!
 }
 
+type ProgrammeOutline {
+    level: Int!
+    fees: [Fee!] @hasMany
+    semesters: [Semester!]!
+}
+
+type Semester {
+    type: SEMESTER_TYPE!
+    otherType: String
+    courses: [SemesterCourse!]!
+}
+
+enum SEMESTER_TYPE{
+    FIRST_SEMESTER @enum
+    SECOND_SEMESTER @enum
+    OTHER @enum
+}
+
+type SemesterCourse {
+    course : Course!
+    elective: Boolean
+}
+
+input ProgrammeOutlineInput {
+    level: Int!
+    fees: FeesOperation
+    semesters: [SemesterInput!]!
+}
+
+input SemesterInput {
+    type: SEMESTER_TYPE!
+    otherType: String
+    courses: [SemesterCourseInput!]!
+}
+
+input SemesterCourseInput {
+    course : CourseOperation!
+    elective: Boolean
+}
+
+
 # Create Input Type #
-input ProgrammeCreateInput {
+input CreateProgrammeInput {
     title: String! @trim
     programmeCode: String @trim
     startLevel: Int!
     endLevel: Int!
-    fees: NestedFeesCreateInput
-    programmeOutlines: NestedProgrammeOutlinesCreateInput
+    programmeOutline: [ProgrammeOutlineInput!]!
 }
 
 # Update Input Type #
-input ProgrammeUpdateInput {
+input UpdateProgrammeInput {
     id: ID!
     title: String @trim
     programmeCode: String @trim
     startLevel: Int
     endLevel: Int
-    fees: NestedFeesUpdateInput
-    programmeOutlines: NestedProgrammeOutlinesUpdateInput
+    programmeOutline: [ProgrammeOutlineInput!]!
 }
 
 # Upsert Input Type #
-input ProgrammeUpsertInput {
+input UpsertProgrammeInput {
     id: ID!
     title: String! @trim
     programmeCode: String @trim
     startLevel: Int
     endLevel: Int
-    fees: NestedFeesUpsertInput
-    programmeOutlines: NestedProgrammeOutlinesUpsertInput
+    programmeOutline: [ProgrammeOutlineInput!]!
 }
 
-# Nested Single  Mutations
-# Nested Single Create Input #
-input NestedProgrammeCreateInput {
-    create: ProgrammeCreateInput
-    upsert: ProgrammeUpsertInput
+# Single Nested Mutations
+input ProgrammeOperation {
+    create: CreateProgrammeInput
     connect: ID
-    sync: ID
-}
-
-# Nested Single Update Input #
-input NestedProgrammeUpdateInput {
-    create: ProgrammeCreateInput
-    update: ProgrammeUpdateInput
-    upsert: ProgrammeUpsertInput
-    connect: ID
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
-}
-
-# Nested Single Upsert Input #
-input NestedProgrammeUpsertInput {
-    create: ProgrammeCreateInput
-    upsert: ProgrammeUpsertInput
-    connect: ID
-    sync: ID
+    update: UpdateProgrammeInput
+    upsert: UpsertProgrammeInput
 }
 
 # List Nested Mutations
-# Nested List Create Input #
-input NestedProgrammesCreateInput {
-    create: [ProgrammeCreateInput!]
-    upsert: [ProgrammeUpsertInput!]
+input ProgrammesOperation {
+    create: [CreateProgrammeInput!]
     connect: [ID!]
-    sync: [ID!]
-}
-
-# Nested List Update Input #
-input NestedProgrammesUpdateInput {
-    create: [ProgrammeCreateInput!]
-    update: [ProgrammeUpdateInput!]
-    upsert: [ProgrammeUpsertInput!]
-    connect: [ID!]
+    update: [UpdateProgrammeInput!]
+    upsert: [UpsertProgrammeInput!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
-    delete: [ID!]
     disconnect: [ID!]
-}
-
-# Nested List Upsert Input #
-input NestedProgrammesUpsertInput {
-    create: [ProgrammeCreateInput!]
-    upsert: [ProgrammeUpsertInput!]
-    connect: [ID!]
-    sync: [ID!]
 }
 
 # Query
 extend type Query {
-    Programme(id: ID! @eq): Programme @find
-    Programmes: [Programme!] @all
+    programme(id: ID! @eq): Programme @find
+    programmes: [Programme!] @all
 }
 
 # Mutation
 extend type Mutation {
-    createProgramme(input: ProgrammeCreateInput! @spread): Programme @create
-    updateProgramme(input: ProgrammeUpdateInput! @spread): Programme @update
-    upsertProgramme(input: ProgrammeUpsertInput! @spread): Programme @upsert
+    createProgramme(input: CreateProgrammeInput! @spread): Programme @create
+    updateProgramme(input: UpdateProgrammeInput! @spread): Programme @update
+    upsertProgramme(input: UpsertProgrammeInput! @spread): Programme @upsert
     deleteProgramme(id: ID! @eq): Programme @delete
 }

@@ -10,35 +10,19 @@ use App\Traits\GenerateCUID;
 class Student extends Model
 {
     use GenerateCUID;
-    protected $fillable = [
-        'surname',
-        'otherNames',
-        'picture',
-        'dob',
-        'gender',
-    ];
+    protected $fillable = [];
 
-    protected $attributes = [
-        'picture' => ''
-    ];
+    protected $attributes = [];
 
-    public function programme(): BelongsTo
+    public function profile(): BelongsTo
     {
-        return $this->belongsTo(Programme::class);
+        return $this->belongsTo(Profile::class);
     }
 
-    public function paymentRecords(): HasMany
+    public function enrollments(): HasMany
     {
-        return $this->hasMany(PaymentRecord::class);
+        return $this->hasMany(Enrollment::class);
     }
 
-    public function booksRecords(): HasMany
-    {
-        return $this->hasMany(BookRecord::class);
-    }
 
-    public function contact(): BelongsTo
-    {
-        return $this->belongsTo(Contact::class);
-    }
 }

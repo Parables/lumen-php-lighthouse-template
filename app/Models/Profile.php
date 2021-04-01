@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\GenerateCUID;
 
-class Person extends Model
+class Profile extends Model
 {
     use GenerateCUID;
 
@@ -33,4 +33,5 @@ class Person extends Model
     {
         return $this->hasMany(Contact::class);
     }
+
 }

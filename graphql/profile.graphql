@@ -1,0 +1,149 @@
+# Object Type
+type Profile {
+    id: ID!
+    # TODO: Create Account Type to replace user
+    # A Profile can have more than one account
+    # accounts: [Account] @hasMany
+    type: ProfileType!
+    picture: String
+    title: String
+    fullName: String!
+    lastName: String
+    firstName: String
+    middleName: String
+    maidenName: String
+    otherNames: String
+    nickname: String
+    prefix: String
+    suffix: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contactInfo: ContactInfo # TODO: Implement this
+    contacts: [Contact] @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+enum ProfileType{
+    STUDENT @enum
+    LECTURER @enum
+    STAFF @enum
+    USER @enum
+}
+
+enum Gender {
+    FEMALE @enum
+    MALE @enum
+}
+
+enum MaritalStatus {
+    MARRIED @enum
+    DIVORCED @enum
+    SEPARATED @enum
+    SINGLE @enum
+    ENGAGED @enum
+    WIDOW @enum
+    WIDOWER @enum
+    DATING @enum
+    OTHER @enum
+}
+
+# Create Input Type
+input CreateProfileInput {
+    # accounts: [Account] @hasMany
+    type: ProfileType!
+    picture: String
+    title: String
+    fullName: String!
+    lastName: String
+    firstName: String
+    middleName: String
+    maidenName: String
+    otherNames: String
+    nickname: String
+    prefix: String
+    suffix: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contacts: ProfileContactsOperation
+}
+
+# Update Input Type
+input UpdateProfileInput {
+    id: ID!
+    # accounts: [Account] @hasMany
+    type: ProfileType
+    picture: String
+    title: String
+    fullName: String
+    lastName: String
+    firstName: String
+    middleName: String
+    maidenName: String
+    otherNames: String
+    nickname: String
+    prefix: String
+    suffix: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contacts: ProfileContactsOperation
+}
+
+# Upsert Input Type
+input UpsertProfileInput {
+    id: ID!
+    # accounts: [Account] @hasMany
+    type: ProfileType!
+    picture: String
+    title: String
+    fullName: String!
+    lastName: String
+    firstName: String
+    middleName: String
+    maidenName: String
+    otherNames: String
+    nickname: String
+    prefix: String
+    suffix: String
+    dob: Date
+    gender: Gender
+    maritalStatus: MaritalStatus
+    contacts: ProfileContactsOperation
+}
+
+# Single Nested Mutations
+input ProfileOperation {
+    create: CreateProfileInput
+    connect: ID
+    update: UpdateProfileInput
+    upsert: UpsertProfileInput
+}
+
+# List Nested Mutations
+input ProfilesOperation {
+    create: [CreateProfileInput!]
+    connect: [ID!]
+    update: [UpdateProfileInput!]
+    upsert: [UpsertProfileInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    disconnect: [ID!]
+}
+
+
+# Query
+extend type Query {
+    profile(id: ID! @eq): Profile @find
+    profiles: [Profile!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createProfile(input: CreateProfileInput! @spread): Profile @create
+    updateProfile(input: UpdateProfileInput! @spread): Profile @update
+    upsertProfile(input: UpsertProfileInput! @spread): Profile @upsert
+    deleteProfile(id: ID! @eq): Profile @delete
+}

@@ -17,7 +17,7 @@ input CourseCreateInput {
     title: String! @trim
     courseCode: String @trim
     creditHours: Int
-    books: NestedBooksCreateInput
+    books: BooksOperation
     # lecturers: [Lecturer]
     # schedules: NestedSchedulesCreateInput
 }
@@ -28,7 +28,7 @@ input CourseUpdateInput {
     title: String @trim
     courseCode: String @trim
     creditHours: Int
-    books: NestedBooksUpdateInput
+    books: BooksOperation
     # lecturers: [Lecturer]
     # schedules: NestedSchedulesUpdateInput
 }
@@ -39,67 +39,29 @@ input CourseUpsertInput {
     title: String! @trim
     courseCode: String @trim
     creditHours: Int
-    books: NestedBooksUpsertInput
+    books: BooksOperation
     # lecturers: [Lecturer]
     # schedules: NestedSchedulesUpsertInput
 }
 
-# Nested Single  Mutations
-# Nested Single Create Input #
-input NestedCourseCreateInput {
+# Single Nested Mutations
+input CourseOperation {
     create: CourseCreateInput
-    upsert: CourseUpsertInput
     connect: ID
-    sync: ID
-}
-
-# Nested Single Update Input #
-input NestedCourseUpdateInput {
-    create: CourseCreateInput
     update: CourseUpdateInput
     upsert: CourseUpsertInput
-    connect: ID
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
-}
 
-# Nested Single Upsert Input #
-input NestedCourseUpsertInput {
-    create: CourseCreateInput
-    upsert: CourseUpsertInput
-    connect: ID
-    sync: ID
 }
 
 # List Nested Mutations
-# Nested List Create Input #
-input NestedCoursesCreateInput {
+input CoursesOperation {
     create: [CourseCreateInput!]
-    upsert: [CourseUpsertInput!]
     connect: [ID!]
-    sync: [ID!]
-}
-
-# Nested List Update Input #
-input NestedCoursesUpdateInput {
-    create: [CourseCreateInput!]
     update: [CourseUpdateInput!]
     upsert: [CourseUpsertInput!]
-    connect: [ID!]
     sync: [ID!]
     syncWithoutDetaching: [ID!]
-    delete: [ID!]
     disconnect: [ID!]
-}
-
-# Nested List Upsert Input #
-input NestedCoursesUpsertInput {
-    create: [CourseCreateInput!]
-    upsert: [CourseUpsertInput!]
-    connect: [ID!]
-    sync: [ID!]
 }
 
 # Query #

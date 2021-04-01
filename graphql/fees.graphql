@@ -1,139 +1,102 @@
 # Object Type #
 type Fee {
     id: ID!
-    name: String!
+    type: FeeType!
+    otherType: String
     description: String
-    # TODO: Replace Programme and Level by Group
-    # So that fees may be billed to group of people
-    programme: Programme! @belongsTo
-    level: Int!
     amountPayable: Float!
-    # TODO: Implement this
     paymentCycle: PaymentCycle
     paymentMethod: PaymentMethod
+    otherPaymentMethod: String
     created_at: DateTime!
     updated_at: DateTime!
 }
 
-# Create Input Type #
-input FeeCreateInput {
-    name: String!
-    description: String @trim
-    # TODO: Replace Programme and Level by Group
-    # So that fees may be billed to group of people
-    programme: NestedProgrammeCreateInput!
-    level: Int!
-    amountPayable: Float!
-    paymentCycle: PaymentCycle
-    paymentMethod: PaymentMethod
-}
-
-# Update Input Type #
-input FeeUpdateInput {
-    id: ID!
-    name: String!
-    description: String @trim
-    # TODO: Replace Programme and Level by Group
-    # So that fees may be billed to group of people
-    programme: NestedProgrammeUpdateInput
-    level: Int
-    amountPayable: Float
-    paymentCycle: PaymentCycle
-    paymentMethod: PaymentMethod
-}
-
-# Upsert Input Type #
-input FeeUpsertInput {
-    id: ID!
-    name: String!
-    description: String @trim
-    # TODO: Replace Programme and Level by Group
-    # So that fees may be billed to group of people
-    programme: NestedProgrammeUpsertInput!
-    level: Int!
-    amountPayable: Float!
-    paymentCycle: PaymentCycle
-    paymentMethod: PaymentMethod
-}
-
-# Nested Single  Mutations
-# Nested Single Create Input #
-input NestedFeeCreateInput {
-    create: FeeCreateInput
-    upsert: FeeUpsertInput
-    connect: ID
-    sync: ID
-}
-
-# Nested Single Update Input #
-input NestedFeeUpdateInput {
-    create: FeeCreateInput
-    update: FeeUpdateInput
-    upsert: FeeUpsertInput
-    connect: ID
-    sync: ID
-    syncWithoutDetaching: ID
-    delete: ID
-    disconnect: ID
-}
-
-# Nested Single Upsert Input #
-input NestedFeeUpsertInput {
-    create: FeeCreateInput
-    upsert: FeeUpsertInput
-    connect: ID
-    sync: ID
-}
-
-# List Nested Mutations
-# Nested List Create Input #
-input NestedFeesCreateInput {
-    create: [FeeCreateInput!]
-    upsert: [FeeUpsertInput!]
-    connect: [ID!]
-    sync: [ID!]
-}
-
-# Nested List Update Input #
-input NestedFeesUpdateInput {
-    create: [FeeCreateInput!]
-    update: [FeeUpdateInput!]
-    upsert: [FeeUpsertInput!]
-    connect: [ID!]
-    sync: [ID!]
-    syncWithoutDetaching: [ID!]
-    delete: [ID!]
-    disconnect: [ID!]
-}
-
-# Nested List Upsert Input #
-input NestedFeesUpsertInput {
-    create: [FeeCreateInput!]
-    upsert: [FeeUpsertInput!]
-    connect: [ID!]
-    sync: [ID!]
+enum  FeeType{
+    SCHOOL_FEES @enum
+    DEPARTMENTAL_FEES @enum
+    SRC_DUES @enum
+    EXTRA_CURICULUM_FEES @enum
+    OTHER @enum
 }
 
 enum PaymentCycle {
-    ANNUAL @enum(value: "Annual")
-    BI_ANNUAL @enum(value: "Bi-Annual")
-    TRI_ANNUAL @enum(value: "Tri-Annual")
-    QUARTERLY @enum(value: "Quarterly")
-    MONTHLY @enum(value: "Monthly")
-    WEEKLY @enum(value: "Weekly")
-    DIALY @enum(value: "Daily")
-    PAY_AS_YOU_GO @enum(value: "Pay as you go")
-    ONE_TIME @enum(value: "One Time")
+    ANNUAL @enum
+    BI_ANNUAL @enum
+    TRI_ANNUAL @enum
+    QUARTERLY @enum
+    MONTHLY @enum
+    WEEKLY @enum
+    DIALY @enum
+    PAY_AS_YOU_GO @enum
+    ONE_TIME @enum
 }
 
 enum PaymentMethod {
-    TRANSFLOW @enum(value: "Transflow")
-    BANKERS_DRAFT @enum(value: "Bankers Draft")
-    CHEQUE @enum(value: "Cheque")
-    MOBILE_TRANSFER @enum(value: "Mobile Transfer")
-    CASH_DEPOSIT @enum(value: "Cash Deposit")
-    CASH_PAYMENT @enum(value: "Cash payment")
+    TRANSFLOW @enum
+    BANKERS_DRAFT @enum
+    CHEQUE @enum
+    MOBILE_TRANSFER @enum
+    ACCOUNT_TRANSFER @enum
+    CASH_DEPOSIT @enum
+    CASH_PAYMENT @enum
+    OTHER @enum
 }
+
+# Create Input Type #
+input CreateFeeInput {
+    type: FeeType!
+    otherType: String
+    description: String @trim
+    amountPayable: Float!
+    paymentCycle: PaymentCycle!
+    paymentMethod: PaymentMethod!
+    otherPaymentMethod: String
+}
+
+# Update Input Type #
+input UpdateFeeInput {
+    id: ID!
+    type: FeeType
+    otherType: String
+    description: String @trim
+    amountPayable: Float
+    paymentCycle: PaymentCycle
+    paymentMethod: PaymentMethod
+    otherPaymentMethod: String @trim
+}
+
+# Upsert Input Type #
+input UpsertFeeInput {
+    id: ID!
+    type: FeeType!
+    otherType: String
+    description: String @trim
+    amountPayable: Float!
+    paymentCycle: PaymentCycle!
+    paymentMethod: PaymentMethod!
+    otherPaymentMethod: String @trim
+}
+
+# Single Nested Mutations
+input FeeOperation {
+    create: CreateFeeInput
+    connect: ID
+    update: UpdateFeeInput
+    upsert: UpsertFeeInput
+}
+
+# List Nested Mutations
+input FeesOperation {
+    create: [CreateFeeInput!]
+    connect: [ID!]
+    update: [UpdateFeeInput!]
+    upsert: [UpsertFeeInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    disconnect: [ID!]
+}
+
 
 extend type Query {
     fee(id: ID! @eq): Fee @find
@@ -141,8 +104,8 @@ extend type Query {
 }
 
 extend type Mutation {
-    createFee(input: FeeCreateInput! @spread): Fee @create
-    updateFee(input: FeeUpdateInput! @spread): Fee @update
-    upsertFee(input: FeeUpsertInput! @spread): Fee @upsert
+    createFee(input: CreateFeeInput! @spread): Fee @create
+    updateFee(input: UpdateFeeInput! @spread): Fee @update
+    upsertFee(input: UpsertFeeInput! @spread): Fee @upsert
     deleteFee(id: ID! @eq): Fee @delete
 }
