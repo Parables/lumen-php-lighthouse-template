@@ -20,9 +20,16 @@ class Programme extends Model
     ];
 
     protected $attribute = [
-        'programmeCode' => "",
         'startLevel' => 100,
         'endLevel' => 100,
+    ];
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'programmeOutline' => 'array'
     ];
 
     public function fees(): HasMany

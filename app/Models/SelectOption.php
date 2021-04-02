@@ -10,7 +10,7 @@ class SelectOption extends Model
 {
     use SoftDeletes, GenerateCUID;
     public $fillable = [
-        'field',
+        'fieldName',
         'parentID',
         'name',
         'label',

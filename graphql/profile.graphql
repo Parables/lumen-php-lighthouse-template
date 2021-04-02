@@ -4,7 +4,7 @@ type Profile {
     # TODO: Create Account Type to replace user
     # A Profile can have more than one account
     # accounts: [Account] @hasMany
-    type: SelectOption! @belongsTo
+    profileType: SelectOption! @belongsTo
     picture: String
     title: String
     fullName: String!
@@ -34,7 +34,7 @@ enum Gender {
 # Create Input Type
 input CreateProfileInput {
     # accounts: [Account] @hasMany
-    type: SelectOptionOperation!
+    profileType: SelectOptionOperation!
     picture: String
     title: String
     fullName: String!
@@ -56,7 +56,7 @@ input CreateProfileInput {
 input UpdateProfileInput {
     id: ID!
     # accounts: [Account] @hasMany
-    type: SelectOptionOperation
+    profileType: SelectOptionOperation
     picture: String
     title: String
     fullName: String
@@ -78,7 +78,7 @@ input UpdateProfileInput {
 input UpsertProfileInput {
     id: ID!
     # accounts: [Account] @hasMany
-    type: SelectOptionOperation!
+    profileType: SelectOptionOperation!
     picture: String
     title: String
     fullName: String!

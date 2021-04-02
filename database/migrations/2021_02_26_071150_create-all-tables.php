@@ -13,21 +13,23 @@ class CreateAllTables extends Migration
      */
     public function up()
     {
-        // Create table for selectOptions
-        Schema::create('selectOptions', function (Blueprint $table) {
+        // Create table for select_options
+        Schema::create('select_options', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('fieldName');
             $table->uuid('parentID')->nullable();
             $table->string('name')->nullable();
             $table->string('label')->nullable();
             $table->string('value');
-
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
 
         // Create table for profiles
         Schema::create('profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('type')->constrained('selectOptions');
+            $table->foreignUuid('profileType')->constrained('select_options');
             $table->string('picture')->nullable();
             $table->string('title')->nullable();
             $table->string('fullName');
@@ -41,7 +43,7 @@ class CreateAllTables extends Migration
             $table->string('suffix')->nullable();
             $table->string('dob')->nullable();
             $table->char('gender', 6)->nullable();
-            $table->foreignUuid('maritalStatus')->nullable()->constrained('selectOptions');
+            $table->foreignUuid('maritalStatus')->nullable()->constrained('select_options');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -51,7 +53,7 @@ class CreateAllTables extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('profile_id')->constrained();
-            $table->foreignUuid('contactType')->constrained('selectOptions');
+            $table->foreignUuid('contactType')->constrained('select_options');
             $table->string('contactValue')->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
@@ -98,7 +100,7 @@ class CreateAllTables extends Migration
             $table->char('programmeCode', 10)->nullable();
             $table->tinyInteger('startLevel')->unsigned()->default(100);
             $table->tinyInteger('endLevel')->unsigned()->default(100);
-            $table->jsonb('programmeOutline');
+            $table->jsonb('programmeOutline')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -116,7 +118,7 @@ class CreateAllTables extends Migration
             $table->tinyInteger('currentLevel')->default(100);
             $table->tinyInteger('endLevel')->default(100);
             $table->string('remarks')->nullable();
-            $table->foreignUuid('admissionStatus')->constrained('selectOptions');
+            $table->foreignUuid('admissionStatus')->constrained('select_options');
             $table->dateTime('admitted_on');
             $table->dateTime('completed_on');
             $table->timestamp('created_at')->useCurrent();
@@ -128,10 +130,10 @@ class CreateAllTables extends Migration
         Schema::create('enrollments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('student_id')->constrained();
-            $table->foreignUuid('semester')->constrained('selectOptions');
+            $table->foreignUuid('semester')->constrained('select_options');
             $table->tinyInteger('level')->unsigned()->default(100);
             $table->foreignUuid('course_id')->constrained();
-            $table->foreignUuid('enrollmentStatus')->constrained('selectOptions');
+            $table->foreignUuid('enrollmentStatus')->constrained('select_options');
             $table->string('remarks');
             $table->dateTime('enrolled_on');
             $table->dateTime('completed_on');
@@ -145,11 +147,11 @@ class CreateAllTables extends Migration
         // Create table for fees
         Schema::create('fees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('type')->constrained('selectOptions');
+            $table->foreignUuid('feeType')->constrained('select_options');
             $table->string('description')->nullable();
             $table->float('amountPayable')->unsigned();
-            $table->foreignUuid('paymentCycle')->constrained('selectOptions');
-            $table->foreignUuid('paymentMethod')->constrained('selectOptions');
+            $table->foreignUuid('paymentCycle')->constrained('select_options');
+            $table->foreignUuid('paymentMethod')->constrained('select_options');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
@@ -163,7 +165,7 @@ class CreateAllTables extends Migration
             $table->float('amountPaid')->nullable(false);
             $table->foreignUuid('paidBy')->constrained('students');
             $table->tinyInteger('level');
-            $table->foreignUuid('semesterType')->constrained('selectOptions');
+            $table->foreignUuid('semesterType')->constrained('select_options');
             // $table->foreignUuid('recorded_by')->constrained('users);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
@@ -177,11 +179,11 @@ class CreateAllTables extends Migration
             $table->dateTime('transactionDate');
             $table->string('transactionID')->unique()->nullable(false);
             $table->char('transactionType', 8);
-            $table->foreignUuid('paymentMethod')->constrained('selectOptions');
+            $table->foreignUuid('paymentMethod')->constrained('select_options');
             $table->float('amountPaid');
             $table->foreignUuid('paidBy')->constrained('profiles');
             $table->multiLineString('description')->nullable();
-            $table->foreignUuid('tags')->constrained('selectOptions');
+            $table->foreignUuid('tags')->constrained('select_options');
             // $table->foreignUuid('recorded_by')->constrained('users);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
@@ -199,7 +201,7 @@ class CreateAllTables extends Migration
         // Disable all constraints first
         Schema::disableForeignKeyConstraints();
         // Drop all tables
-        Schema::dropIfExists('selectOptions');
+        Schema::dropIfExists('select_options');
         Schema::dropIfExists('profiles');
         Schema::dropIfExists('contacts');
         Schema::dropIfExists('book_course');

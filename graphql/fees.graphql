@@ -1,7 +1,7 @@
 # Object Type #
 type Fee {
     id: ID!
-    type: SelectOption!
+    feeType: SelectOption!
     description: String
     amountPayable: Float!
     paymentCycle: SelectOption!
@@ -12,31 +12,31 @@ type Fee {
 
 # Create Input Type #
 input CreateFeeInput {
-    type: SelectOptionsOperation!
+    feeType: SelectOptionOperation!
     description: String @trim
     amountPayable: Float!
-    paymentCycle: SelectOptionsOperation!
-    paymentMethod: SelectOptionsOperation!
+    paymentCycle: SelectOptionOperation!
+    paymentMethod: SelectOptionOperation!
 }
 
 # Update Input Type #
 input UpdateFeeInput {
     id: ID!
-    type: SelectOptionsOperation!
+    feeType: SelectOptionOperation!
     description: String @trim
     amountPayable: Float
-    paymentCycle: SelectOptionsOperation
-    paymentMethod: SelectOptionsOperation
+    paymentCycle: SelectOptionOperation
+    paymentMethod: SelectOptionOperation
 }
 
 # Upsert Input Type #
 input UpsertFeeInput {
     id: ID!
-    type: SelectOptionsOperation!
+    feeType: SelectOptionOperation!
     description: String @trim
     amountPayable: Float!
-    paymentCycle: SelectOptionsOperation!
-    paymentMethod: SelectOptionsOperation!
+    paymentCycle: SelectOptionOperation!
+    paymentMethod: SelectOptionOperation!
 }
 
 # Single Nested Mutations

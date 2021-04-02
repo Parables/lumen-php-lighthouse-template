@@ -5,7 +5,7 @@ type Programme {
     programmeCode: String
     startLevel: Int!
     endLevel: Int!
-    programmeOutline: [ProgrammeOutline!]!
+    programmeOutline: [ProgrammeOutline!]
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -17,7 +17,7 @@ type ProgrammeOutline {
 }
 
 type Semester {
-    type: SelectOption! @belongsTo
+    semesterType: SelectOption! @belongsTo
     courses: [SemesterCourse!]!
 }
 
@@ -33,8 +33,7 @@ input ProgrammeOutlineInput {
 }
 
 input SemesterInput {
-    type: SelectOptionOperation!
-    otherType: String
+    semesterType: SelectOptionOperation!
     courses: [SemesterCourseInput!]!
 }
 
@@ -49,7 +48,7 @@ input CreateProgrammeInput {
     programmeCode: String @trim
     startLevel: Int!
     endLevel: Int!
-    programmeOutline: [ProgrammeOutlineInput!]!
+    programmeOutline: [ProgrammeOutlineInput]
 }
 
 # Update Input Type #
@@ -59,7 +58,7 @@ input UpdateProgrammeInput {
     programmeCode: String @trim
     startLevel: Int
     endLevel: Int
-    programmeOutline: [ProgrammeOutlineInput!]!
+    programmeOutline: [ProgrammeOutlineInput]
 }
 
 # Upsert Input Type #
@@ -69,7 +68,7 @@ input UpsertProgrammeInput {
     programmeCode: String @trim
     startLevel: Int
     endLevel: Int
-    programmeOutline: [ProgrammeOutlineInput!]!
+    programmeOutline: [ProgrammeOutlineInput]
 }
 
 # Single Nested Mutations

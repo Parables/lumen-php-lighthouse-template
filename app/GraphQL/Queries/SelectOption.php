@@ -17,6 +17,6 @@ class SelectOption
     }
 
     public function childrenOptions($_, array $args):Collection {
-     return   DB::table('selectOptions')->where('parentID', '=', $args['id'])->get();
+     return   DB::table('select_options')->where('parentID', '=', $args['id'])->get();
     }
 }
