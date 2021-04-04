@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-Renameduse EndyJasmi\Cuid;
+use EndyJasmi\Cuid;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 

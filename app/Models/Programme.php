@@ -16,20 +16,11 @@ class Programme extends Model
         'programmeCode',
         'startLevel',
         'endLevel',
-        'programmeOutline'
     ];
 
     protected $attribute = [
         'startLevel' => 100,
         'endLevel' => 100,
-    ];
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'programmeOutline' => 'array'
     ];
 
     public function fees(): HasMany
@@ -37,13 +28,9 @@ class Programme extends Model
         return $this->hasMany(Fee::class);
     }
 
-    public function type(): BelongsTo
+    public function programmeOutlines(): HasMany
     {
-        return $this->belongsTo(SelectOption::class, 'type');
+        return $this->hasMany(ProgrammeOutline::class);
     }
 
-    public function course(): BelongsTo
-    {
-        return $this->belongsTo(Course::class, 'course');
-    }
 }

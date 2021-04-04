@@ -1,0 +1,92 @@
+# Object Type #
+type ProgrammeOutline {
+    id: ID!
+    programme: Programme! @belongsTo
+    course: Course! @belongsTo
+    level: Int!
+    semester: SelectOption @belongsTo
+    elective: Boolean
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+# Create Input Type #
+input CreateProgrammeOutlineInput {
+    programme: ProgrammeOperation!
+    course: CourseOperation!
+    level: Int!
+    semester: SelectOptionOperation
+    elective: Boolean
+}
+
+# Create Input Type for Programme#
+input CreateProgrammeOutlinesInput {
+    course: CourseOperation!
+    level: Int!
+    semester: SelectOptionOperation
+    elective: Boolean
+}
+
+# Update Input Type #
+input UpdateProgrammeOutlineInput {
+    id: ID!
+    programme: ProgrammeOperation
+    course: CourseOperation
+    level: Int
+    semester: SelectOptionOperation
+    elective: Boolean
+}
+
+# Update Input Type for Programme#
+input UpdateProgrammeOutlinesInput {
+    id: ID!
+    course: CourseOperation
+    level: Int
+    semester: SelectOptionOperation
+    elective: Boolean
+}
+
+# Upsert Input Type #
+input UpsertProgrammeOutlineInput {
+    id: ID!
+    programme: ProgrammeOperation!
+    course: CourseOperation!
+    level: Int!
+    semester: SelectOptionOperation
+    elective: Boolean
+}
+
+# Upsert Input Type for Programme#
+input UpsertProgrammeOutlinesInput {
+    id: ID!
+    course: CourseOperation!
+    level: Int!
+    semester: SelectOptionOperation
+    elective: Boolean
+}
+
+# List Nested Mutations
+input ProgrammeOutlinesOperation {
+    create: [CreateProgrammeOutlinesInput!]
+    connect: [ID!]
+    update: [UpdateProgrammeOutlinesInput!]
+    upsert: [UpsertProgrammeOutlinesInput!]
+    sync: [ID!]
+    syncWithoutDetaching: [ID!]
+    disconnect: [ID!]
+}
+
+# Query
+extend type Query {
+    programmeOutline(id: ID! @eq): ProgrammeOutline @find
+    programmeOutlines(programme: ID @eq): [ProgrammeOutline!] @all
+}
+
+# Mutation
+extend type Mutation {
+    createProgrammeOutline(input: CreateProgrammeOutlineInput! @spread): ProgrammeOutline @create
+    updateProgrammeOutline(input: UpdateProgrammeOutlineInput! @spread): ProgrammeOutline @update
+    upsertProgrammeOutline(input: UpsertProgrammeOutlineInput! @spread): ProgrammeOutline @upsert
+    deleteProgrammeOutline(id: ID! @eq): ProgrammeOutline @delete
+}

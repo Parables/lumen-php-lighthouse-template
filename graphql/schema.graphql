@@ -7,6 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 #import book.graphql
 #import course.graphql
 #import programme.graphql
+#import programmeOutline.graphql
 #import profile.graphql
 #import contact.graphql
 #import lecturer.graphql

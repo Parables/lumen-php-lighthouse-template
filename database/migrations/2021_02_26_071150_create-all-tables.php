@@ -63,7 +63,7 @@ class CreateAllTables extends Migration
         // Create table for books
         Schema::create('books', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->string('title')->unique();
             $table->char('bookCode', 10)->nullable();
             $table->string('author')->nullable();
@@ -86,7 +86,7 @@ class CreateAllTables extends Migration
 
         // Create table for book_course
         Schema::create('book_course', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+//            $table->uuid('id')->primary();
             $table->foreignUuid('book_id')->constrained();
             $table->foreignUuid('course_id')->constrained();
             $table->softDeletes();
@@ -100,7 +100,19 @@ class CreateAllTables extends Migration
             $table->char('programmeCode', 10)->nullable();
             $table->tinyInteger('startLevel')->unsigned()->default(100);
             $table->tinyInteger('endLevel')->unsigned()->default(100);
-            $table->jsonb('programmeOutline')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
+        });
+
+        // Create table for programme_outlines
+        Schema::create('programme_outlines', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('programme_id')->constrained();
+            $table->foreignUuid('course_id')->constrained();
+            $table->tinyInteger('level')->unsigned()->default(100);
+            $table->foreignUuid('semester')->nullable()->constrained('select_options');
+            $table->boolean('elective')->default(false);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();

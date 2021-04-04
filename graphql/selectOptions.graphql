@@ -61,7 +61,7 @@ input SelectOptionsOperation {
 # Query
 extend type Query {
     selectOption(id: ID! @eq): SelectOption @find
-    selectOptions(fieldName: String!, parentID: ID): [SelectOption!] @all
+    selectOptions(fieldName: String! @eq, parentID: ID @eq): [SelectOption!] @all
 childrenSelectOptions(id: ID @eq): [SelectOption!]  @field(resolver: "SelectOption@childrenOptions")
 }
 
