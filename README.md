@@ -1,3 +1,13 @@
+# Lumen PHP-Lighouse Template
+
+This template contains a pre-made setup for your Laravel APIs.
+
+FEatures:
+
+1. Uses CUID
+
+<hr/>
+
 # Lumen PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
